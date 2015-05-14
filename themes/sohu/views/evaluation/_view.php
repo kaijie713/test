@@ -5,85 +5,85 @@
 
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('EVA_ID')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->EVA_ID), array('view', 'id'=>$data->EVA_ID)); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('eva_id')); ?>:</b>
+	<?php echo CHtml::link(CHtml::encode($data->eva_id), array('view', 'id'=>$data->eva_id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('GROUP_ID')); ?>:</b>
-	<?php echo CHtml::encode($data->GROUP_ID); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('group_id')); ?>:</b>
+	<?php echo CHtml::encode($data->group_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('EVA_NO')); ?>:</b>
-	<?php echo CHtml::encode($data->EVA_NO); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('eva_no')); ?>:</b>
+	<?php echo CHtml::encode($data->eva_no); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('CITY_ID')); ?>:</b>
-	<?php echo CHtml::encode($data->CITY_ID); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('city_id')); ?>:</b>
+	<?php echo CHtml::encode($data->city_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('EC_INCHARGE_ID')); ?>:</b>
-	<?php echo CHtml::encode($data->EC_INCHARGE_ID); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('ec_incharge_id')); ?>:</b>
+	<?php echo CHtml::encode($data->ec_incharge_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('COOPERETION_MODE')); ?>:</b>
-	<?php echo CHtml::encode($data->COOPERETION_MODE); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('cooperetion_mode')); ?>:</b>
+	<?php echo CHtml::encode($data->cooperetion_mode); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('SALES_ID')); ?>:</b>
-	<?php echo CHtml::encode($data->SALES_ID); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('sales_id')); ?>:</b>
+	<?php echo CHtml::encode($data->sales_id); ?>
 	<br />
 
 	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('CUSTOMER_TYPE')); ?>:</b>
-	<?php echo CHtml::encode($data->CUSTOMER_TYPE); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('customer_type')); ?>:</b>
+	<?php echo CHtml::encode($data->customer_type); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('CUSTOMER_LEVEL')); ?>:</b>
-	<?php echo CHtml::encode($data->CUSTOMER_LEVEL); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('customer_level')); ?>:</b>
+	<?php echo CHtml::encode($data->customer_level); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('PRE_OPENDATETIME')); ?>:</b>
-	<?php echo CHtml::encode($data->PRE_OPENDATETIME); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('pre_opendatetime')); ?>:</b>
+	<?php echo CHtml::encode($data->pre_opendatetime); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('AREA_ID')); ?>:</b>
-	<?php echo CHtml::encode($data->AREA_ID); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('area_id')); ?>:</b>
+	<?php echo CHtml::encode($data->area_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('PRJ_CONDITION')); ?>:</b>
-	<?php echo CHtml::encode($data->PRJ_CONDITION); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('prj_condition')); ?>:</b>
+	<?php echo CHtml::encode($data->prj_condition); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('ISACTIVE')); ?>:</b>
-	<?php echo CHtml::encode($data->ISACTIVE); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('isactive')); ?>:</b>
+	<?php echo CHtml::encode($data->isactive); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('CREATEBY')); ?>:</b>
-	<?php echo CHtml::encode($data->CREATEBY); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('createby')); ?>:</b>
+	<?php echo CHtml::encode($data->createby); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('CREATEDATETIME')); ?>:</b>
-	<?php echo CHtml::encode($data->CREATEDATETIME); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('createdatetime')); ?>:</b>
+	<?php echo CHtml::encode($data->createdatetime); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('UPDATEBY')); ?>:</b>
-	<?php echo CHtml::encode($data->UPDATEBY); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('updateby')); ?>:</b>
+	<?php echo CHtml::encode($data->updateby); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('UPDATEDATETIME')); ?>:</b>
-	<?php echo CHtml::encode($data->UPDATEDATETIME); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('updatedatetime')); ?>:</b>
+	<?php echo CHtml::encode($data->updatedatetime); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('ATTRIBUTE1')); ?>:</b>
-	<?php echo CHtml::encode($data->ATTRIBUTE1); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('attribute1')); ?>:</b>
+	<?php echo CHtml::encode($data->attribute1); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('ATTRIBUTE2')); ?>:</b>
-	<?php echo CHtml::encode($data->ATTRIBUTE2); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('attribute2')); ?>:</b>
+	<?php echo CHtml::encode($data->attribute2); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('ATTRIBUTE3')); ?>:</b>
-	<?php echo CHtml::encode($data->ATTRIBUTE3); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('attribute3')); ?>:</b>
+	<?php echo CHtml::encode($data->attribute3); ?>
 	<br />
 
 	*/ ?>

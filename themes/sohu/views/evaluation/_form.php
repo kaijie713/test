@@ -20,123 +20,123 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'GROUP_ID'); ?>
-		<?php echo $form->textField($model,'GROUP_ID',array('size'=>36,'maxlength'=>36)); ?>
-		<?php echo $form->error($model,'GROUP_ID'); ?>
+		<?php echo $form->labelEx($model,'group_id'); ?>
+		<?php echo $form->textField($model,'group_id',array('size'=>36,'maxlength'=>36)); ?>
+		<?php echo $form->error($model,'group_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'EVA_ID'); ?>
-		<?php echo $form->textField($model,'EVA_ID',array('size'=>36,'maxlength'=>36)); ?>
-		<?php echo $form->error($model,'EVA_ID'); ?>
+		<?php echo $form->labelEx($model,'eva_id'); ?>
+		<?php echo $form->textField($model,'eva_id',array('size'=>36,'maxlength'=>36)); ?>
+		<?php echo $form->error($model,'eva_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'EVA_NO'); ?>
-		<?php echo $form->textField($model,'EVA_NO',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'EVA_NO'); ?>
+		<?php echo $form->labelEx($model,'eva_no'); ?>
+		<?php echo $form->textField($model,'eva_no',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->error($model,'eva_no'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'CITY_ID'); ?>
-		<?php echo $form->textField($model,'CITY_ID',array('size'=>36,'maxlength'=>36)); ?>
-		<?php echo $form->error($model,'CITY_ID'); ?>
+		<?php echo $form->labelEx($model,'city_id'); ?>
+		<?php echo $form->textField($model,'city_id',array('size'=>36,'maxlength'=>36)); ?>
+		<?php echo $form->error($model,'city_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'EC_INCHARGE_ID'); ?>
-		<?php echo $form->textField($model,'EC_INCHARGE_ID',array('size'=>36,'maxlength'=>36)); ?>
-		<?php echo $form->error($model,'EC_INCHARGE_ID'); ?>
+		<?php echo $form->labelEx($model,'ec_incharge_id'); ?>
+		<?php echo $form->textField($model,'ec_incharge_id',array('size'=>36,'maxlength'=>36)); ?>
+		<?php echo $form->error($model,'ec_incharge_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'COOPERETION_MODE'); ?>
-		<?php echo $form->textField($model,'COOPERETION_MODE',array('size'=>2,'maxlength'=>2)); ?>
-		<?php echo $form->error($model,'COOPERETION_MODE'); ?>
+		<?php echo $form->labelEx($model,'cooperetion_mode'); ?>
+		<?php echo $form->textField($model,'cooperetion_mode',array('size'=>2,'maxlength'=>2)); ?>
+		<?php echo $form->error($model,'cooperetion_mode'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'SALES_ID'); ?>
-		<?php echo $form->textField($model,'SALES_ID',array('size'=>36,'maxlength'=>36)); ?>
-		<?php echo $form->error($model,'SALES_ID'); ?>
+		<?php echo $form->labelEx($model,'sales_id'); ?>
+		<?php echo $form->textField($model,'sales_id',array('size'=>36,'maxlength'=>36)); ?>
+		<?php echo $form->error($model,'sales_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'CUSTOMER_TYPE'); ?>
-		<?php echo $form->textField($model,'CUSTOMER_TYPE',array('size'=>2,'maxlength'=>2)); ?>
-		<?php echo $form->error($model,'CUSTOMER_TYPE'); ?>
+		<?php echo $form->labelEx($model,'customer_type'); ?>
+		<?php echo $form->textField($model,'customer_type',array('size'=>2,'maxlength'=>2)); ?>
+		<?php echo $form->error($model,'customer_type'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'CUSTOMER_LEVEL'); ?>
-		<?php echo $form->textField($model,'CUSTOMER_LEVEL',array('size'=>2,'maxlength'=>2)); ?>
-		<?php echo $form->error($model,'CUSTOMER_LEVEL'); ?>
+		<?php echo $form->labelEx($model,'customer_level'); ?>
+		<?php echo $form->textField($model,'customer_level',array('size'=>2,'maxlength'=>2)); ?>
+		<?php echo $form->error($model,'customer_level'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'PRE_OPENDATETIME'); ?>
-		<?php echo $form->textField($model,'PRE_OPENDATETIME'); ?>
-		<?php echo $form->error($model,'PRE_OPENDATETIME'); ?>
+		<?php echo $form->labelEx($model,'pre_opendatetime'); ?>
+		<?php echo $form->textField($model,'pre_opendatetime'); ?>
+		<?php echo $form->error($model,'pre_opendatetime'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'AREA_ID'); ?>
-		<?php echo $form->textField($model,'AREA_ID',array('size'=>36,'maxlength'=>36)); ?>
-		<?php echo $form->error($model,'AREA_ID'); ?>
+		<?php echo $form->labelEx($model,'area_id'); ?>
+		<?php echo $form->textField($model,'area_id',array('size'=>36,'maxlength'=>36)); ?>
+		<?php echo $form->error($model,'area_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'PRJ_CONDITION'); ?>
-		<?php echo $form->textField($model,'PRJ_CONDITION',array('size'=>60,'maxlength'=>2000)); ?>
-		<?php echo $form->error($model,'PRJ_CONDITION'); ?>
+		<?php echo $form->labelEx($model,'prj_condition'); ?>
+		<?php echo $form->textField($model,'prj_condition',array('size'=>60,'maxlength'=>2000)); ?>
+		<?php echo $form->error($model,'prj_condition'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'ISACTIVE'); ?>
-		<?php echo $form->textField($model,'ISACTIVE',array('size'=>1,'maxlength'=>1)); ?>
-		<?php echo $form->error($model,'ISACTIVE'); ?>
+		<?php echo $form->labelEx($model,'isactive'); ?>
+		<?php echo $form->textField($model,'isactive',array('size'=>1,'maxlength'=>1)); ?>
+		<?php echo $form->error($model,'isactive'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'CREATEBY'); ?>
-		<?php echo $form->textField($model,'CREATEBY',array('size'=>36,'maxlength'=>36)); ?>
-		<?php echo $form->error($model,'CREATEBY'); ?>
+		<?php echo $form->labelEx($model,'createby'); ?>
+		<?php echo $form->textField($model,'createby',array('size'=>36,'maxlength'=>36)); ?>
+		<?php echo $form->error($model,'createby'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'CREATEDATETIME'); ?>
-		<?php echo $form->textField($model,'CREATEDATETIME'); ?>
-		<?php echo $form->error($model,'CREATEDATETIME'); ?>
+		<?php echo $form->labelEx($model,'createdatetime'); ?>
+		<?php echo $form->textField($model,'createdatetime'); ?>
+		<?php echo $form->error($model,'createdatetime'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'UPDATEBY'); ?>
-		<?php echo $form->textField($model,'UPDATEBY',array('size'=>36,'maxlength'=>36)); ?>
-		<?php echo $form->error($model,'UPDATEBY'); ?>
+		<?php echo $form->labelEx($model,'updateby'); ?>
+		<?php echo $form->textField($model,'updateby',array('size'=>36,'maxlength'=>36)); ?>
+		<?php echo $form->error($model,'updateby'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'UPDATEDATETIME'); ?>
-		<?php echo $form->textField($model,'UPDATEDATETIME'); ?>
-		<?php echo $form->error($model,'UPDATEDATETIME'); ?>
+		<?php echo $form->labelEx($model,'updatedatetime'); ?>
+		<?php echo $form->textField($model,'updatedatetime'); ?>
+		<?php echo $form->error($model,'updatedatetime'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'ATTRIBUTE1'); ?>
-		<?php echo $form->textField($model,'ATTRIBUTE1',array('size'=>60,'maxlength'=>100)); ?>
-		<?php echo $form->error($model,'ATTRIBUTE1'); ?>
+		<?php echo $form->labelEx($model,'attribute1'); ?>
+		<?php echo $form->textField($model,'attribute1',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->error($model,'attribute1'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'ATTRIBUTE2'); ?>
-		<?php echo $form->textField($model,'ATTRIBUTE2',array('size'=>60,'maxlength'=>100)); ?>
-		<?php echo $form->error($model,'ATTRIBUTE2'); ?>
+		<?php echo $form->labelEx($model,'attribute2'); ?>
+		<?php echo $form->textField($model,'attribute2',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->error($model,'attribute2'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'ATTRIBUTE3'); ?>
-		<?php echo $form->textField($model,'ATTRIBUTE3',array('size'=>60,'maxlength'=>100)); ?>
-		<?php echo $form->error($model,'ATTRIBUTE3'); ?>
+		<?php echo $form->labelEx($model,'attribute3'); ?>
+		<?php echo $form->textField($model,'attribute3',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->error($model,'attribute3'); ?>
 	</div>
 
 	<div class="row buttons">

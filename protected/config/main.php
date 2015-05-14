@@ -5,7 +5,7 @@
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
-Yii::setPathOfAlias('bootstrap', realpath(__DIR__ . '/../extensions/bootstrap'));
+
 
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
@@ -14,16 +14,25 @@ return array(
 	// preloading 'log' component
 	'preload'=>array('log'),
 	'defaultController'=>'Evaluation',
+
+	'aliases' => array(
+        // yiistrap configuration
+        'Yiistrap' => realpath(__DIR__ . '/../../vendor/crisu83/yiistrap'), // change if necessary
+  		// yiistrap configuration
+        'Dist' => realpath(__DIR__ . '/../../vendor/twbs/bootstrap/dist'), // change if necessary
+    ),
+
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
-		'bootstrap.helpers.TbHtml',
-	    'bootstrap.helpers.TbArray',
-	    'bootstrap.behaviors.TbWidget',
-	    'bootstrap.widgets.*'
+		'Yiistrap.*',
+        'Yiistrap.components.*',
+        'Yiistrap.behaviours.*',
+        'Yiistrap.helpers.*',
+        'Yiistrap.widgets.*',
+        'Yiistrap.helpers.TbHtml',
 	),
-
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
@@ -33,7 +42,7 @@ return array(
 			'password'=>'123',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
-			'generatorPaths' => array('vendor.crisu83.yiistrap.gii'),
+			'generatorPaths' => array('Yiistrap.gii'),
 		),
 	),
 
@@ -44,7 +53,7 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 		'bootstrap' => array(
-	        'class' => '\TbApi',
+	        'class' => 'Yiistrap.components.TbApi',
 	    ),
 		// uncomment the following to enable URLs in path-format
 		/*

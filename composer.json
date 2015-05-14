@@ -1,0 +1,17 @@
+{
+	"name":             "kaijie713/sohu",
+	"description":      "Web",
+	"version": "1.1.0",
+	"authors": [
+	    {
+	        "name":         "SunShaoChen",
+	        "email":        "jinchen999@outlook.com",
+	        "homepage":     "http://www.jinchen.wang",
+	        "role":         "Engineer"
+	    }
+	],
+    "require": {
+        "monolog/monolog": "1.0.*",
+	    "crisu83/yiistrap": "2.0.x-dev"
+    }
+}

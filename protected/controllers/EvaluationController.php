@@ -71,7 +71,7 @@ class EvaluationController extends Controller
 		{
 			$model->attributes=$_POST['Evaluation'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->EVA_ID));
+				$this->redirect(array('view','id'=>$model->eva_id));
 		}
 
 		$this->render('create',array(
@@ -95,7 +95,7 @@ class EvaluationController extends Controller
 		{
 			$model->attributes=$_POST['Evaluation'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->EVA_ID));
+				$this->redirect(array('view','id'=>$model->eva_id));
 		}
 
 		$this->render('update',array(
