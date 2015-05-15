@@ -5,13 +5,17 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
 	
-    <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/javascripts/jquery/jquery-1.11.3.min.js"></script>
+    
 	<?php //Yii::app()->bootstrap->register(); ?>
 
-    <link href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/style.css" media="all" rel="stylesheet" type="text/css" />
     <link href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/bootstrap/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
     <link href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/bootstrap/css/bootstrap-theme.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/stylesheets/style.css" media="all" rel="stylesheet" type="text/css" />
+
+	<script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/javascripts/jquery/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/bootstrap/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/javascripts/controller/index.js"></script>
     
     <!--[if lt IE 9]>
     	<script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/javascripts/ie/html5shiv.js" type="text/javascript"></script>
@@ -22,55 +26,210 @@
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
-<body>
+<body >
 
-<div class="container-fluid" id="sohu">
 
-	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-	</div><!-- header -->
+<div id="site-navbar">
+	<div class="container">
+		<div class="container-gap">
+	        <div class="navbar-header">
+		          <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		          </button>
+		          <a href="/" class="navbar-brand"><?php echo CHtml::encode(Yii::app()->name); ?></a>
+	        </div>
+	        <div class="navbar-collapse collapse">
+	            <ul class="nav navbar-nav">
+	                <li class=""><a class="" href="/teacher">电商评估 </a></li>
+			    </ul>
+			    <ul class="nav navbar-nav navbar-right">
+                    <li class="right-li-text">李霁川你好，你现在的身份是：销售</li>
+                    <li><a href="#"><i class="glyphicon glyphicon-off"></i> 安全退出</a></li>
+                </ul>
+	        </div>
+        </div>
+	</div>
+</div>
 
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		)); ?>
-	</div><!-- mainmenu -->
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
+<div class="container-fluid" id="content-container">
+	<div class="col-md-2 main-nav">
+		<div class="panel panel-default main-panel">
+			<ul class="nav">
+	            <li class="">
+	                <a data-toggle="collapse" data-parent="main-nav" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+	                	<span>电商评估管理</span>
+	                    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+	                </a>
+	                
+	                <ul id="collapse1" class="nav nav-stacked collapse in" aria-labelledby="headingOne">
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>电商评估单列表</span>
+	                        </a>
+	                    </li>
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>新建评估单</span>
+	                        </a>
+	                    </li>
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>查看评估单</span>
+	                        </a>
+	                    </li>
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>调整评估单</span>
+	                        </a>
+	                    </li>
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>审批评估单</span>
+	                        </a>
+	                    </li>
+	                </ul>
+	            </li>
 
-	<?php echo $content; ?>
+	            <li class="">
+	                <a data-toggle="collapse" data-parent="main-nav" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
+	                	<span>电商执行管理</span>
+	                    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+	                </a>
+	                
+	                <ul id="collapse2" class="nav nav-stacked collapse in" aria-labelledby="headingOne">
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>电商执行资源申请</span>
+	                        </a>
+	                    </li>
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>电商执行资源审批</span>
+	                        </a>
+	                    </li>
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>执行工单管理</span>
+	                        </a>
+	                    </li>
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>电商执行反馈</span>
+	                        </a>
+	                    </li>
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>执行进程管理</span>
+	                        </a>
+	                    </li>
+	                </ul>
+	            </li>
 
-	<div class="clear"></div>
+	            <li class="">
+	                <a data-toggle="collapse" data-parent="main-nav" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
+	                	<span>电商结项管理</span>
+	                    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+	                </a>
+	                
+	                <ul id="collapse3" class="nav nav-stacked collapse in" aria-labelledby="headingOne">
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>项目列表</span>
+	                        </a>
+	                    </li>
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>电商项目归档</span>
+	                        </a>
+	                    </li>
+	                </ul>
+	            </li>
 
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
+	            <li class="">
+	                <a data-toggle="collapse" data-parent="main-nav" href="#collapse4" aria-expanded="true" aria-controls="collapse3">
+	                	<span>基础信息管理</span>
+	                    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+	                </a>
+	                
+	                <ul id="collapse4" class="nav nav-stacked collapse in" aria-labelledby="headingOne">
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>维护用户</span>
+	                        </a>
+	                    </li>
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>维护城市</span>
+	                        </a>
+	                    </li>
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>维护项目</span>
+	                        </a>
+	                    </li>
+	                </ul>
+	            </li>
 
-</div><!-- page -->
-<?php echo TbHtml::muted('Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.'); ?>
-<?php echo TbHtml::em('Etiam porta sem malesuada magna mollis euismod.', array('color' => TbHtml::TEXT_COLOR_WARNING)); ?>
-<?php echo TbHtml::em('Donec ullamcorper nulla non metus auctor fringilla.', array('color' => TbHtml::TEXT_COLOR_ERROR)); ?>
-<?php echo TbHtml::em('Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis.', array('color' => TbHtml::TEXT_COLOR_INFO)); ?>
-<?php echo TbHtml::em('Duis mollis, est non commodo luctus, nisi erat porttitor ligula.', array('color' => TbHtml::TEXT_COLOR_SUCCESS)); ?>
-<?php
-Yii::app()->user->setFlash(TbHtml::ALERT_COLOR_INFO,
-    '<strong>Heads up!</strong> This alert needs your attention, but it\'s not super important.');
-    ?>
+	            <li class="">
+	                <a data-toggle="collapse" data-parent="main-nav" href="#collapse5" aria-expanded="true" aria-controls="collapse3">
+	                	<span>帐号权限管理</span>
+	                    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+	                </a>
+	                
+	                <ul id="collapse5" class="nav nav-stacked collapse in" aria-labelledby="headingOne">
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>帐号管理</span>
+	                        </a>
+	                    </li>
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>角色管理</span>
+	                        </a>
+	                    </li>
+	                    <li class="">
+	                        <a href="#">
+	                            <i class="icon-caret-right"></i>
+	                            <span>权限管理</span>
+	                        </a>
+	                    </li>
+	                </ul>
+	            </li>
 
-    <?php
+	        </ul>
 
-    Yii::app()->user->setFlash(TbHtml::ALERT_COLOR_SUCCESS,
-    '<strong>Well done!</strong> You successfully read this important alert message.');?>
+		</div>
+	</div>
+	<div class="col-md-10 main-right">
+		<div class="panel panel-default panel-col">
+			<div class="panel-heading"></div>
+			<div class="panel-body">
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
 </body>
 </html>
