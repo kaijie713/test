@@ -13,11 +13,11 @@ return array(
 	'theme' => 'sohu',
 	// preloading 'log' component
 	'preload'=>array('log'),
-	'defaultController'=>'Evaluation',
+	'defaultController'=>'evaluation/admin',
 
 	'aliases' => array(
-        // yiistrap configuration
-        'Yiistrap' => realpath(__DIR__ . '/../../vendor/crisu83/yiistrap'), // change if necessary
+        // bootstrap configuration
+        'bootstrap' => realpath(__DIR__ . '/../../vendor/crisu83/yiistrap'), // change if necessary
   		// yiistrap configuration
         'Dist' => realpath(__DIR__ . '/../../vendor/twbs/bootstrap/dist'), // change if necessary
     ),
@@ -26,12 +26,12 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
-		'Yiistrap.*',
-        'Yiistrap.components.*',
-        'Yiistrap.behaviours.*',
-        'Yiistrap.helpers.*',
-        'Yiistrap.widgets.*',
-        'Yiistrap.helpers.TbHtml',
+		'bootstrap.*',
+        'bootstrap.components.*',
+        'bootstrap.behaviours.*',
+        'bootstrap.helpers.*',
+        'bootstrap.widgets.*',
+        'bootstrap.helpers.TbHtml',
 	),
 
 	'modules'=>array(
@@ -42,7 +42,7 @@ return array(
 			'password'=>'123',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
-			'generatorPaths' => array('Yiistrap.gii'),
+			'generatorPaths' => array('bootstrap.gii'),
 		),
 	),
 
@@ -53,7 +53,7 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 		'bootstrap' => array(
-	        'class' => 'Yiistrap.components.TbApi',
+	        'class' => 'bootstrap.components.TbApi',
 	    ),
 		// uncomment the following to enable URLs in path-format
 		/*

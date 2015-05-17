@@ -35,11 +35,12 @@ $this->menu=array(
 		'prj_condition',
 		'isactive',
 		'createby',
-		'createdatetime',
+		'createdate',
 		'updateby',
-		'updatedatetime',
+		'updatedate',
 		'attribute1',
 		'attribute2',
 		'attribute3',
 	),
 )); ?>
+

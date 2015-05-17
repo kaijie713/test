@@ -219,12 +219,13 @@
 
 		</div>
 	</div>
-	<div class="col-md-10 main-right">
-		<div class="panel panel-default panel-col">
-			<div class="panel-heading"></div>
-			<div class="panel-body">
 
-			</div>
+	<div class="col-md-10 main-right">
+		
+		<div class="page-default">
+		
+	<?php echo $content; ?>
+			
 		</div>
 	</div>
 </div>

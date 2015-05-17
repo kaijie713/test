@@ -1,23 +1,18 @@
 <?php
 
-class EvaluationController extends Controller
+class EvaluationController extends BaseController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $filter;
+    public $pagesize = 18;
+    public function __construct($id,$module)
+    {
+        parent::__construct($id,$module);
+    }
 
-	/**
-	 * @return array action filters
-	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
-		);
-	}
 
 	/**
 	 * Specifies the access control rules.
@@ -33,11 +28,11 @@ class EvaluationController extends Controller
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
-				'users'=>array('@'),
+				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -133,14 +128,28 @@ class EvaluationController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Evaluation('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Evaluation']))
-			$model->attributes=$_GET['Evaluation'];
+		// $model=new Evaluation('search');
+		// $model->unsetAttributes();  // clear any default values
+		// if(isset($_GET['Evaluation']))
+		// 	$model->attributes=$_GET['Evaluation'];
 
-		$this->render('admin',array(
-			'model'=>$model,
-		));
+		// $this->render('admin',array(
+		// 	'model'=>$model,
+		// ));
+		$pageIndex = isset($_GET['page'])?$_GET['page']:1;
+        $params = $this->get('Evaluation');
+        $Evaluation = new Evaluation();
+        $result = $Evaluation->items(EvaluationFilter::evaluation($params),$pageIndex,$this->pagesize);
+        $items = $result['items'];
+        $count = $result['count'];
+
+        $pages = new CPagination($count);
+        $this->render('admin',array(
+            'dataProvider'=>$items,
+            'pages' => $pages,
+            'pageIndex'=>$pageIndex-1,
+            'params'=>$params
+        ));
 	}
 
 	/**

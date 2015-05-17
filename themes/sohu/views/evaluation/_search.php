@@ -82,8 +82,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'createdatetime'); ?>
-		<?php echo $form->textField($model,'createdatetime'); ?>
+		<?php echo $form->label($model,'createdate'); ?>
+		<?php echo $form->textField($model,'createdate'); ?>
 	</div>
 
 	<div class="row">
@@ -92,8 +92,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'updatedatetime'); ?>
-		<?php echo $form->textField($model,'updatedatetime'); ?>
+		<?php echo $form->label($model,'updatedate'); ?>
+		<?php echo $form->textField($model,'updatedate'); ?>
 	</div>
 
 	<div class="row">

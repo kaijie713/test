@@ -104,9 +104,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'createdatetime'); ?>
-		<?php echo $form->textField($model,'createdatetime'); ?>
-		<?php echo $form->error($model,'createdatetime'); ?>
+		<?php echo $form->labelEx($model,'createdate'); ?>
+		<?php echo $form->textField($model,'createdate'); ?>
+		<?php echo $form->error($model,'createdate'); ?>
 	</div>
 
 	<div class="row">
@@ -116,9 +116,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'updatedatetime'); ?>
-		<?php echo $form->textField($model,'updatedatetime'); ?>
-		<?php echo $form->error($model,'updatedatetime'); ?>
+		<?php echo $form->labelEx($model,'updatedate'); ?>
+		<?php echo $form->textField($model,'updatedate'); ?>
+		<?php echo $form->error($model,'updatedate'); ?>
 	</div>
 
 	<div class="row">

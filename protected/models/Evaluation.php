@@ -18,14 +18,14 @@
  * @property string $prj_condition
  * @property string $isactive
  * @property string $createby
- * @property string $createdatetime
+ * @property string $createdate
  * @property string $updateby
- * @property string $updatedatetime
+ * @property string $updatedate
  * @property string $attribute1
  * @property string $attribute2
  * @property string $attribute3
  */
-class Evaluation extends CActiveRecord
+class Evaluation extends BaseModel
 {
 	/**
 	 * @return string the associated database table name
@@ -50,10 +50,10 @@ class Evaluation extends CActiveRecord
 			array('prj_condition', 'length', 'max'=>2000),
 			array('isactive', 'length', 'max'=>1),
 			array('attribute1, attribute2, attribute3', 'length', 'max'=>100),
-			array('pre_opendatetime, createdatetime, updatedatetime', 'safe'),
+			array('pre_opendatetime, createdate, updatedate', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('group_id, eva_id, eva_no, city_id, ec_incharge_id, cooperetion_mode, sales_id, customer_type, customer_level, pre_opendatetime, area_id, prj_condition, isactive, createby, createdatetime, updateby, updatedatetime, attribute1, attribute2, attribute3', 'safe', 'on'=>'search'),
+			array('group_id, eva_id, eva_no, city_id, ec_incharge_id, cooperetion_mode, sales_id, customer_type, customer_level, pre_opendatetime, area_id, prj_condition, isactive, createby, createdate, updateby, updatedate, attribute1, attribute2, attribute3', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -88,9 +88,9 @@ class Evaluation extends CActiveRecord
 			'prj_condition' => 'Prj Condition',
 			'isactive' => 'Isactive',
 			'createby' => 'Createby',
-			'createdatetime' => 'Createdatetime',
+			'createdate' => 'Createdate',
 			'updateby' => 'Updateby',
-			'updatedatetime' => 'Updatedatetime',
+			'updatedate' => 'Updatedate',
 			'attribute1' => 'Attribute1',
 			'attribute2' => 'Attribute2',
 			'attribute3' => 'Attribute3',
@@ -129,9 +129,9 @@ class Evaluation extends CActiveRecord
 		$criteria->compare('prj_condition',$this->prj_condition,true);
 		$criteria->compare('isactive',$this->isactive,true);
 		$criteria->compare('createby',$this->createby,true);
-		$criteria->compare('createdatetime',$this->createdatetime,true);
+		$criteria->compare('createdate',$this->createdate,true);
 		$criteria->compare('updateby',$this->updateby,true);
-		$criteria->compare('updatedatetime',$this->updatedatetime,true);
+		$criteria->compare('updatedate',$this->updatedate,true);
 		$criteria->compare('attribute1',$this->attribute1,true);
 		$criteria->compare('attribute2',$this->attribute2,true);
 		$criteria->compare('attribute3',$this->attribute3,true);
@@ -151,4 +151,41 @@ class Evaluation extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	/**
+     *列表
+     *
+     * @param $condition
+     * @param $pageIndex
+     * @param $pageSize
+     * @return mixed
+     */
+    public function items($condition,$pageIndex,$pageSize)
+    {
+        $select = ' * ';
+        $sql = $this->items_sql($select,$condition);
+
+        $count = $this->RowCount($this->items_sql('count(*)',$condition));
+        $start = ($pageIndex - 1)*$pageSize;
+        $sql .= " ORDER BY createdate DESC LIMIT $start,$pageSize";
+
+        return array('items'=>$this->QueryAll($sql),'count'=>$count);
+    }
+
+    /**
+     * 商品列表
+     *
+     * @param $select
+     * @param $condition
+     * @return string
+     */
+    public function items_sql($select,$condition)
+    {
+        $sql = "SELECT {$select}
+        FROM t_prj_evaluationforms ";
+
+        if ($condition) $sql .= " WHERE $condition";
+
+        return $sql;
+    }
 }

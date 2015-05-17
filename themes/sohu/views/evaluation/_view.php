@@ -62,16 +62,16 @@
 	<?php echo CHtml::encode($data->createby); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('createdatetime')); ?>:</b>
-	<?php echo CHtml::encode($data->createdatetime); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('createdate')); ?>:</b>
+	<?php echo CHtml::encode($data->createdate); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('updateby')); ?>:</b>
 	<?php echo CHtml::encode($data->updateby); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('updatedatetime')); ?>:</b>
-	<?php echo CHtml::encode($data->updatedatetime); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('updatedate')); ?>:</b>
+	<?php echo CHtml::encode($data->updatedate); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('attribute1')); ?>:</b>
