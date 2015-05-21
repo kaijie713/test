@@ -1,23 +1,23 @@
 <?php
 $this->breadcrumbs=array(
-    '电商评估管理'=>array(''),
+    '电商评估管理'=>array('admin'),
     '电商评估单列表'
 );
+$this->pageTitle='电商评估单列表 - '.Yii::app()->name;
+$this->script_controller = 'evaluation/admin';
 ?>
-
 <div class="page-heading">
 	<h1 style="color:#000">电商评估单列表
 		<div class="pull-right">
-		    <a target="blank" href="/course/create" class="btn btn-success btn-sm">新建评估单</a>
+		    <a  href="/index.php?r=evaluation/create" class="btn btn-success btn-sm">新建评估单</a>
 		</div>
-		
-
-
 	</h1>
 </div>
+
 <?php $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => $this->breadcrumbs,
 )); ?>
+
 <?php echo $this->renderPartial('filter',array('params'=>$params));?>
 
 <div class="page-body clearfix">
@@ -37,7 +37,7 @@ $this->breadcrumbs=array(
 	  </thead>
 	  <tbody>
 	    <?php foreach ($dataProvider as $v):?>
-		    <tr id="table-tr-62022">
+		    <tr id="<?php echo $v['eva_id'];?>">
 		      <td><input type="checkbox" data-role="batch-item" value="2"></td>
 			  <td>
 			    <strong><a href="javascript:;"><?php echo $v['eva_id'];?></a></strong>
@@ -68,7 +68,7 @@ $this->breadcrumbs=array(
 				  </a>
 				  <ul class="dropdown-menu">
 				  	<li><a data-url="/admin/article/2/unpublish" data-role="unpublish-item" href="javascript:">调整评估单</a></li>
-				    <li><a data-url="/admin/article/2/trash" data-role="trash-item" href="javascript:">删除</a></li>
+				    <li><a data-url="?r=evaluation/delete&id=<?php echo $v['eva_id'];?>" data-target="<?php echo $v['eva_id'];?>" class="delete-btn" href="javascript:">删除</a></li>
 				    </ul>
 				</div>
 			  </td>
@@ -77,36 +77,14 @@ $this->breadcrumbs=array(
 	  </tbody>
 	</table>
 	<div class="row">
-    
+    <?php $this->widget(
+            'bootstrap.widgets.TbLinkPager',
+            array(
+                'pages' => $pages,
+                'currentPage'=>$pageIndex,
+                'pageSize'=>$this->pagesize
+            )
+        );?>
     </div>
 
 </div>
-<script>
-$element.on('click', '[data-role=batch-delete]', function() {
-	var $btn = $(this);
-		name = $btn.data('name');
-
-	var ids = [];
-	$element.find('[data-role=batch-item]:checked').each(function(){
-	    ids.push(this.value);
-	});
-
-	if (ids.length == 0) {
-	    Notify.danger('未选中任何' + name);
-	    return ;
-	}
-
-	if (!confirm('确定要删除选中的' + ids.length + '条' + name + '吗？')) {
-	    return ;
-	}
-
-	$element.find('.btn').addClass('disabled');
-
-	Notify.info('正在删除' + name + '，请稍等。', 60);
-
-	$.post($btn.data('url'), {ids:ids}, function(response){
-	    window.location.reload();
-	});
-
-});
-</script>

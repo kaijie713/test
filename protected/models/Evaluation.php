@@ -188,4 +188,17 @@ class Evaluation extends BaseModel
 
         return $sql;
     }
+
+    /**
+     * 更新
+     *
+     * @param int $type_id
+     * @param $spec_list
+     * @return mixed
+     */
+    public function delete($id)
+    {
+        $sql = "update t_prj_evaluationforms set isactive = 0 WHERE eva_id = $id";
+        return $sql?$this->Execute($sql):true;
+    }
 }

@@ -14,6 +14,8 @@ class BaseController extends Controller
     public $admini;
     public $module;
     public $controller;
+    public $script_controller = null;
+    public $script_arguments = null;
     public $default_img = '/images/';
     public $image_url = '/';
 
@@ -211,9 +213,9 @@ class BaseController extends Controller
         }
         if (is_array($file)) {
             foreach ($file as $model)
-                Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl .'/themes/'.$theme.'/js/'.$model.'.js',$js);
+                Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl .'/themes/'.$theme.'/assets/js/'.$model.'.js',$js);
         } else
-            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl .'/themes/'.$theme.'/js/'.$file.'.js',$js);
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl .'/themes/'.$theme.'/assets/js/'.$file.'.js',$js);
     }
 
     /**
@@ -244,6 +246,12 @@ class BaseController extends Controller
         } else {
             $this->redirect($action);
         }
+    }
+
+    public function renderJSON($data)
+    {
+        header('Content-type: application/json');
+        return CJSON::encode($data);
     }
 
 }

@@ -1,33 +1,28 @@
 <?php /* @var $this Controller */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class=""> <!--<![endif]-->
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
-	
-    
-	<?php //Yii::app()->bootstrap->register(); ?>
 
-    <link href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/bootstrap/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
-    <link href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/bootstrap/css/bootstrap-theme.min.css" media="all" rel="stylesheet" type="text/css" />
-    <link href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/stylesheets/style.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/gallery2/bootstrap/3.1.1/css/bootstrap.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css/style.css" media="all" rel="stylesheet" type="text/css" />
 
-	<script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/javascripts/jquery/jquery-1.11.3.min.js"></script>
-	<script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/bootstrap/js/bootstrap.min.js"></script>
-
-	<script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/javascripts/controller/index.js"></script>
-    
+    <link rel="shortcut icon" href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/favicon.ico">
     <!--[if lt IE 9]>
-    	<script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/javascripts/ie/html5shiv.js" type="text/javascript"></script>
+    	<script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/ie/html5shiv.js" type="text/javascript"></script>
     <![endif]-->
     <!--[if IE 8]>
-        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/javascripts/ie/respond.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/ie/respond.js" type="text/javascript"></script>
 	<![endif]-->
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body >
-
 
 <div id="site-navbar">
 	<div class="container">
@@ -65,13 +60,13 @@
 	                
 	                <ul id="collapse1" class="nav nav-stacked collapse in" aria-labelledby="headingOne">
 	                    <li class="">
-	                        <a href="#">
+	                        <a href="/index.php?r=evaluation/admin">
 	                            <i class="icon-caret-right"></i>
 	                            <span>电商评估单列表</span>
 	                        </a>
 	                    </li>
 	                    <li class="">
-	                        <a href="#">
+	                        <a href="/index.php?r=evaluation/create">
 	                            <i class="icon-caret-right"></i>
 	                            <span>新建评估单</span>
 	                        </a>
@@ -221,16 +216,15 @@
 	</div>
 
 	<div class="col-md-10 main-right">
-		
+
 		<div class="page-default">
 		
-	<?php echo $content; ?>
+			<?php echo $content; ?>
 			
 		</div>
 	</div>
 </div>
-
-
-
+<div id="modal" class="modal"></div>
+<?php require_once('script_boot.php');?>
 </body>
 </html>

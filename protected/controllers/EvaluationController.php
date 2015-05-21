@@ -13,7 +13,6 @@ class EvaluationController extends BaseController
         parent::__construct($id,$module);
     }
 
-
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -99,20 +98,6 @@ class EvaluationController extends BaseController
 	}
 
 	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-	}
-
-	/**
 	 * Lists all models.
 	 */
 	public function actionIndex()
@@ -128,14 +113,6 @@ class EvaluationController extends BaseController
 	 */
 	public function actionAdmin()
 	{
-		// $model=new Evaluation('search');
-		// $model->unsetAttributes();  // clear any default values
-		// if(isset($_GET['Evaluation']))
-		// 	$model->attributes=$_GET['Evaluation'];
-
-		// $this->render('admin',array(
-		// 	'model'=>$model,
-		// ));
 		$pageIndex = isset($_GET['page'])?$_GET['page']:1;
         $params = $this->get('Evaluation');
         $Evaluation = new Evaluation();
@@ -148,8 +125,26 @@ class EvaluationController extends BaseController
             'dataProvider'=>$items,
             'pages' => $pages,
             'pageIndex'=>$pageIndex-1,
-            'params'=>$params
+            'params'=>$params,
+            'script_controller'=>111
         ));
+	}
+
+	/**
+	 * Deletes a particular model.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionDelete()
+	{
+		$id = $this->get('id');
+		if (empty($id)) {
+			echo $this->renderJSON(false);
+		}
+
+		Evaluation::model()->delete($id);
+
+		echo $this->renderJSON(true);
 	}
 
 	/**
