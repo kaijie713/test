@@ -86,9 +86,9 @@ return array(
 					'class'=>'CWebLogRoute',
 				),
 				*/
-			 	// array(
-     //                'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',  
-     //            ), 
+			 	array(
+                    'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',  
+                ), 
 			),
 		),
 	),

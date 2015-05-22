@@ -21,6 +21,8 @@ define(function(require, exports, module) {
 		}
 	}
 
+	window.app.load = exports.load;
+
 	if (app.themeGlobalScript) {
 		exports.load(app.themeGlobalScript);
 	}

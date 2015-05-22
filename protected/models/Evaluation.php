@@ -1,43 +1,11 @@
 <?php
-
-/**
- * This is the model class for table "t_prj_evaluationforms".
- *
- * The followings are the available columns in table 't_prj_evaluationforms':
- * @property string $group_id
- * @property string $eva_id
- * @property string $eva_no
- * @property string $city_id
- * @property string $ec_incharge_id
- * @property string $cooperetion_mode
- * @property string $sales_id
- * @property string $customer_type
- * @property string $customer_level
- * @property string $pre_opendatetime
- * @property string $area_id
- * @property string $prj_condition
- * @property string $isactive
- * @property string $createby
- * @property string $createdate
- * @property string $updateby
- * @property string $updatedate
- * @property string $attribute1
- * @property string $attribute2
- * @property string $attribute3
- */
 class Evaluation extends BaseModel
 {
-	/**
-	 * @return string the associated database table name
-	 */
 	public function tableName()
 	{
 		return 't_prj_evaluationforms';
 	}
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
 	public function rules()
 	{
 		// NOTE: you should only define rules for those attributes that
@@ -51,26 +19,16 @@ class Evaluation extends BaseModel
 			array('isactive', 'length', 'max'=>1),
 			array('attribute1, attribute2, attribute3', 'length', 'max'=>100),
 			array('pre_opendatetime, createdate, updatedate', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
 			array('group_id, eva_id, eva_no, city_id, ec_incharge_id, cooperetion_mode, sales_id, customer_type, customer_level, pre_opendatetime, area_id, prj_condition, isactive, createby, createdate, updateby, updatedate, attribute1, attribute2, attribute3', 'safe', 'on'=>'search'),
 		);
 	}
 
-	/**
-	 * @return array relational rules.
-	 */
 	public function relations()
 	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		return array(
 		);
 	}
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
 	public function attributeLabels()
 	{
 		return array(
@@ -97,18 +55,6 @@ class Evaluation extends BaseModel
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
@@ -141,25 +87,11 @@ class Evaluation extends BaseModel
 		));
 	}
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return Evaluation the static model class
-	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
 
-	/**
-     *列表
-     *
-     * @param $condition
-     * @param $pageIndex
-     * @param $pageSize
-     * @return mixed
-     */
     public function items($condition,$pageIndex,$pageSize)
     {
         $select = ' * ';
@@ -172,13 +104,6 @@ class Evaluation extends BaseModel
         return array('items'=>$this->QueryAll($sql),'count'=>$count);
     }
 
-    /**
-     * 商品列表
-     *
-     * @param $select
-     * @param $condition
-     * @return string
-     */
     public function items_sql($select,$condition)
     {
         $sql = "SELECT {$select}
@@ -189,13 +114,6 @@ class Evaluation extends BaseModel
         return $sql;
     }
 
-    /**
-     * 更新
-     *
-     * @param int $type_id
-     * @param $spec_list
-     * @return mixed
-     */
     public function delete($id)
     {
         $sql = "update t_prj_evaluationforms set isactive = 0 WHERE eva_id = $id";

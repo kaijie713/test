@@ -1,27 +1,13 @@
 <?php
 
-/**
- * This is the model class for table "sys_dict".
- *
- * The followings are the available columns in table 'sys_dict':
- * @property string $dict_id
- * @property string $dkey
- * @property string $dvalue
- * @property string $group_code
- * @property string $uper_group_code
- * @property integer $group_order
- * @property string $createby
- * @property string $createdate
- * @property string $isactive
- */
-class SysDict extends BaseModel
+class THousesPrj extends BaseModel
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'sys_dict';
+		return 't_houses_prj';
 	}
 
 	/**
@@ -32,18 +18,14 @@ class SysDict extends BaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('dict_id', 'required'),
-			array('group_order', 'numerical', 'integerOnly'=>true),
-			array('dict_id', 'length', 'max'=>8),
-			array('dkey', 'length', 'max'=>10),
-			array('dvalue', 'length', 'max'=>50),
-			array('group_code, uper_group_code', 'length', 'max'=>16),
-			array('createby', 'length', 'max'=>36),
+			array('group_id', 'required'),
+			array('group_id, city_id, area_id, createby, updateby', 'length', 'max'=>36),
+			array('group_name, prj_licence', 'length', 'max'=>100),
 			array('isactive', 'length', 'max'=>1),
-			array('createdate', 'safe'),
+			array('open_date, createdate, updatedate', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('dict_id, dkey, dvalue, group_code, uper_group_code, group_order, createby, createdate, isactive', 'safe', 'on'=>'search'),
+			array('group_id, group_name, open_date, city_id, area_id, prj_licence, isactive, createby, createdate, updateby, updatedate', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,15 +46,17 @@ class SysDict extends BaseModel
 	public function attributeLabels()
 	{
 		return array(
-			'dict_id' => 'Dict',
-			'dkey' => 'Dkey',
-			'dvalue' => 'Dvalue',
-			'group_code' => 'Group Code',
-			'uper_group_code' => 'Uper Group Code',
-			'group_order' => 'Group Order',
+			'group_id' => 'Group',
+			'group_name' => 'Group Name',
+			'open_date' => 'Open Date',
+			'city_id' => 'City',
+			'area_id' => 'Area',
+			'prj_licence' => 'Prj Licence',
+			'isactive' => 'Isactive',
 			'createby' => 'Createby',
 			'createdate' => 'Createdate',
-			'isactive' => 'Isactive',
+			'updateby' => 'Updateby',
+			'updatedate' => 'Updatedate',
 		);
 	}
 
@@ -94,15 +78,17 @@ class SysDict extends BaseModel
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('dict_id',$this->dict_id,true);
-		$criteria->compare('dkey',$this->dkey,true);
-		$criteria->compare('dvalue',$this->dvalue,true);
-		$criteria->compare('group_code',$this->group_code,true);
-		$criteria->compare('uper_group_code',$this->uper_group_code,true);
-		$criteria->compare('group_order',$this->group_order);
+		$criteria->compare('group_id',$this->group_id,true);
+		$criteria->compare('group_name',$this->group_name,true);
+		$criteria->compare('open_date',$this->open_date,true);
+		$criteria->compare('city_id',$this->city_id,true);
+		$criteria->compare('area_id',$this->area_id,true);
+		$criteria->compare('prj_licence',$this->prj_licence,true);
+		$criteria->compare('isactive',$this->isactive,true);
 		$criteria->compare('createby',$this->createby,true);
 		$criteria->compare('createdate',$this->createdate,true);
-		$criteria->compare('isactive',$this->isactive,true);
+		$criteria->compare('updateby',$this->updateby,true);
+		$criteria->compare('updatedate',$this->updatedate,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -113,32 +99,48 @@ class SysDict extends BaseModel
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return SysDict the static model class
+	 * @return THousesPrj the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
 
-	public function findSysDictByGroup($group, $sort = 'groupOrder')
-	{
-		switch ($sort) {
-			case 'created':
+	public function searchTHousesPrjs($condition,$pageIndex,$pageSize,$sort = 'createDate')
+    {
+    	switch ($sort) {
+			case 'createDate':
 				$sort = array('createdate','DESC');
 				break;
-			case 'createdByAsc':
-				$sort = array('createdate','ASC');
-				break;	
-			case 'groupOrder':
-				$sort = array('group_order','asc');
-				break;			
 			default:
-				$sort = array('group_order','asc');
+				$sort = array('createdate','asc');
 				break;
 		}
 
-		$sql = "select dict_id, dkey, dvalue, group_code, uper_group_code, group_order, createby, createdate, isactive from sys_dict where group_code = '$group' order by $sort[0] $sort[1]";
-		return $this->QueryAll($sql);
-	}
+        $select = ' * ';
+        $sql = $this->searchTHousesPrjsSql($select,$condition);
+
+        $count = $this->RowCount($this->searchTHousesPrjsSql('count(*)',$condition));
+        $start = ($pageIndex - 1)*$pageSize;
+        $sql .= " ORDER BY $sort[0] $sort[1] LIMIT $start,$pageSize";
+
+        return array('items'=>$this->QueryAll($sql),'count'=>$count);
+    }
+
+    public function searchTHousesPrjsSql($select,$condition)
+    {
+        $sql = "SELECT {$select}
+        FROM t_houses_prj ";
+
+        if (!empty($condition)) 
+    	{
+    		$sql .= " WHERE 1";
+    		if(!empty($condition['group_name']))
+    			$sql .= " and group_name = '".$condition['group_name']."' ";
+    	};
+
+        return $sql;
+    }
+
 
 }

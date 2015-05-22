@@ -32,7 +32,7 @@ $this->script_controller = 'evaluation/create';
 							<div class="input-group">
 						      <input type="text" class="form-control">
 						      <span class="input-group-btn">
-						        <button class="btn btn-default" type="button">&nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;</button>
+						        <button class="btn btn-default" type="button" data-target="#modal" data-toggle="modal" data-url="/index.php?r=THousesPrj/list">&nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;</button>
 						      </span>
 						    </div>
 						</div>
@@ -54,6 +54,9 @@ $this->script_controller = 'evaluation/create';
 				  <div class="col-md-6 controls">
 				    <select class="form-control width-input width-input-large" name="" id="">
 				    	<option value="">--请选择--</option>
+				    	<?php foreach ($cooperation as $value) { ?>
+				    		<option value="<?php echo $value['dict_id'];?>"><?php echo $value['dvalue'];?></option>
+				    	<?php } ?>
 				    </select>
 				  </div>
 				</div>
@@ -62,6 +65,9 @@ $this->script_controller = 'evaluation/create';
 				  <div class="col-md-6 controls">
 				    <select class="form-control width-input width-input-large" name="" id="">
 				    	<option value="">--请选择--</option>
+				    	<?php foreach ($customerType as $value) { ?>
+				    		<option value="<?php echo $value['dict_id'];?>"><?php echo $value['dvalue'];?></option>
+				    	<?php } ?>
 				    </select>
 				  </div>
 				</div>
@@ -107,6 +113,9 @@ $this->script_controller = 'evaluation/create';
 				  <div class="col-md-6 controls">
 				    <select class="form-control width-input width-input-large" name="" id="">
 				    	<option value="">--请选择--</option>
+				    	<?php foreach ($customerLevel as $value) { ?>
+				    		<option value="<?php echo $value['dict_id'];?>"><?php echo $value['dvalue'];?></option>
+				    	<?php } ?>
 				    </select>
 				  </div>
 				</div>

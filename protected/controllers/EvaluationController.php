@@ -1,11 +1,6 @@
 <?php
-
 class EvaluationController extends BaseController
 {
-	/**
-	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-	 * using two-column layout. See 'protected/views/layouts/column2.php'.
-	 */
 	public $filter;
     public $pagesize = 18;
     public function __construct($id,$module)
@@ -47,29 +42,6 @@ class EvaluationController extends BaseController
 	{
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
-		));
-	}
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new Evaluation;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Evaluation']))
-		{
-			$model->attributes=$_POST['Evaluation'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->eva_id));
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
 		));
 	}
 
@@ -126,7 +98,6 @@ class EvaluationController extends BaseController
             'pages' => $pages,
             'pageIndex'=>$pageIndex-1,
             'params'=>$params,
-            'script_controller'=>111
         ));
 	}
 
@@ -146,6 +117,45 @@ class EvaluationController extends BaseController
 
 		echo $this->renderJSON(true);
 	}
+
+	/**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionCreate()
+	{
+		$model=new Evaluation;
+
+		if(isset($_POST['Evaluation']))
+		{
+			$model->attributes=$_POST['Evaluation'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->eva_id));
+		}
+
+		$SysDict = new SysDict();
+		$cooperation = $SysDict->findSysDictByGroup('cooperation');
+		$customerLevel = $SysDict->findSysDictByGroup('customerLevel');
+		$customerType = $SysDict->findSysDictByGroup('customerType');
+		
+
+		$this->render('create',array(
+			'model'=>$model,
+			'cooperation'=>$cooperation,
+			'customerLevel'=>$customerLevel,
+			'customerType'=>$customerType,
+		));
+	}
+
+	
+
+
+
+
+
+
+
+
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

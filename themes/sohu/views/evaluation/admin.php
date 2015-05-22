@@ -62,12 +62,12 @@ $this->script_controller = 'evaluation/admin';
 			  </td>
 			  <td>
 				<div class="btn-group">
-				  <a class="btn btn-default btn-sm" href="/admin/article/2/edit">查看</a>
+				  <a class="btn btn-default btn-sm" href="#">查看</a>
 				  <a data-toggle="dropdown" class="btn btn-default btn-sm dropdown-toggle" type="button" href="#">
 				    <span class="caret"></span>&nbsp;
 				  </a>
 				  <ul class="dropdown-menu">
-				  	<li><a data-url="/admin/article/2/unpublish" data-role="unpublish-item" href="javascript:">调整评估单</a></li>
+				  	<li><a data-url="#" data-role="unpublish-item" href="javascript:">调整评估单</a></li>
 				    <li><a data-url="?r=evaluation/delete&id=<?php echo $v['eva_id'];?>" data-target="<?php echo $v['eva_id'];?>" class="delete-btn" href="javascript:">删除</a></li>
 				    </ul>
 				</div>
