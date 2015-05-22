@@ -123,6 +123,9 @@ body {
 .evaluation-create .panel-default .table-input{
     width:70%;
 }
-
+.table-list .selected td,
+.table-list .selected th{
+    background-color: #EEE;
+}
 
 

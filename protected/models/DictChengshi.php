@@ -1,13 +1,12 @@
 <?php
-
-class THousesPrj extends BaseModel
+class DictChengshi extends BaseModel
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 't_houses_prj';
+		return 'dict_chengshi';
 	}
 
 	/**
@@ -18,14 +17,16 @@ class THousesPrj extends BaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('group_id', 'required'),
-			array('group_id, city_id, area_id, createby, updateby', 'length', 'max'=>36),
-			array('group_name, prj_licence', 'length', 'max'=>100),
+			array('city_id', 'required'),
+			array('city_id, createby, updateby', 'length', 'max'=>36),
+			array('city_name, province', 'length', 'max'=>20),
+			array('simpy', 'length', 'max'=>10),
+			array('fullpy', 'length', 'max'=>100),
 			array('isactive', 'length', 'max'=>1),
-			array('open_date, createdate, updatedate', 'safe'),
+			array('createdate, updatedate', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('group_id, group_name, open_date, city_id, area_id, prj_licence, isactive, createby, createdate, updateby, updatedate', 'safe', 'on'=>'search'),
+			array('city_id, city_name, simpy, fullpy, province, isactive, createby, createdate, updateby, updatedate', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,12 +47,11 @@ class THousesPrj extends BaseModel
 	public function attributeLabels()
 	{
 		return array(
-			'group_id' => 'Group',
-			'group_name' => 'Group Name',
-			'open_date' => 'Open Date',
-			'city_id' => 'City',
-			'area_id' => 'Area',
-			'prj_licence' => 'Prj Licence',
+			'city_id' => 'Citys',
+			'city_name' => 'City Name',
+			'simpy' => 'Simpy',
+			'fullpy' => 'Fullpy',
+			'province' => 'Province',
 			'isactive' => 'Isactive',
 			'createby' => 'Createby',
 			'createdate' => 'Createdate',
@@ -78,12 +78,11 @@ class THousesPrj extends BaseModel
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('group_id',$this->group_id,true);
-		$criteria->compare('group_name',$this->group_name,true);
-		$criteria->compare('open_date',$this->open_date,true);
 		$criteria->compare('city_id',$this->city_id,true);
-		$criteria->compare('area_id',$this->area_id,true);
-		$criteria->compare('prj_licence',$this->prj_licence,true);
+		$criteria->compare('city_name',$this->city_name,true);
+		$criteria->compare('simpy',$this->simpy,true);
+		$criteria->compare('fullpy',$this->fullpy,true);
+		$criteria->compare('province',$this->province,true);
 		$criteria->compare('isactive',$this->isactive,true);
 		$criteria->compare('createby',$this->createby,true);
 		$criteria->compare('createdate',$this->createdate,true);
@@ -99,18 +98,21 @@ class THousesPrj extends BaseModel
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return THousesPrj the static model class
+	 * @return DictChengshi the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
 
-	public function searchTHousesPrjs($condition,$pageIndex,$pageSize,$sort = 'createDate')
+	public function searchDictChengshis($condition,$pageIndex,$pageSize,$sort = 'createDate')
     {
     	switch ($sort) {
 			case 'createDate':
 				$sort = array('createdate','DESC');
+				break;
+			case 'cityName':
+				$sort = array('city_name','DESC');
 				break;
 			default:
 				$sort = array('createdate','asc');
@@ -118,29 +120,34 @@ class THousesPrj extends BaseModel
 		}
 
         $select = ' * ';
-        $sql = THousesPrj::searchTHousesPrjsSql($select,$condition);
+        $sql = DictChengshi::searchDictChengshiSql($select,$condition);
 
-        $count = $this->RowCount(THousesPrj::searchTHousesPrjsSql('count(*)',$condition));
+        $count = $this->RowCount(DictChengshi::searchDictChengshiSql('count(*)',$condition));
         $start = ($pageIndex - 1)*$pageSize;
         $sql .= " ORDER BY $sort[0] $sort[1] LIMIT $start,$pageSize";
-        
+
         return array('items'=>$this->QueryAll($sql),'count'=>$count);
     }
 
-    public function searchTHousesPrjsSql($select,$condition)
+    public function searchDictChengshiSql($select,$condition)
     {
-        $sql = "SELECT {$select} FROM t_houses_prj WHERE 1";
+        $sql = "SELECT {$select}
+        FROM dict_chengshi WHERE 1";
 
         if (!empty($condition)) 
     	{
-    		if(!empty($condition['group_name']))
-    			$sql .= " and group_name like '%".$condition['group_name']."%' ";
-    	};
+    		if(!empty($condition['id']))
+    			$sql .= " and city_id = '".$condition['id']."' ";
 
+    		if(!empty($condition['ids']))
+    			$sql .= " and city_id in ( ".join (',', $condition['ids']).")";
+
+    		if(!empty($condition['city_name']))
+    			$sql .= " and city_name like '%".$condition['city_name']."%' ";
+    	};
     	$sql .= " and isactive = 0 ";
 
         return $sql;
     }
-
 
 }

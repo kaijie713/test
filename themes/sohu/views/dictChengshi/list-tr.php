@@ -2,8 +2,8 @@
 	<table class="table table-condensed table-hover table-list">
 	  <thead>
 	    <tr>
-	      <th>项目名称</th>
-	      <th>项目所属城市</th>
+	      <th>城市</th>
+	      <th>省份</th>
 	      <th>创建者</th>
 	      <th>创建时间</th>
 	      <th>修改者</th>
@@ -12,12 +12,9 @@
 	  </thead>
 	  <tbody>
 	  	<?php foreach ($dataProvider as $key => $value) { ?>
-	      	<tr id="<?php echo $value['group_id']?>" data-name="<?php echo $value['group_name']?>">
-	          <th scope="row"><?php echo $value['group_name']?></th>
-	          <td><?php $this->widget('application.widget.ValueWidget', array(
-		          	'value'=>array($chengshis,$value['city_id'])
-		          ));?>
-			  </td>
+	      	<tr id="<?php echo $value['city_id']?>" data-name="<?php echo $value['city_name']?>">
+	          <th scope="row"><?php echo $value['city_name']?></th>
+	          <td><?php echo $value['province']?></td>
 	          <td><?php echo $value['createby']?></td>
 	          <td><?php echo $value['createdate']?></td>
 	          <td><?php echo $value['updateby']?></td>

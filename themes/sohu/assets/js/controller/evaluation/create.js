@@ -30,6 +30,40 @@ define(function(require, exports, module) {
         });
 
         // $('[name=endTime]').datetimepicker('setStartDate', now);
+        
+        $(".modal").on('click', '.btn-submit', function(e){
+            e.preventDefault();
+            $input = $('.modal input');
+            var $modal = $(e.delegateTarget);
+            $.get($(this).data('url'), $input.serialize(), function(html){
+                $modal.html(html);
+            });
+        });
+
+        $('.modal').on('click','.table-list tbody tr',function(){
+            $(".table-list tbody tr").removeClass('selected');
+            $(this).addClass('selected');
+        });
+
+        $(".modal").on('click', '.btn-confirm', function(e){
+            var $selected = $('.selected');
+            if ($selected.length>0) {
+                var id = $selected.attr('id');
+                var name = $selected.data('name');
+                
+                if($(this).data('page') == 'dictChengshi'){
+                    $("#city_id").val(id);
+                    $("#city_name").val(name);
+                } else if ($(this).data('page') == 'tHousesPrj'){
+                    $("#group_id").val(id);
+                    $("#group_name").val(name);
+                }
+                
+            }
+
+            $("#modal").modal('toggle');
+
+        });
 
     };
 

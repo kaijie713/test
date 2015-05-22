@@ -106,8 +106,7 @@ class Evaluation extends BaseModel
 
     public function items_sql($select,$condition)
     {
-        $sql = "SELECT {$select}
-        FROM t_prj_evaluationforms ";
+        $sql = "SELECT {$select} FROM t_prj_evaluationforms ";
 
         if ($condition) $sql .= " WHERE $condition";
 

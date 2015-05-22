@@ -1,14 +1,14 @@
 <?php
 
-class THousesPrjController extends BaseController
+class DictChengshiController extends BaseController
 {
+
 	public $filter;
-    public $pagesize = 18;
+    public $pagesize = 2;
     public function __construct($id,$module)
     {
         parent::__construct($id,$module);
     }
-
 	/**
 	 * @return array action filters
 	 */
@@ -34,13 +34,13 @@ class THousesPrjController extends BaseController
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
-				'users'=>array('*'),
+				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('*'),
+				'users'=>array('admin'),
 			),
-			
+		
 		);
 	}
 
@@ -61,16 +61,16 @@ class THousesPrjController extends BaseController
 	 */
 	public function actionCreate()
 	{
-		$model=new THousesPrj;
+		$model=new DictChengshi;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['THousesPrj']))
+		if(isset($_POST['DictChengshi']))
 		{
-			$model->attributes=$_POST['THousesPrj'];
+			$model->attributes=$_POST['DictChengshi'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->group_id));
+				$this->redirect(array('view','id'=>$model->city_id));
 		}
 
 		$this->render('create',array(
@@ -90,11 +90,11 @@ class THousesPrjController extends BaseController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['THousesPrj']))
+		if(isset($_POST['DictChengshi']))
 		{
-			$model->attributes=$_POST['THousesPrj'];
+			$model->attributes=$_POST['DictChengshi'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->group_id));
+				$this->redirect(array('view','id'=>$model->city_id));
 		}
 
 		$this->render('update',array(
@@ -121,7 +121,7 @@ class THousesPrjController extends BaseController
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('THousesPrj');
+		$dataProvider=new CActiveDataProvider('DictChengshi');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -132,10 +132,10 @@ class THousesPrjController extends BaseController
 	 */
 	public function actionAdmin()
 	{
-		$model=new THousesPrj('search');
+		$model=new DictChengshi('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['THousesPrj']))
-			$model->attributes=$_GET['THousesPrj'];
+		if(isset($_GET['DictChengshi']))
+			$model->attributes=$_GET['DictChengshi'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -146,12 +146,12 @@ class THousesPrjController extends BaseController
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return THousesPrj the loaded model
+	 * @return DictChengshi the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=THousesPrj::model()->findByPk($id);
+		$model=DictChengshi::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -160,19 +160,18 @@ class THousesPrjController extends BaseController
 	public function actionList()
 	{
         $pageIndex = isset($_GET['page'])?$_GET['page']:1;
-        $params = $this->get('THousesPrj');
+        $params = $this->get('DictChengshi');
 
-        $THousesPrj = new THousesPrj();
-        $result = $THousesPrj->searchTHousesPrjs($params,$pageIndex,$this->pagesize);
+        if(empty($params['sort'])){
+        	$params['sort'] ="";
+        }
+
+        $DictChengshi = new DictChengshi();
+        $result = $DictChengshi->searchDictChengshis($params, $pageIndex, $this->pagesize, $params['sort']);
 
         $items = $result['items'];
         $count = $result['count'];
 
-        $DictChengshi = new DictChengshi();
-
-        $condition['ids'] = ArrayToolkit::column($items, 'city_id');
-        $chengshis = $DictChengshi->searchDictChengshis($condition,1,9999);
-        $chengshis = ArrayToolkit::index($chengshis['items'], 'city_id');
         $pages = new CPagination($count);
 
         return $this->renderPartial('list',array(
@@ -180,20 +179,17 @@ class THousesPrjController extends BaseController
             'pages' => $pages,
             'pageIndex'=>$pageIndex-1,
             'params'=>$params,
-            'chengshis'=>$chengshis,
         ));
 		
 	}
 
-
-
 	/**
 	 * Performs the AJAX validation.
-	 * @param THousesPrj $model the model to be validated
+	 * @param DictChengshi $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='thouses-prj-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='dict-chengshi-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

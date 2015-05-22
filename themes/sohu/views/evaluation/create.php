@@ -21,6 +21,9 @@ $this->script_controller = 'evaluation/create';
 
 	<form method="post" id="course-form" class="form-horizontal" novalidate="novalidate" data-widget-cid="widget-0">
 
+	<input type="hidden" name="Evaluation[group_id]" id="group_id" value="" >
+	<input type="hidden" name="Evaluation[city_id]" id="city_id" value="" >
+
 	<div class="panel panel-default panel-col">
 		<div class="panel-heading">项目基本情况</div>
 		<div class="panel-body">
@@ -30,7 +33,7 @@ $this->script_controller = 'evaluation/create';
 						<label class="col-md-6 control-label">项目名称：</label>
 						<div class="col-md-6 controls">
 							<div class="input-group">
-						      <input type="text" class="form-control">
+						      <input type="text" class="form-control" name="Evaluation[group_name]" id="group_name">
 						      <span class="input-group-btn">
 						        <button class="btn btn-default" type="button" data-target="#modal" data-toggle="modal" data-url="/index.php?r=THousesPrj/list">&nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;</button>
 						      </span>
@@ -42,9 +45,9 @@ $this->script_controller = 'evaluation/create';
 					<label class="col-md-6 control-label">城市：</label>
 					<div class="col-md-6 controls">
 						<div class="input-group">
-					      <input type="text" class="form-control">
+					      <input type="text" class="form-control" name="Evaluation[city_name]" id="city_name">
 					      <span class="input-group-btn">
-					        <button class="btn btn-default" type="button">&nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;</button>
+					        <button class="btn btn-default" type="button" data-target="#modal" data-toggle="modal" data-url="/index.php?r=DictChengshi/list">&nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;</button>
 					      </span>
 					    </div>
 					</div>
