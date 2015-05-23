@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h4 class="modal-title">城市列表</h4>
+      <h4 class="modal-title">用户列表</h4>
     </div>
     <div class="modal-body">
 	  <div class="row form-group">
@@ -11,9 +11,9 @@
 	    </div>
 	    <div class="col-md-8 controls">
 	    	<div class="input-group">
-		      <input type="text" class="form-control" name="DictChengshi[city_name]" value="<?php echo isset($params['city_name'])?$params['city_name']:'';?>" placeholder="搜索 城市名称">
+		      <input type="text" class="form-control" name="User[multiple]" value="<?php echo isset($params['multiple'])?$params['multiple']:'';?>" placeholder="搜索  姓名、员工编号或sohu-inc邮箱前缀">
 		      <span class="input-group-btn">
-		        <button type="button" class="btn btn-default btn-submit" data-url="/index.php?r=DictChengshi/list" >&nbsp;<span aria-hidden="true" class="glyphicon glyphicon-search"></span>&nbsp;</button>
+		        <button type="button" class="btn btn-default btn-submit" data-url="/index.php?r=User/list" >&nbsp;<span aria-hidden="true" class="glyphicon glyphicon-search"></span>&nbsp;</button>
 		      </span>
 		    </div>
 	    </div>

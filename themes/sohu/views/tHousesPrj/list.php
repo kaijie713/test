@@ -22,7 +22,7 @@
 
     </div>
       <div class="modal-footer">
-		  <button id="announcement-create-btn"  class="btn btn-primary pull-right btn-confirm" data-page="tHousesPrj" >确定</button>
+		  <button id="announcement-create-btn"  class="btn btn-primary pull-right btn-confirm">确定</button>
 		  <button type="button" class="btn btn-link pull-right" data-dismiss="modal">取消</button>
 		  <script>//app.load('thouses-prj/list');</script>
       </div>

@@ -11,6 +11,108 @@ define(function(require, exports, module) {
     );
     exports.run = function() {
 
+        var validator = new Validator({
+            element: '#course-form',
+            autoSubmit: false
+        });
+
+        validator.addItem({
+            element: '[name="Evaluation[group_name]"]',
+            required: true,
+            rule: 'remote'
+        });
+
+        validator.addItem({
+            element: '[name="Evaluation[city_name]"]',
+            required: true,
+            rule: 'maxlength{max:500}',
+            // errormessageMaxlength: '想要说的话不能大于500个字'
+        });
+
+        validator.addItem({
+            element: '[name="Evaluation[cooperetion_mode]"]',
+            required: true,
+            rule: 'remote'
+        });
+
+        validator.addItem({
+            element: '[name="Evaluation[customer_type]"]',
+            required: true,
+            rule: 'remote'
+        });
+
+        validator.addItem({
+            element: '[name="Evaluation[pre_opendatetime]"]',
+            required: true,
+            rule: 'remote'
+        });
+
+        validator.addItem({
+            element: '[name="Evaluation[ec_incharge_name]"]',
+            required: true,
+            rule: 'remote'
+        });
+
+        validator.addItem({
+            element: '[name="Evaluation[sales_name]"]',
+            required: true,
+            rule: 'remote'
+        });
+
+        validator.addItem({
+            element: '[name="Evaluation[customer_level]"]',
+            required: true,
+            rule: 'remote'
+        });
+
+        validator.addItem({
+            element: '[name="Evaluation[area_id]"]',
+            required: true,
+            rule: 'remote'
+        });
+
+        validator.addItem({
+            element: '[name="Evaluation[prj_condition]"]',
+            required: true,
+            rule: 'remote'
+        });
+
+        validator.addItem({
+            element: '[name="TEvaformPayment[ad_discount]"]',
+            required: true,
+            rule: 'remote'
+        });
+
+        validator.addItem({
+            element: '[name="TEvaformPayment[ad_distribution_ratio]"]',
+            required: true,
+            rule: 'remote'
+        });
+
+        validator.addItem({
+            element: '[name="TEvaformPayment[ad_amount_infact]"]',
+            required: true,
+            rule: 'remote'
+        });
+
+        validator.addItem({
+            element: '[name="TEvaformPayment[ad_markting_ratio]"]',
+            required: true,
+            rule: 'remote'
+        });
+
+        validator.addItem({
+            element: '[name="TEvaformPayment[pre_ad_deal_bind]"]',
+            required: true,
+            rule: 'remote'
+        });
+
+
+
+        
+
+        $("input").attr("value","");
+
         var now = new Date();
 
         $("[name=startTime]").datetimepicker({
@@ -50,20 +152,45 @@ define(function(require, exports, module) {
             if ($selected.length>0) {
                 var id = $selected.attr('id');
                 var name = $selected.data('name');
-                
-                if($(this).data('page') == 'dictChengshi'){
+                var modalType = $('#modalType').val();
+
+                if(modalType == 'dictChengshi'){
                     $("#city_id").val(id);
                     $("#city_name").val(name);
-                } else if ($(this).data('page') == 'tHousesPrj'){
+                    getArea(id);
+                } else if (modalType == 'tHousesPrj'){
                     $("#group_id").val(id);
                     $("#group_name").val(name);
+                } else if (modalType == 'ecIncharge'){
+                    $("#ec_incharge_id").val(id);
+                    $("#ec_incharge_name").val(name);
+                } else if (modalType == 'sales'){
+                    $("#sales_id").val(id);
+                    $("#sales_name").val(name);
                 }
                 
             }
 
-            $("#modal").modal('toggle');
+            $("#modal").modal('hide');
 
         });
+
+        $('body').on('click', '.for-modal', function () {
+            $('#modalType').val($(this).data('type'));
+        })
+
+        function getArea(id){
+            $.get($("#area_id").data('url'), { 'id': id  },function(data){
+                var selectHtml = "<option value=''>--请选择--</option>";
+                if(data){
+                    for(var i=0;i<data.length;i++){
+                       selectHtml +="<option value="+data[i]['a_id']+">"+data[i]['name']+"</option>";
+                    }
+                }
+                $("#area_id").html(selectHtml);
+
+            });
+        }
 
     };
 
