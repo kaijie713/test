@@ -21,7 +21,7 @@ $this->script_controller = 'evaluation/admin';
 <?php echo $this->renderPartial('filter',array('params'=>$params));?>
 
 <div class="page-body clearfix">
-	<table data-search-form="#user-search-form" class="table table-striped table-hover" id="user-table">
+	<table class="table table-striped table-hover">
 	  <thead>
 	    <tr>
 	      <th width="5%"><input type="checkbox" data-role="batch-select"></th>

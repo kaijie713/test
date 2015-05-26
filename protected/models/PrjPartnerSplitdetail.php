@@ -1,23 +1,5 @@
 <?php
-
-/**
- * This is the model class for table "t_prj_partner_splitdetail".
- *
- * The followings are the available columns in table 't_prj_partner_splitdetail':
- * @property string $pd_id
- * @property string $sp_id
- * @property string $partner_type
- * @property string $partner_name
- * @property integer $divide
- * @property string $divide_amount
- * @property string $partner_memo
- * @property string $isactive
- * @property string $createby
- * @property string $createdate
- * @property string $updateby
- * @property string $updatedate
- */
-class PrjPartnerSplitdetail extends CActiveRecord
+class PrjPartnerSplitdetail extends BaseModel
 {
 	/**
 	 * @return string the associated database table name

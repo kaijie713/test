@@ -1,28 +1,5 @@
 <?php
-
-/**
- * This is the model class for table "t_prj_adjust_items".
- *
- * The followings are the available columns in table 't_prj_adjust_items':
- * @property string $eva_id
- * @property string $ad_id
- * @property string $v_id
- * @property string $adjust_memo
- * @property string $ad_discount
- * @property integer $ad_distribution_ratio
- * @property string $ad_amount_infact
- * @property integer $ad_markting_ratio
- * @property string $pre_deal_amount
- * @property string $pre_ad_amount
- * @property string $pre_ad_deal_bind
- * @property integer $pre_tax_ratio
- * @property string $isactive
- * @property string $createby
- * @property string $createdate
- * @property string $updateby
- * @property string $updatedate
- */
-class PrjAdjustItems extends CActiveRecord
+class PrjAdjustItems extends BaseModel
 {
 	/**
 	 * @return string the associated database table name

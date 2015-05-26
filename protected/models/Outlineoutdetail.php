@@ -1,22 +1,5 @@
 <?php
-
-/**
- * This is the model class for table "t_outlineoutdetail".
- *
- * The followings are the available columns in table 't_outlineoutdetail':
- * @property string $v_id
- * @property string $outl_id
- * @property string $out_type
- * @property string $out_name
- * @property string $out_amount
- * @property string $isadjust
- * @property string $isactive
- * @property string $createby
- * @property string $createdate
- * @property string $updateby
- * @property string $updatedate
- */
-class Outlineoutdetail extends CActiveRecord
+class Outlineoutdetail extends BaseModel
 {
 	/**
 	 * @return string the associated database table name

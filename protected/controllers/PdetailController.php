@@ -1,13 +1,13 @@
 <?php
 
-class PdetailController extends Controller
+class PdetailController extends BaseController
 {
-	/**
-	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-	 * using two-column layout. See 'protected/views/layouts/column2.php'.
-	 */
-	public $layout='//layouts/column2';
-
+	public $filter;
+    public $pagesize = 18;
+    public function __construct($id,$module)
+    {
+        parent::__construct($id,$module);
+    }
 	/**
 	 * @return array action filters
 	 */
@@ -39,9 +39,6 @@ class PdetailController extends Controller
 				'actions'=>array('admin','delete'),
 				'users'=>array('admin'),
 			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
 		);
 	}
 
@@ -56,28 +53,28 @@ class PdetailController extends Controller
 		));
 	}
 
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new Pdetail;
+	// /**
+	//  * Creates a new model.
+	//  * If creation is successful, the browser will be redirected to the 'view' page.
+	//  */
+	// public function actionCreate()
+	// {
+	// 	$model=new Pdetail;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+	// 	// Uncomment the following line if AJAX validation is needed
+	// 	// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Pdetail']))
-		{
-			$model->attributes=$_POST['Pdetail'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->pd_id));
-		}
+	// 	if(isset($_POST['Pdetail']))
+	// 	{
+	// 		$model->attributes=$_POST['Pdetail'];
+	// 		if($model->save())
+	// 			$this->redirect(array('view','id'=>$model->pd_id));
+	// 	}
 
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
+	// 	$this->render('create',array(
+	// 		'model'=>$model,
+	// 	));
+	// }
 
 	/**
 	 * Updates a particular model.
@@ -140,6 +137,35 @@ class PdetailController extends Controller
 
 		$this->render('admin',array(
 			'model'=>$model,
+		));
+	}
+
+	public function actionCreate()
+	{
+		if(isset($_POST['Pdetail']))
+		{
+			$model->attributes=$_POST['Pdetail'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->eva_id));
+		}
+
+		$Pdetail=new Pdetail;
+
+		$dict_id = $this->get('id');
+
+		$SysDict = new SysDict();
+		$sourceType = $SysDict->findSysDictByGroup('sourceType');
+		$partnerType = $SysDict->findSysDictByGroup('partnerType');
+		$chargeType = $SysDict->getSysDictById($dict_id);
+
+		if(empty($chargeType)){
+			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+		}
+
+		$this->renderPartial('create-'.$chargeType['dkey'],array(
+			'sourceType' => $sourceType,
+			'chargeType' => $chargeType,
+			'partnerType' => $partnerType,
 		));
 	}
 

@@ -1,23 +1,5 @@
 <?php
-
-/**
- * This is the model class for table "t_prjexeitems".
- *
- * The followings are the available columns in table 't_prjexeitems':
- * @property string $es_id
- * @property string $ra_id
- * @property string $exename
- * @property string $bdate
- * @property string $edate
- * @property string $pre_amount
- * @property string $infact_cost
- * @property string $isactive
- * @property string $createby
- * @property string $createdate
- * @property string $updateby
- * @property string $updatedate
- */
-class Prjexeitems extends CActiveRecord
+class Prjexeitems extends BaseModel
 {
 	/**
 	 * @return string the associated database table name

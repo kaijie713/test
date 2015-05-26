@@ -1,134 +1,15 @@
 define(function(require, exports, module) {
 
-    require("jquery.bootstrap-datetimepicker");
-    var Validator = require('bootstrap.validator');
-    require('common/validator-rules').inject(Validator);
     var Notify = require('common/bootstrap-notify');
-    Validator.addRule(
-        'time_check',
-    /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29) ([0-1]{1}[0-9]{1})|(2[0-4]{1}):[0-5]{1}[0-9]{1}$/,
-    '请输入正确的日期和时间,格式如XXXX-MM-DD hh:mm'
-    );
+    var Evaluation = require('./evaluation');
+
     exports.run = function() {
 
-        var validator = new Validator({
-            element: '#course-form',
-            autoSubmit: false
-        });
-
-        validator.addItem({
-            element: '[name="Evaluation[group_name]"]',
-            required: true,
-            rule: 'remote'
-        });
-
-        validator.addItem({
-            element: '[name="Evaluation[city_name]"]',
-            required: true,
-            rule: 'maxlength{max:500}',
-            // errormessageMaxlength: '想要说的话不能大于500个字'
-        });
-
-        validator.addItem({
-            element: '[name="Evaluation[cooperetion_mode]"]',
-            required: true,
-            rule: 'remote'
-        });
-
-        validator.addItem({
-            element: '[name="Evaluation[customer_type]"]',
-            required: true,
-            rule: 'remote'
-        });
-
-        validator.addItem({
-            element: '[name="Evaluation[pre_opendatetime]"]',
-            required: true,
-            rule: 'remote'
-        });
-
-        validator.addItem({
-            element: '[name="Evaluation[ec_incharge_name]"]',
-            required: true,
-            rule: 'remote'
-        });
-
-        validator.addItem({
-            element: '[name="Evaluation[sales_name]"]',
-            required: true,
-            rule: 'remote'
-        });
-
-        validator.addItem({
-            element: '[name="Evaluation[customer_level]"]',
-            required: true,
-            rule: 'remote'
-        });
-
-        validator.addItem({
-            element: '[name="Evaluation[area_id]"]',
-            required: true,
-            rule: 'remote'
-        });
-
-        validator.addItem({
-            element: '[name="Evaluation[prj_condition]"]',
-            required: true,
-            rule: 'remote'
-        });
-
-        validator.addItem({
-            element: '[name="TEvaformPayment[ad_discount]"]',
-            required: true,
-            rule: 'remote'
-        });
-
-        validator.addItem({
-            element: '[name="TEvaformPayment[ad_distribution_ratio]"]',
-            required: true,
-            rule: 'remote'
-        });
-
-        validator.addItem({
-            element: '[name="TEvaformPayment[ad_amount_infact]"]',
-            required: true,
-            rule: 'remote'
-        });
-
-        validator.addItem({
-            element: '[name="TEvaformPayment[ad_markting_ratio]"]',
-            required: true,
-            rule: 'remote'
-        });
-
-        validator.addItem({
-            element: '[name="TEvaformPayment[pre_ad_deal_bind]"]',
-            required: true,
-            rule: 'remote'
-        });
-
-
-
-        
-
         $("input").attr("value","");
-
-        var now = new Date();
-
-        $("[name=startTime]").datetimepicker({
-            language: 'zh-CN',
-            autoclose: true
-        }).on('hide', function(ev){
-            // validator.query('[name=startTime]').execute();
-        });
-
-        // $('[name=startTime]').datetimepicker('setStartDate', now);
-
-        $("[name=endTime]").datetimepicker({
-            language: 'zh-CN',
-            autoclose: true
-        }).on('hide', function(ev){
-            // validator.query('[name=endTime]').execute();
+        $("input").val('');
+        
+        var aa = new Evaluation({
+            element: '#evaluation-create-widget'
         });
 
         // $('[name=endTime]').datetimepicker('setStartDate', now);

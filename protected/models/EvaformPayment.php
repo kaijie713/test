@@ -1,37 +1,5 @@
 <?php
-
-/**
- * This is the model class for table "t_evaform_payment".
- *
- * The followings are the available columns in table 't_evaform_payment':
- * @property string $group_id
- * @property string $eva_id
- * @property string $v_id
- * @property string $ad_discount
- * @property integer $ad_distribution_ratio
- * @property string $ad_amount_infact
- * @property integer $ad_markting_ratio
- * @property string $ol_fee1
- * @property string $ol_fee2
- * @property string $ol_fee3
- * @property string $ol_fee84
- * @property string $pre_deal_amount
- * @property string $pre_ad_amount
- * @property string $pre_ad_deal_bind
- * @property integer $pre_tax_ratio
- * @property string $online_amount
- * @property string $offline_amount
- * @property string $isadjust
- * @property string $isactive
- * @property string $createby
- * @property string $createdate
- * @property string $updateby
- * @property string $updatedate
- * @property string $attribute1
- * @property string $attribute2
- * @property string $attribute3
- */
-class EvaformPayment extends CActiveRecord
+class EvaformPayment extends BaseModel
 {
 	/**
 	 * @return string the associated database table name

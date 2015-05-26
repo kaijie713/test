@@ -137,8 +137,16 @@ class SysDict extends BaseModel
 				break;
 		}
 
-		$sql = "select dict_id, dkey, dvalue, group_code, uper_group_code, group_order, createby, createdate, isactive from sys_dict where group_code = '$group' order by $sort[0] $sort[1]";
-		return $this->QueryAll($sql);
+		$sql = "select * from sys_dict where group_code = '$group' order by $sort[0] $sort[1]";
+		$data = $this->QueryAll($sql);
+		return ArrayToolkit::index($data, 'dict_id');
+	}
+
+	public function getSysDictById($id)
+	{
+		$id = (int) $id;
+		$sql = "select * from sys_dict where dict_id = $id limit 1";
+		return $this->QueryRow($sql);
 	}
 
 }

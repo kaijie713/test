@@ -1,23 +1,5 @@
 <?php
-
-/**
- * This is the model class for table "t_prform_by_eva".
- *
- * The followings are the available columns in table 't_prform_by_eva':
- * @property string $pr_id
- * @property string $group_id
- * @property string $eva_id
- * @property string $pr_number
- * @property string $prstatus
- * @property string $pramount
- * @property string $pryue
- * @property string $isactive
- * @property string $createby
- * @property string $createdate
- * @property string $updateby
- * @property string $updatedate
- */
-class PrformByEva extends CActiveRecord
+class PrformByEva extends BaseModel
 {
 	/**
 	 * @return string the associated database table name

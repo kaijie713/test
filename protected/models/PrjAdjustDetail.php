@@ -1,17 +1,5 @@
 <?php
-
-/**
- * This is the model class for table "t_prj_adjust_detail".
- *
- * The followings are the available columns in table 't_prj_adjust_detail':
- * @property string $ad_id
- * @property string $pad_id
- * @property string $pdid
- * @property integer $sell_house_num
- * @property string $createby
- * @property string $createdate
- */
-class PrjAdjustDetail extends CActiveRecord
+class PrjAdjustDetail extends BaseModel
 {
 	/**
 	 * @return string the associated database table name

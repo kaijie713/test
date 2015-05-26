@@ -218,4 +218,11 @@ class BaseModel extends CActiveRecord
 
         return array('item'=>$list,'count'=>$count);
     }
+
+    public function getUUID()
+    {
+        $Idwork = new idwork();
+        $id= $Idwork->nextId();
+        return $id;
+    }
 } 

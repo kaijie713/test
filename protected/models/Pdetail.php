@@ -1,41 +1,5 @@
 <?php
-
-/**
- * This is the model class for table "t_pdetail".
- *
- * The followings are the available columns in table 't_pdetail':
- * @property string $group_id
- * @property string $eva_id
- * @property string $pd_id
- * @property string $bdate
- * @property string $edate
- * @property integer $sell_house_num
- * @property string $source_type
- * @property string $pre_incoming
- * @property string $charge_type
- * @property string $ajcard_price
- * @property integer $pre_volumn
- * @property string $prjreword_perunit
- * @property integer $prevolumn_perunit
- * @property string $brokerfees_perunit
- * @property integer $prebrokervolumn
- * @property string $pref_context
- * @property integer $jd_retain_ratio
- * @property string $jd_retain_amount
- * @property string $pre_amount
- * @property integer $commission_rate
- * @property string $commission_perunit
- * @property string $pre_commission_amount
- * @property string $isactive
- * @property string $createby
- * @property string $createdate
- * @property string $updateby
- * @property string $updatedate
- * @property string $attribute1
- * @property string $attribute2
- * @property string $attribute3
- */
-class Pdetail extends CActiveRecord
+class Pdetail extends BaseModel
 {
 	/**
 	 * @return string the associated database table name
@@ -173,6 +137,7 @@ class Pdetail extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
 
 	/**
 	 * Returns the static model of the specified AR class.

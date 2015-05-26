@@ -138,14 +138,17 @@ class EvaluationController extends BaseController
 		$customerLevel = $SysDict->findSysDictByGroup('customerLevel');
 		$customerType = $SysDict->findSysDictByGroup('customerType');
 		$sourceType = $SysDict->findSysDictByGroup('sourceType');
+		$chargeType = $SysDict->findSysDictByGroup('chargeType');
+		$outType = $SysDict->findSysDictByGroup('outType');
 		
-
 		$this->render('create',array(
 			'model'=>$model,
 			'cooperation'=>$cooperation,
 			'customerLevel'=>$customerLevel,
 			'customerType'=>$customerType,
 			'sourceType'=>$sourceType,
+			'chargeType'=>$chargeType,
+			'outType'=>$outType,
 		));
 	}
 
