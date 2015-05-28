@@ -21,17 +21,38 @@ class BaseController extends Controller
 
     public function __construct($id,$module)
     {
+        //       Yii::app()->user->__get('u_id')
         parent::__construct($id,$module);
         if (isset($this->getModule()->id)) $this->module = $this->getModule()->id;
         $this->controller = $this->getId();
-        // if (empty(Yii::app()->session['_admini'])) $this->redirect('index.php?r=admin/login');
-
-        // $this->admini = Yii::app()->session['_admini'];
-        // $this->ActList = XAdminiAcl::filterMenu($this->Act($this->admini['acl']),$this->admini['super']);
-        // $this->Pemission($this->Act($this->admini['acl']),$this->admini['super']);
-
+        
+        if(Yii::app()->user->getIsGuest()){
+            $this->redirect("/index.php?r=login/login");
+        }
+        try{
+            Yii::app()->user->__get('u_id');
+        }catch ( Exception $e ) {
+            $this->redirect("/index.php?r=login/Logout");
+        }
+        
         $this->connection = Yii::app()->db;
     }
+
+    public function actions(){
+        return array(
+            'captcha'=>array(
+                'class'=>'CCaptchaAction',
+                'backColor'=>0xFFFFFF,
+            ),);
+    }
+
+    protected function beforeAction($action){
+        if(Yii::app()->user->isGuest&&$action->getId()!='login'&&$action->getId()!='captcha'){
+            $this->redirect(Yii::app()->user->loginUrl);
+        }
+        return parent::beforeAction($action);
+    }
+
 
     /**
      * 控制器Act解析

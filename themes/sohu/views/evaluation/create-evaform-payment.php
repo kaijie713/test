@@ -16,13 +16,13 @@
 			<div class="form-group">
 				<label class="col-md-6 control-label">按销售政策计算广告刊例金额：</label>
 				<div class="col-md-6 controls">
-					<p class="form-control-static">2222</p>
+					<p class="form-control-static">0</p>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-md-6 control-label">资源比预计收入倍数：</label>
 				<div class="col-md-6 controls">
-					<p class="form-control-static">2222</p>
+					<p class="form-control-static">0</p>
 				</div>
 			</div>
 		</div>

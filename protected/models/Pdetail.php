@@ -4,20 +4,18 @@ class Pdetail extends BaseModel
 	/**
 	 * @return string the associated database table name
 	 */
+	public $divideSum = 0;
+	public $divideAmountSum = 0;
+
 	public function tableName()
 	{
 		return 't_pdetail';
 	}
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
-			array('group_id, eva_id, pd_id', 'required'),
+			array('pd_id, charge_type' , 'required'),
 			array('sell_house_num, pre_volumn, prevolumn_perunit, prebrokervolumn, jd_retain_ratio, commission_rate', 'numerical', 'integerOnly'=>true),
 			array('group_id, eva_id, pd_id, createby, updateby', 'length', 'max'=>36),
 			array('source_type, charge_type', 'length', 'max'=>2),
@@ -27,7 +25,7 @@ class Pdetail extends BaseModel
 			array('pre_commission_amount', 'length', 'max'=>18),
 			array('isactive', 'length', 'max'=>1),
 			array('attribute1, attribute2, attribute3', 'length', 'max'=>100),
-			array('bdate, edate, createdate, updatedate', 'safe'),
+			array('group_id, eva_id, pd_id, bdate, edate, sell_house_num, source_type, pre_incoming, charge_type, ajcard_price, pre_volumn, prjreword_perunit, prevolumn_perunit, brokerfees_perunit, prebrokervolumn, pref_context, jd_retain_ratio, jd_retain_amount, pre_amount, commission_rate, commission_perunit, pre_commission_amount, isactive, createby, createdate, updateby, updatedate, attribute1, attribute2, attribute3', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('group_id, eva_id, pd_id, bdate, edate, sell_house_num, source_type, pre_incoming, charge_type, ajcard_price, pre_volumn, prjreword_perunit, prevolumn_perunit, brokerfees_perunit, prebrokervolumn, pref_context, jd_retain_ratio, jd_retain_amount, pre_amount, commission_rate, commission_perunit, pre_commission_amount, isactive, createby, createdate, updateby, updatedate, attribute1, attribute2, attribute3', 'safe', 'on'=>'search'),
@@ -39,8 +37,6 @@ class Pdetail extends BaseModel
 	 */
 	public function relations()
 	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		return array(
 		);
 	}
@@ -84,18 +80,158 @@ class Pdetail extends BaseModel
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
+	public function searchPdetails($condition,$pageIndex,$pageSize,$sort = 'createDate')
+    {
+    	switch ($sort) {
+			case 'createDate':
+				$sort = array('createdate','DESC');
+				break;
+			default:
+				$sort = array('createdate','asc');
+				break;
+		}
+
+        $select = ' * ';
+        $sql = Pdetail::searchPdetailSql($select,$condition);
+
+        $count = $this->RowCount(Pdetail::searchPdetailSql('count(*)',$condition));
+        $start = ($pageIndex - 1)*$pageSize;
+        $sql .= " ORDER BY $sort[0] $sort[1] LIMIT $start,$pageSize";
+
+        return array('items'=>$this->QueryAll($sql),'count'=>$count);
+    }
+
+    public function searchPdetailSql($select,$condition)
+    {
+        $sql = "SELECT {$select}
+        FROM t_pdetail WHERE 1";
+
+        if (!empty($condition)) 
+    	{
+    		if(!empty($condition['id']))
+    			$sql .= " and pd_id = '".$condition['id']."' ";
+
+    		if(!empty($condition['evaId']))
+    			$sql .= " and eva_id = '".$condition['evaId']."' ";
+
+    		if(!empty($condition['ids']))
+    			$sql .= " and pd_id in ( ".join (',', $condition['ids']).")";
+
+    	};
+    	$sql .= " and isactive = 0 ";
+
+        return $sql;
+    }
+
+    public function createPdtail($con, $splitdetail){
+    	$model=new Pdetail;
+		$model->attributes=$con;
+
+		$chargeType = $this->requiredChargeType($con['charge_type']);
+
+    	$model = $this->filterPdetail($model, $con);
+
+    	$model = $this->preparePreIncoming($model, $splitdetail);
+
+    	$result = $model->save(false);
+    	if(!$result)
+    	{
+            throw new Exception('error');
+    	}
+
+    	$Splitdetail = new PrjPartnerSplitdetail();
+		$Splitdetail->createSplitdetails($splitdetail, $model->pd_id);
+	
+    	return $model;
+    }
+
+
+    public function preparePreIncoming($model, $splitdetail){
+
+    	$model->pre_incoming = $model->ajcard_price * $model->pre_volumn + $model->commission_perunit * $model->pre_volumn;
+
+    	$this->getSplitdetail($model, $splitdetail);
+
+    	$this->getRetain($model);
+
+    	$model->pre_incoming = $model->pre_incoming - $model->divideAmountSum;
+
+        $model->pre_incoming = $model->pre_incoming - $model->prjreword_perunit * $model->prevolumn_perunit - $model->brokerfees_perunit * $model->prebrokervolumn;
+
+        $model->pre_incoming = number_format($model->pre_incoming, 2, '.', '');
+
+		return $model;
+    }
+
+    public function getSplitdetail($model, $splitdetail){
+
+    	$divideSum = 0;
+        $divideAmountSum = 0;
+        if(isset($splitdetail)){
+        	foreach ($splitdetail['partner_type'] as $key => $value) {
+        		$divideSum  =  $splitdetail['divide'][$key] +  $divideSum;
+        		$divideAmountSum  =  $splitdetail['divide_amount'][$key] +  $divideAmountSum;
+        	}
+        }
+        
+
+        $model->divideSum =  $divideSum;
+        $model->divideAmountSum =  $divideAmountSum;
+  
+        return $model;
+    }
+
+    public function getRetain($model){
+    	$model->jd_retain_ratio = 100 - $model->divideSum;
+    	$model->jd_retain_amount = $model->pre_incoming;
+    	return $model;
+    }
+
+   
+    public function filterPdetail($model, $con){
+    	$model->createby = Yii::app()->user->__get('u_id');
+    	$model->createdate = date("Y-m-d H:i");
+    	$model->pd_id = $this->getUUID();
+    	$model->isactive = 1;
+
+    	
+    	$model->sell_house_num = !empty($con['sell_house_num']) && $con['sell_house_num'] != "" ? number_format($con['sell_house_num'], 0, '.', '') : 0 ; 
+    	$model->ajcard_price = !empty($con['ajcard_price']) && $con['ajcard_price'] != "" ? number_format($con['ajcard_price'], 2, '.', '') : 0 ; 
+    	$model->pre_volumn = !empty($con['pre_volumn']) && $con['pre_volumn'] != "" ? number_format($con['pre_volumn'], 0, '.', '') : 0 ; 
+    	$model->prjreword_perunit = !empty($con['prjreword_perunit']) && $con['prjreword_perunit'] != "" ? number_format($con['prjreword_perunit'], 2, '.', '') : 0 ; 
+    	$model->prevolumn_perunit = !empty($con['prevolumn_perunit']) && $con['prevolumn_perunit'] != "" ? number_format($con['prevolumn_perunit'], 0, '.', '') : 0 ; 
+    	$model->brokerfees_perunit = !empty($con['brokerfees_perunit']) && $con['brokerfees_perunit'] != "" ? number_format($con['brokerfees_perunit'], 2, '.', '') : 0 ; 
+    	$model->prebrokervolumn = !empty($con['prebrokervolumn']) && $con['prebrokervolumn'] != "" ? number_format($con['prebrokervolumn'], 0, '.', '') : 0 ; 
+    	$model->pre_amount = !empty($con['pre_amount']) && $con['pre_amount'] != "" ? number_format($con['pre_amount'], 2, '.', '') : 0 ; 
+    	$model->commission_rate = !empty($con['commission_rate']) && $con['commission_rate'] != "" ? number_format($con['commission_rate'], 2, '.', '') : 0 ; 
+    	$model->commission_perunit = !empty($con['commission_perunit']) && $con['commission_perunit'] != "" ? number_format($con['commission_perunit'], 2, '.', '') : 0 ; 
+    	$model->commission_perunit = !empty($con['commission_perunit']) && $con['commission_perunit'] != "" ? number_format($con['commission_perunit'], 2, '.', '') : 0 ; 
+    	$model->pre_commission_amount = !empty($con['pre_commission_amount']) && $con['pre_commission_amount'] != "" ? number_format($con['pre_commission_amount'], 2, '.', '') : 0 ; 
+    	$model->jd_retain_ratio = !empty($con['jd_retain_ratio']) && $con['jd_retain_ratio'] != "" ? number_format($con['jd_retain_ratio'], 2, '.', '') : 0 ; 
+    	$model->jd_retain_amount = !empty($con['jd_retain_amount']) && $con['jd_retain_amount'] != "" ? number_format($con['jd_retain_amount'], 2, '.', '') : 0 ; 
+
+    	return $model;
+    }
+
+
+	public function requiredChargeType($id)
+    {
+    	$SysDict = new SysDict;
+        $chargeType = $SysDict->getSysDictById($id);
+        if(empty($chargeType)){
+			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+        }
+        return $chargeType;
+    }
+
+    public function getPdetailById($pa_id)
+	{
+		$id = (int) $id;
+		$sql = "select * from t_pdetail where pd_id = $id limit 1";
+		return $this->QueryRow($sql);
+	}
+
+
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
@@ -138,13 +274,6 @@ class Pdetail extends BaseModel
 		));
 	}
 
-
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return Pdetail the static model class
-	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);

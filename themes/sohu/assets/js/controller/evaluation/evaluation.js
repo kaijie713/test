@@ -20,16 +20,40 @@ define(function(require, exports, module) {
         },
 
         events: {
-            'click [data-role=add-pdetail]': 'onAddPdetail',
+            // 'click [data-role=add-pdetail]': 'onAddPdetail',
             'click [data-role=delete-pdetail]': 'onDeletePdetail',
+
             'click [data-role=add-outlineoutdetail]': 'onAddOutlineOutdetail',
             'click [data-role=delete-outlineoutdetail]': 'onDeleteOutlineoutdetail',
+
+            "keyup input[name^='Outlineoutdetail']": 'calculatorForOutlineoutdetail',
+            'click [data-role=btn-calculator]': 'calculator',
+
+
         },
 
         setup: function() {
             this._initForm();
-            this._setupForPdetail();
+            // this._setupForPdetail();
             this._setupForOutlineoutdetail();
+        },
+
+        calculatorForOutlineoutdetail: function(event) {
+            var dvalue = $(event.currentTarget).parents('tbody').data('key');
+            var $input = $(event.currentTarget).parents('tbody').find('[id^=out_amount]');
+            var sum = 0;
+
+            $input.each(function(){
+                sum = parseInt($(this).val())+parseInt(sum);
+            });
+
+            sum = !isNaN(sum) ? sum : 0;
+
+            $('[data-role='+dvalue+']').text(sum);
+        },
+
+        calculator: function(event) {
+            console.log(2);
         },
 
         // onSubmit: function(e){
@@ -48,14 +72,7 @@ define(function(require, exports, module) {
             this.addPdetail(model);
         },
 
-        onDeletePdetail: function(event) {
-            var pdetailCount = this.$('[data-role=pdetail]').length;
-            if (pdetailCount <= 1 ) {
-                Notify.danger("选项至少一个!");
-                return false;
-            }
-            this.deletePdetail(event);
-        },
+        
 
         addPdetail: function(model) {
             var self = this;
@@ -111,16 +128,26 @@ define(function(require, exports, module) {
             });
         },
 
+        onDeletePdetail: function(event) {
+            // var pdetailCount = this.$('[data-role=pdetail]').length;
+            // if (pdetailCount <= 1 ) {
+            //     Notify.danger("选项至少一个!");
+            //     return false;
+            // }
+            this.deletePdetail(event);
+        },
+
         deletePdetail: function(e){
             var $btn = $(e.currentTarget);
-            var id =  $btn.parents('tr').attr('id');
+            var id =  $btn.parents('tr').data('id');
 
-            this.get('validator').removeItem('#bdate' +id);
-            this.get('validator').removeItem('#edate' +id);
-            this.get('validator').removeItem('#sell_house_num' +id);
-            this.get('validator').removeItem('#source_type' +id);
-            this.get('validator').removeItem('#charge_type' +id);
+            // this.get('validator').removeItem('#bdate' +id);
+            // this.get('validator').removeItem('#edate' +id);
+            // this.get('validator').removeItem('#sell_house_num' +id);
+            // this.get('validator').removeItem('#source_type' +id);
+            // this.get('validator').removeItem('#charge_type' +id);
             $btn.parents('[data-role=pdetail]').remove();
+
             this.$('[data-role=pdetail]').each(function(index, item){
                 $(this).find('.code').html(index+1);
             });
@@ -132,26 +159,6 @@ define(function(require, exports, module) {
             this.set('pdetailTemplate', pdetailTemplate);
 
             this.addPdetail({code:1, id: self._generateNextGlobalId()});
-        },
-
-        _prepareFormData: function(){
-            var answers = [],
-            $form = this.get('form');
-            $form.find(".answer-checkbox").each(function(index){
-                if($(this).prop('checked')) {
-                    answers.push(index);
-                }
-            });
-            if (0 == answers.length){
-                Notify.danger("请选择正确答案!");
-                return false;
-            }
-
-            $.each(answers, function(i, answer) {
-                $form.append('<input type="hidden" name="answer[]" value="' + answer + '">');
-            });
-
-            return true;
         },
 
         _initForm: function() {
@@ -319,7 +326,8 @@ define(function(require, exports, module) {
             
             this.get("validator").addItem({
                 element: '#out_amount'+model.id,
-                required: true
+                required: true,
+                rule: 'currency'
             });
 
             this.get("validator").addItem({
@@ -346,7 +354,7 @@ define(function(require, exports, module) {
             }
         },
 
-         _generateNextGlobalOId: function() {
+        _generateNextGlobalOId: function() {
             var globalOId = this.get('globalOId');
             this.set('globalOId', globalOId + 1);
             return globalOId;

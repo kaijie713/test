@@ -22,7 +22,7 @@ class UserIdentity extends CUserIdentity
 			'demo'=>'demo',
 			'admin'=>'admin',
 		);
-		if(!isset($users[$this->username]))
+		if(!isset($users[$this->email]))
 			$this->errorCode=self::ERROR_USERNAME_INVALID;
 		elseif($users[$this->username]!==$this->password)
 			$this->errorCode=self::ERROR_PASSWORD_INVALID;

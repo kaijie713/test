@@ -5,37 +5,47 @@
 			<div class="form-group">
 				<label class="col-md-6 control-label">可售房源总数：</label>
 				<div class="col-md-6 controls">
-					<p class="form-control-static">2222</p>
+					<p class="form-control-static">0</p>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-md-6 control-label">预计成交总额：</label>
 				<div class="col-md-6 controls">
-					<p class="form-control-static">2222</p>
+					<p class="form-control-static">0</p>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-md-6 control-label">保底广告费金额：</label>
+				<label class="col-md-6 control-label" for="pre_ad_amount">保底广告费金额：</label>
 				<div class="col-md-6 controls">
-					<p class="form-control-static">2222</p>
+					<div class="input-group ">
+				  		<div class="input-group">
+							<input type="text" class="form-control" name="EvaformPayment[pre_ad_amount]" id="pre_ad_amount">
+					  		<span class="input-group-addon">元</span>
+					  	</div>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-md-6 control-label">预计焦点净收益：</label>
 				<div class="col-md-6 controls">
-					<p class="form-control-static">2222</p>
+					<p class="form-control-static">0</p>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-md-6 control-label">第三方分成比例：</label>
 				<div class="col-md-6 controls">
-					<p class="form-control-static">2222</p>
+					<p class="form-control-static">0</p>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-md-6 control-label">税金比例：</label>
+				<label class="col-md-6 control-label" for="pre_tax_ratio">税金比例：</label>
 				<div class="col-md-6 controls">
-					<p class="form-control-static">2222</p>
+					<div class="input-group ">
+				  		<div class="input-group">
+							<input type="text" class="form-control" name="EvaformPayment[pre_tax_ratio]" id="pre_tax_ratio">
+					  		<span class="input-group-addon">%</span>
+					  	</div>
+					</div>
 				</div>
 			</div>
 
@@ -44,13 +54,13 @@
 			<div class="form-group">
 				<label class="col-md-6 control-label">预计成交套数：</label>
 				<div class="col-md-6 controls">
-					<p class="form-control-static">2222</p>
+					<p class="form-control-static">0</p>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-md-6 control-label">预计焦点毛收入：</label>
 				<div class="col-md-6 controls">
-					<p class="form-control-static">2222</p>
+					<p class="form-control-static">0</p>
 				</div>
 			</div>
 			<div class="form-group">
@@ -68,19 +78,19 @@
 			<div class="form-group">
 				<label class="col-md-6 control-label">线下总支出比例：</label>
 				<div class="col-md-6 controls">
-					<p class="form-control-static">2222</p>
+					<p class="form-control-static">0</p>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-md-6 control-label">开发商分成比例：</label>
 				<div class="col-md-6 controls">
-					<p class="form-control-static">2222</p>
+					<p class="form-control-static">0</p>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-md-6 control-label">营销费用比例：</label>
 				<div class="col-md-6 controls">
-					<p class="form-control-static">2222</p>
+					<p class="form-control-static">0</p>
 				</div>
 			</div>
 		</div>

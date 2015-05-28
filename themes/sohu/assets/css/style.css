@@ -446,4 +446,10 @@ body {
 .evaform-outlineoutdetail-base{
     margin-bottom: 20px;
 }
-
+.float-consult {
+    position: fixed;
+    right: 0;
+    top: 80%;
+    visibility: hidden;
+    z-index: 999;
+}

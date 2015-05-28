@@ -58,7 +58,7 @@
 			<div class="form-group">
 				<label class="col-md-6 control-label" for="userName">申请人：</label>
 				<div class="col-md-6 controls">
-					<span class="form-control" readonly >default</span>
+					<span class="form-control" readonly ><?php echo Yii::app()->user->__get('name');?></span>
 				</div>
 			</div>
 			<div class="form-group">

@@ -6,20 +6,20 @@
 				<div class="form-group">
 					<label class="col-md-6 control-label">线下总支出：</label>
 					<div class="col-md-6 controls">
-						<p class="form-control-static">2222</p>
+						<p class="form-control-static">0</p>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-6 control-label">案场奖励总额：</label>
 					<div class="col-md-6 controls">
-						<p class="form-control-static">2222</p>
+						<p class="form-control-static">0</p>
 					</div>
 				</div>
 				<div class="form-group ">
 					<div >
 						<label class="col-md-6 control-label">短信、call客、 派单费用总额：</label>
 						<div class="col-md-6 controls">
-							<p class="form-control-static">2222 <button type="button" class="btn-xs btn btn-link pull-right" data-role="add-outlineoutdetail" data-for="#outlineoutdetail-body-dxckpdfyze">添加</button></p>
+							<p class="form-control-static"><span data-role="dxckpdfyze">0</span>元 <button type="button" class="btn-xs btn btn-link pull-right" data-role="add-outlineoutdetail" data-for="#outlineoutdetail-body-dxckpdfyze">添加</button></p>
 
 						</div>
 					</div>
@@ -27,7 +27,7 @@
 				<div class="form-group">
 					<label class="col-md-6 control-label">看房团及其它线下活动费用总额：</label>
 					<div class="col-md-6 controls">
-						<p class="form-control-static">2222 <button type="button" class="btn-xs btn btn-link pull-right" data-role="add-outlineoutdetail" data-for="#outlineoutdetail-body-kftdxxhdze">添加</button></p>
+						<p class="form-control-static"><span data-role="kftdxxhdze">0</span>元 <button type="button" class="btn-xs btn btn-link pull-right" data-role="add-outlineoutdetail" data-for="#outlineoutdetail-body-kftdxxhdze">添加</button></p>
 					</div>
 				</div>
 			</div>
@@ -35,25 +35,25 @@
 				<div class="form-group">
 					<label class="col-md-6 control-label">线下总支出比例：</label>
 					<div class="col-md-6 controls">
-						<p class="form-control-static">2222</p>
+						<p class="form-control-static">0</p>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-6 control-label">门店经纪人服务费总额：</label>
 					<div class="col-md-6 controls">
-						<p class="form-control-static">2222</p>
+						<p class="form-control-static">0</p>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-6 control-label">驻场人员劳务费总额：</label>
 					<div class="col-md-6 controls">
-						<p class="form-control-static">2222 <button type="button" class="btn-xs btn btn-link pull-right" data-role="add-outlineoutdetail" data-for="#outlineoutdetail-body-zcrnlwfyze">添加</button></p>
+						<p class="form-control-static"><span data-role="zcrnlwfyze">0</span>元 <button type="button" class="btn-xs btn btn-link pull-right" data-role="add-outlineoutdetail" data-for="#outlineoutdetail-body-zcrnlwfyze">添加</button></p>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-6 control-label">项目备用金：</label>
 					<div class="col-md-6 controls">
-						<p class="form-control-static">2222 <button type="button" class="btn-xs btn btn-link pull-right" data-role="add-outlineoutdetail" data-for="#outlineoutdetail-body-xmbyj">添加</button></p>
+						<p class="form-control-static"><span data-role="xmbyj">0</span>元 <button type="button" class="btn-xs btn btn-link pull-right" data-role="add-outlineoutdetail" data-for="#outlineoutdetail-body-xmbyj">添加</button></p>
 					</div>
 				</div>
 			</div>

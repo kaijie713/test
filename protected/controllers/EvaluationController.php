@@ -74,10 +74,7 @@ class EvaluationController extends BaseController
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Evaluation');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+		$this->redirect('/index.php?r=evaluation/admin');
 	}
 
 	/**

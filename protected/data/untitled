@@ -1,1 +1,1 @@
-ALTER TABLE `dict_chengshi` CHANGE `citys_id` `city_id` VARCHAR(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'city_id';
+ALTER TABLE `t_prj_partner_splitdetail` CHANGE `partner_type` `partner_type` VARCHAR(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '开发商/合作媒体类别';

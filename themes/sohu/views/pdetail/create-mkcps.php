@@ -1,6 +1,6 @@
 <div class="modal-dialog modal-lg">
   <div class="modal-content"  id="pdetail-create-widget">
-   <form method="post" class="form-horizontal" novalidate="novalidate" data-role="pdetail-form">
+   <form method="post" class="form-horizontal" novalidate="novalidate" data-role="pdetail-form" action="/index.php?r=Pdetail/create">
 	    <div class="modal-header">
 	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 	      <h4 class="modal-title">项目明细信息</h4>
@@ -40,7 +40,7 @@
 					<div class="col-md-6 controls">
 					    <div class="input-group ">
 					  		<div class="input-group">
-						  		<input type="text" readonly class="form-control" name="Pdetail[ajcard_price]" id="ajcard_price"/>
+						  		<input type="text"  class="form-control" name="Pdetail[ajcard_price]" id="ajcard_price"/>
 						  		<span class="input-group-addon">元</span>
 						  	</div>
 					  	</div>
@@ -122,7 +122,7 @@
 				<div class="form-group">
 					<label class="col-md-6 control-label" for="">收费方式：</label>
 					<div class="col-md-6 controls">
-					      <input readonly type="text" class="form-control" value="<?php echo $chargeType['dvalue'];?>" >
+					      <input readonly type="text" class="form-control" id="shoufei" value="<?php echo $chargeType['dvalue'];?>" >
 					</div>
 				</div>
 				<div class="form-group">
@@ -193,7 +193,7 @@
 		    <div class="form-group col-md-12">
 				<label class="col-md-3 control-label" for="pref_context">优惠情况</label>
 				<div class="col-md-9 controls phl">
-					<textarea class="form-control" rows="4" cols="20" name="Pdetail[pref_context]" id="pref_context" ></textarea>
+					<textarea class="form-control" rows="2" cols="20" name="Pdetail[pref_context]" id="pref_context" ></textarea>
 				</div>
 			</div>
 		    
@@ -204,7 +204,7 @@
 			<button id="pdetail-create-btn" type="submit" class="btn btn-primary pull-right">确定</button>
 			<button type="button" class="btn btn-link pull-right" data-dismiss="modal">取消</button>
 	    </div>
-		<input type="hidden" name="Pdetail[charge_type]" id="charge_type" value="<?php echo $chargeType['dict_id'];?>">
+		<input type="hidden" name="Pdetail[charge_type]" id="charge_type" data-type="<?php echo $chargeType['dkey'];?>" value="<?php echo $chargeType['dict_id'];?>">
     </form>
   </div>
   <script>app.load("pdetail/create");</script>

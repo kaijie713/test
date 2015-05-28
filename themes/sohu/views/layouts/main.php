@@ -40,8 +40,8 @@
 	                <li class=""><a class="" href="/teacher">电商评估 </a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
-                    <li class="right-li-text">李霁川你好，你现在的身份是：销售</li>
-                    <li><a href="#"><i class="glyphicon glyphicon-off"></i> 安全退出</a></li>
+                    <li class="right-li-text"><?php echo Yii::app()->session['name'];?>你好<?php echo Yii::app()->user->__get('name');?>，你现在的身份是：销售</li>
+                    <li><a href="/index.php?r=login/Logout"><i class="glyphicon glyphicon-off"></i> 安全退出</a></li>
                 </ul>
 	        </div>
         </div>
@@ -225,6 +225,6 @@
 	</div>
 </div>
 <div id="modal" class="modal"></div>
-<?php require_once('script_boot.php');?>
+<?php include('./script_boot.php');?>
 </body>
 </html>

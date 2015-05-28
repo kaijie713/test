@@ -6,15 +6,9 @@
 		  	<tr>
 		  		<th colspan="8" style="text-align:center">明细信息
 					<div class="pull-right ">
-					    <select class="form-control width-input width-input-large" name="Pdetail[charge_type][]" id="charge_type{{id}}">
-				    	  <option value="">请选择</option>
 				    	  <?php foreach ($chargeType as $value) { ?>
-					    	<option  data-target="#modal" data-toggle="modal" data-url="/index.php?r=Pdetail/create&id=<?php echo $value['dict_id'];?>"  value="<?php echo $value['dict_id'];?>"><?php echo $value['dvalue'];?></option>
+				    	  <a class="btn btn-default btn-sm" data-role="add-pdetail" data-target="#modal" data-toggle="modal" data-url="/index.php?r=Pdetail/create&id=<?php echo $value['dict_id'];?>" >+<?php echo $value['dvalue'];?></a>
 					      <?php } ?>
-				    	</select>
-					</div>
-					<div class="pull-right mrm">
-					    <a class="btn btn-default btn-sm" data-role="add-pdetail">添加</a>
 					</div>
 		  		</th>
 		  	</tr>
@@ -38,65 +32,38 @@
 </div>
 
 <script type="text/x-handlebars-template" data-role="pdetail-template">
-	<tr id="tr{{id}}" data-role="pdetail" data-charge="false">
-	  <td class="code">{{code}}</td>
-	  <td>
-  		<div class="form-group">
-	  		<label class="col-md-6 control-label hide" for="bdate{{id}}">开始时间</label>
-		  	<div class="input-group controls">
-		  		<input type="text" class="form-control" name="Pdetail[bdate][]" id="bdate{{id}}"/>
-		  	</div>
-	  	</div>
-	  </td>
-	  <td>
-	  	<div class="form-group">
-	  		<label class="col-md-6 control-label hide" for="edate{{id}}">结束时间</label>
-		  	<div class="input-group controls">
-		  		<input type="text" class="form-control" name="Pdetail[edate][]" id="edate{{id}}"/>
-		  	</div>
-	  	</div>
-	  </td>
-	  <td>
-	  	<div class="form-group">
-	  		<label class="col-md-6 control-label hide" for="sell_house_num{{id}}">可售房源数量</label>
-		  	<div class="input-group controls">
-		  		<div class="input-group">
-			  		<input type="text" class="form-control" name="Pdetail[sell_house_num][]" id="sell_house_num{{id}}"/>
-			  		<span class="input-group-addon">套</span>
-			  	</div>
-		  	</div>
-	  	</div>
-	  </td>
-	  <td>
-	  	<div class="form-group">
-	  		<label class="col-md-6 control-label hide" for="source_type{{id}}">房源类型</label>
-	  		<div class="input-group controls">
-			  	<select class="form-control width-input width-input-large" name="Pdetail[source_type][]" id="source_type{{id}}">
-		    	  <option value="">请选择</option>
-		    	  <?php foreach ($sourceType as $value) { ?>
-			    	<option value="<?php echo $value['dict_id'];?>"><?php echo $value['dvalue'];?></option>
-			      <?php } ?>
-		    	</select>
-		    </div>
-	    </div>
-	  </td>
-	  <td><p class="form-control-static"><span class="yuan">0</span>万元</p></td>
-	  <td>
-	  	<div class="form-group">
-	  		<label class="col-md-6 control-label hide" for="charge_type{{id}}">收费方式</label>
-	  		<div class="input-group controls">
-			  	<select class="form-control width-input width-input-large" name="Pdetail[charge_type][]" id="charge_type{{id}}">
-		    	  <option value="">请选择</option>
-		    	  <?php foreach ($chargeType as $value) { ?>
-			    	<option  data-target="#modal" data-toggle="modal" data-url="/index.php?r=Pdetail/create&type=<?php echo $value['dict_id'];?>"  value="<?php echo $value['dict_id'];?>"><?php echo $value['dvalue'];?></option>
-			      <?php } ?>
-		    	</select>
-		    </div>
-	    </div>
-	  </td>
-	  <td>
-	  	  <button type="button" class="btn btn-default btn-sm">设置详情</button>
-		  <button type="button" data-role="delete-pdetail" class="btn btn-default btn-sm">删除</button>
-	  </td>
-	</tr>
+<tr id="tr{{id}}" data-role="pdetail" data-id={{id}} data-charge="false">
+  <td class="code">{{code}}</td>
+  <td><p class="form-control-static">{{arr.bdate}}</td>
+  <td><p class="form-control-static">{{arr.bdate}}</td>
+  <td><p class="form-control-static">{{arr.sell_house_num}}套</td>
+  <td><p class="form-control-static">{{arr.fanyuan}}</td>
+  <td><p class="form-control-static"><span class="yujimaoshouru">{{arr.pre_incoming}}</span>元</p></td>
+  <td><p class="form-control-static">{{arr.shoufei}}</td>
+  <td>
+  	  <button type="button" class="btn btn-default btn-sm" data-url="/index.php?r=Pdetail/Update&id={{pdid}}" data-toggle="modal" data-target="#modal" id="{{pdid}}">设置详情</button>
+	  <button type="button" data-role="delete-pdetail" class="btn btn-default btn-sm">删除</button>
+	  <span data-role="calculator" data-id="{{id}}">
+		<input type="hidden" id="sell_house_num{{id}}" value="{{arr.sell_house_num}}">
+		<input type="hidden" id="ajcard_price{{id}}" value="{{arr.ajcard_price}}">
+		<input type="hidden" id="pre_volumn{{id}}" value="{{arr.pre_volumn}}">
+		<input type="hidden" id="prjreword_perunit{{id}}" value="{{arr.prjreword_perunit}}">
+		<input type="hidden" id="prevolumn_perunit{{id}}" value="{{arr.prevolumn_perunit}}">
+		<input type="hidden" id="brokerfees_perunit{{id}}" value="{{arr.brokerfees_perunit}}">
+		<input type="hidden" id="prebrokervolumn{{id}}" value="{{arr.prebrokervolumn}}">
+		<input type="hidden" id="pre_amount{{id}}" value="{{arr.pre_amount}}">
+		<input type="hidden" id="commission_rate{{id}}" value="{{arr.commission_rate}}">
+		<input type="hidden" id="commission_perunit{{id}}" value="{{arr.commission_perunit}}">
+		<input type="hidden" id="pre_commission_amount{{id}}" value="{{arr.pre_commission_amount}}">
+		<input type="hidden" id="pre_incoming{{id}}" value="{{arr.pre_incoming}}">
+		<input type="hidden" id="jd_retain_ratio{{id}}" value="{{arr.jd_retain_ratio}}">
+		<input type="hidden" id="jd_retain_amount{{id}}" value="{{arr.jd_retain_amount}}">
+		<input type="hidden" id="divideSum{{id}}" value="{{arr.divideSum}}">
+		<input type="hidden" id="divideAmountSum{{id}}" value="{{arr.divideAmountSum}}">
+		<input type="hidden" id="splitdetailNum{{id}}" value="{{arr.splitdetailNum}}">
+		<input type="hidden" id="jd_retain_ratio{{id}}" value="{{arr.jd_retain_ratio}}">
+		<input type="hidden" id="jd_retain_amount{{id}}" value="{{arr.jd_retain_amount}}">
+  	  </span>
+  </td>
+</tr>
 </script>

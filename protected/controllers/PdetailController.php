@@ -81,7 +81,7 @@ class PdetailController extends BaseController
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
+	public function actionUpdates($id)
 	{
 		$model=$this->loadModel($id);
 
@@ -119,10 +119,11 @@ class PdetailController extends BaseController
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Pdetail');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+
+		// $dataProvider=new CActiveDataProvider('Pdetail');
+		// $this->render('index',array(
+		// 	'dataProvider'=>$dataProvider,
+		// ));
 	}
 
 	/**
@@ -142,14 +143,28 @@ class PdetailController extends BaseController
 
 	public function actionCreate()
 	{
+		$model=new Pdetail;
+
+		
+
 		if(isset($_POST['Pdetail']))
 		{
-			$model->attributes=$_POST['Pdetail'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->eva_id));
-		}
+			// try
+			// {
+				if(empty($_POST['Splitdetail'])){
+					$_POST['Splitdetail'] = null;
+				}
 
-		$Pdetail=new Pdetail;
+				$result = $model->createPdtail($_POST['Pdetail'], $_POST['Splitdetail']);
+				$var['status'] = true;
+      			$var['message'] = $result->pd_id;
+			// }
+			// catch ( Exception $e ) {
+			// 	$var['status'] = false;
+   //    			$var['message'] = '出现错误';
+		 //    }
+			exit(CJSON::encode($var));
+		}
 
 		$dict_id = $this->get('id');
 
@@ -169,13 +184,53 @@ class PdetailController extends BaseController
 		));
 	}
 
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer $id the ID of the model to be loaded
-	 * @return Pdetail the loaded model
-	 * @throws CHttpException
-	 */
+	public function actionUpdate()
+	{
+		$id = empty($_POST['id']) ? '0' : trim($_POST['id']);
+
+		$model=$this->loadModel($id);
+
+		var_dump($model);
+		exit();
+
+		if(isset($_POST['Pdetail']))
+		{
+			// try
+			// {
+				if(empty($_POST['Splitdetail'])){
+					$_POST['Splitdetail'] = null;
+				}
+
+				$result = $model->createPdtail($_POST['Pdetail'], $_POST['Splitdetail']);
+				$var['status'] = true;
+      			$var['message'] = $result->pd_id;
+			// }
+			// catch ( Exception $e ) {
+			// 	$var['status'] = false;
+   //    			$var['message'] = '出现错误';
+		 //    }
+			exit(CJSON::encode($var));
+		}
+
+		$dict_id = $this->get('id');
+
+		$SysDict = new SysDict();
+		$sourceType = $SysDict->findSysDictByGroup('sourceType');
+		$partnerType = $SysDict->findSysDictByGroup('partnerType');
+		$chargeType = $SysDict->getSysDictById($dict_id);
+
+		if(empty($chargeType)){
+			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+		}
+
+		$this->renderPartial('create-'.$chargeType['dkey'],array(
+			'sourceType' => $sourceType,
+			'chargeType' => $chargeType,
+			'partnerType' => $partnerType,
+		));
+	}
+
+
 	public function loadModel($id)
 	{
 		$model=Pdetail::model()->findByPk($id);
@@ -184,10 +239,6 @@ class PdetailController extends BaseController
 		return $model;
 	}
 
-	/**
-	 * Performs the AJAX validation.
-	 * @param Pdetail $model the model to be validated
-	 */
 	protected function performAjaxValidation($model)
 	{
 		if(isset($_POST['ajax']) && $_POST['ajax']==='pdetail-form')

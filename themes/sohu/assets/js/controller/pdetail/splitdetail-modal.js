@@ -12,6 +12,7 @@ define(function(require, exports, module) {
             validator : null,
             form : null,
             template: null,
+            isSplitdetail: 0,
         },
 
         events: {
@@ -20,7 +21,9 @@ define(function(require, exports, module) {
         },
 
         setup: function() {
-            this._setupForSplitdetail();
+            if(this.get('isSplitdetail')){
+                this._setupForSplitdetail();
+            }
         },
 
         onAddSplitdetail: function(event) {

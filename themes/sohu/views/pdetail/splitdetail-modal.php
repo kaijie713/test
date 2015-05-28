@@ -16,7 +16,7 @@
         <td width="8%">操作</td>
     </tr>
   </thead>
-  <tbody data-role="splitdetail" id="splitdetail-tbody">
+  <tbody data-role="splitdetails" id="splitdetail-tbody">
   </tbody>
 <script type="text/x-handlebars-template" data-role="splitdetail-template">
 <tr data-charge="false" data-role="splitdetail" data-id ="{{id}}" id="tr{{id}}">
