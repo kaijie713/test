@@ -9,6 +9,7 @@
 
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
+	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'搜狐焦点后台系统',
 	'theme' => 'sohu',
 	'preload'=>array('log'),
@@ -63,6 +64,9 @@ return array(
                     'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',  
                 ), 
 			),
+		),
+		'session'=>array(
+		  'class'=>'application.components.WHttpSession',
 		),
 	),
 	'params'=>require(dirname(__FILE__).'/params.php'),

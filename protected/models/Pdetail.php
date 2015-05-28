@@ -15,10 +15,10 @@ class Pdetail extends BaseModel
 	public function rules()
 	{
 		return array(
-			array('pd_id, charge_type' , 'required'),
+			array('pd_id' , 'required'),
 			array('sell_house_num, pre_volumn, prevolumn_perunit, prebrokervolumn, jd_retain_ratio, commission_rate', 'numerical', 'integerOnly'=>true),
 			array('group_id, eva_id, pd_id, createby, updateby', 'length', 'max'=>36),
-			array('source_type, charge_type', 'length', 'max'=>2),
+			array('source_type, charge_type', 'length', 'max'=>36),
 			array('pre_incoming, jd_retain_amount, commission_perunit', 'length', 'max'=>16),
 			array('ajcard_price, prjreword_perunit, brokerfees_perunit, pre_amount', 'length', 'max'=>13),
 			array('pref_context', 'length', 'max'=>2000),
@@ -124,12 +124,53 @@ class Pdetail extends BaseModel
     }
 
     public function createPdtail($con, $splitdetail){
+
+    	if(empty($con['pd_id'])){
+    		$model=new Pdetail;
+    		$model->createby = Yii::app()->user->__get('u_id');
+	    	$model->createdate = date("Y-m-d H:i");
+	    	$model->pd_id = $this->getUUID();
+	    	$model->isactive = 1;
+    	} else{
+    		$model = Pdetail::model()->findByPk($con['pd_id']);
+    		$model->isNewRecord = false;
+    		$model->updateby = Yii::app()->user->__get('u_id');
+    		$model->updatedate = date("Y-m-d H:i");
+    	}
+
+		$model->attributes=$con;
+
+		$chargeType = $this->requiredChargeType($con['charge_type']);
+
+    	$model = $this->filterPdetail($model, $con);
+
+    	$model = $this->preparePreIncoming($model, $splitdetail);
+
+    	$result = $model->save(false);
+
+
+    	if(!$result)
+    	{
+            throw new Exception('error');
+    	}
+
+    	if(!empty($splitdetail)){
+    		$Splitdetail = new PrjPartnerSplitdetail();
+			$Splitdetail->createSplitdetails($splitdetail, $model->pd_id);
+    	}
+
+    	return $model;
+    }
+
+    public function updatePdtail($con, $splitdetail){
     	$model=new Pdetail;
 		$model->attributes=$con;
 
 		$chargeType = $this->requiredChargeType($con['charge_type']);
 
     	$model = $this->filterPdetail($model, $con);
+
+    	
 
     	$model = $this->preparePreIncoming($model, $splitdetail);
 
@@ -140,8 +181,10 @@ class Pdetail extends BaseModel
     	}
 
     	$Splitdetail = new PrjPartnerSplitdetail();
+
+		$Splitdetail->deleteSplitdetailByPdId($model->pd_id);
 		$Splitdetail->createSplitdetails($splitdetail, $model->pd_id);
-	
+
     	return $model;
     }
 
@@ -158,7 +201,7 @@ class Pdetail extends BaseModel
 
         $model->pre_incoming = $model->pre_incoming - $model->prjreword_perunit * $model->prevolumn_perunit - $model->brokerfees_perunit * $model->prebrokervolumn;
 
-        $model->pre_incoming = number_format($model->pre_incoming, 2, '.', '');
+        $model->pre_incoming = number_format($model->pre_incoming, 4, '.', '');
 
 		return $model;
     }
@@ -189,26 +232,21 @@ class Pdetail extends BaseModel
 
    
     public function filterPdetail($model, $con){
-    	$model->createby = Yii::app()->user->__get('u_id');
-    	$model->createdate = date("Y-m-d H:i");
-    	$model->pd_id = $this->getUUID();
-    	$model->isactive = 1;
-
     	
     	$model->sell_house_num = !empty($con['sell_house_num']) && $con['sell_house_num'] != "" ? number_format($con['sell_house_num'], 0, '.', '') : 0 ; 
-    	$model->ajcard_price = !empty($con['ajcard_price']) && $con['ajcard_price'] != "" ? number_format($con['ajcard_price'], 2, '.', '') : 0 ; 
+    	$model->ajcard_price = !empty($con['ajcard_price']) && $con['ajcard_price'] != "" ? number_format($con['ajcard_price'], 4, '.', '') : 0 ; 
     	$model->pre_volumn = !empty($con['pre_volumn']) && $con['pre_volumn'] != "" ? number_format($con['pre_volumn'], 0, '.', '') : 0 ; 
-    	$model->prjreword_perunit = !empty($con['prjreword_perunit']) && $con['prjreword_perunit'] != "" ? number_format($con['prjreword_perunit'], 2, '.', '') : 0 ; 
+    	$model->prjreword_perunit = !empty($con['prjreword_perunit']) && $con['prjreword_perunit'] != "" ? number_format($con['prjreword_perunit'], 4, '.', '') : 0 ; 
     	$model->prevolumn_perunit = !empty($con['prevolumn_perunit']) && $con['prevolumn_perunit'] != "" ? number_format($con['prevolumn_perunit'], 0, '.', '') : 0 ; 
-    	$model->brokerfees_perunit = !empty($con['brokerfees_perunit']) && $con['brokerfees_perunit'] != "" ? number_format($con['brokerfees_perunit'], 2, '.', '') : 0 ; 
+    	$model->brokerfees_perunit = !empty($con['brokerfees_perunit']) && $con['brokerfees_perunit'] != "" ? number_format($con['brokerfees_perunit'], 4, '.', '') : 0 ; 
     	$model->prebrokervolumn = !empty($con['prebrokervolumn']) && $con['prebrokervolumn'] != "" ? number_format($con['prebrokervolumn'], 0, '.', '') : 0 ; 
-    	$model->pre_amount = !empty($con['pre_amount']) && $con['pre_amount'] != "" ? number_format($con['pre_amount'], 2, '.', '') : 0 ; 
-    	$model->commission_rate = !empty($con['commission_rate']) && $con['commission_rate'] != "" ? number_format($con['commission_rate'], 2, '.', '') : 0 ; 
-    	$model->commission_perunit = !empty($con['commission_perunit']) && $con['commission_perunit'] != "" ? number_format($con['commission_perunit'], 2, '.', '') : 0 ; 
-    	$model->commission_perunit = !empty($con['commission_perunit']) && $con['commission_perunit'] != "" ? number_format($con['commission_perunit'], 2, '.', '') : 0 ; 
-    	$model->pre_commission_amount = !empty($con['pre_commission_amount']) && $con['pre_commission_amount'] != "" ? number_format($con['pre_commission_amount'], 2, '.', '') : 0 ; 
-    	$model->jd_retain_ratio = !empty($con['jd_retain_ratio']) && $con['jd_retain_ratio'] != "" ? number_format($con['jd_retain_ratio'], 2, '.', '') : 0 ; 
-    	$model->jd_retain_amount = !empty($con['jd_retain_amount']) && $con['jd_retain_amount'] != "" ? number_format($con['jd_retain_amount'], 2, '.', '') : 0 ; 
+    	$model->pre_amount = !empty($con['pre_amount']) && $con['pre_amount'] != "" ? number_format($con['pre_amount'], 4, '.', '') : 0 ; 
+    	$model->commission_rate = !empty($con['commission_rate']) && $con['commission_rate'] != "" ? number_format($con['commission_rate'], 4, '.', '') : 0 ; 
+    	$model->commission_perunit = !empty($con['commission_perunit']) && $con['commission_perunit'] != "" ? number_format($con['commission_perunit'], 4, '.', '') : 0 ; 
+    	$model->commission_perunit = !empty($con['commission_perunit']) && $con['commission_perunit'] != "" ? number_format($con['commission_perunit'], 4, '.', '') : 0 ; 
+    	$model->pre_commission_amount = !empty($con['pre_commission_amount']) && $con['pre_commission_amount'] != "" ? number_format($con['pre_commission_amount'], 4, '.', '') : 0 ; 
+    	$model->jd_retain_ratio = !empty($con['jd_retain_ratio']) && $con['jd_retain_ratio'] != "" ? number_format($con['jd_retain_ratio'], 4, '.', '') : 0 ; 
+    	$model->jd_retain_amount = !empty($con['jd_retain_amount']) && $con['jd_retain_amount'] != "" ? number_format($con['jd_retain_amount'], 4, '.', '') : 0 ; 
 
     	return $model;
     }
@@ -278,4 +316,5 @@ class Pdetail extends BaseModel
 	{
 		return parent::model($className);
 	}
+
 }

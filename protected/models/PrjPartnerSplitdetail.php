@@ -53,31 +53,50 @@ class PrjPartnerSplitdetail extends BaseModel
 	}
 
 
-	public function createSplitdetails($fields, $pdetailId){
+	public function createSplitdetails($fields, $pdetailId)
+	{
 
 		foreach ($fields['partner_type'] as $key => $value) {
+
 			$arr = array();
     		$arr['partner_type']  =  $fields['partner_type'][$key];
     		$arr['partner_name']  =  $fields['partner_name'][$key];
-    		$arr['divide']  =  $fields['divide'][$key];
-    		$arr['divide_amount']  =  $fields['divide_amount'][$key];
+    		$arr['divide']        =  $fields['divide'][$key];
+    		$arr['divide_amount'] =  $fields['divide_amount'][$key];
     		$arr['partner_memo']  =  $fields['partner_memo'][$key];
     		$arr['partner_memo']  =  $fields['partner_memo'][$key];
-    		$arr['pd_id']  =  $pdetailId;
-    		$this->createSplitdetail($arr);
+    		$arr['pd_id']         =  $pdetailId;
+
+    		if(empty($fields['sp_id'][$key])){
+				$model = new PrjPartnerSplitdetail();
+    			$model->isactive = 1;
+    			$arr['createby']  =  Yii::app()->user->__get('u_id');
+    			$arr['createdate']  =  date("Y-m-d H:i");
+    			$arr['sp_id']  =  $this->getUUID();
+    			$arr['isactive']  =  1;;
+    		} else {
+    			$model = PrjPartnerSplitdetail::model()->findByPk($fields['sp_id'][$key]);
+    			$model->isNewRecord = false;
+    			$arr['sp_id']  =  $fields['sp_id'][$key];
+    			$arr['updateby']  =  Yii::app()->user->__get('u_id');
+    			$arr['updatedate']  =  date("Y-m-d H:i");
+    		}
+    		
+			$model->attributes = $arr;
+			$model->save(false);
+
     	}
 	}
 
-	public function createSplitdetail($fields){
-		$model = new PrjPartnerSplitdetail();
-		$model->attributes = $fields;
-	
-		$model->createby = Yii::app()->user->__get('u_id');
-    	$model->createdate = date("Y-m-d H:i");
-    	$model->sp_id = $this->getUUID();
-    	$model->isactive = 1;
 
-		$model->save(false);
+
+
+
+	public function findSysDictByPdId($pdid)
+	{
+		$pdid = (int) $pdid;
+		$sql = "select * from t_prj_partner_splitdetail where pd_id = $pdid";
+		return $this->QueryAll($sql);
 	}
 
 

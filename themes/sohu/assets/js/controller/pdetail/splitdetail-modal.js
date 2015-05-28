@@ -12,7 +12,6 @@ define(function(require, exports, module) {
             validator : null,
             form : null,
             template: null,
-            isSplitdetail: 0,
         },
 
         events: {
@@ -21,7 +20,9 @@ define(function(require, exports, module) {
         },
 
         setup: function() {
-            if(this.get('isSplitdetail')){
+            var isSplitdetail = $('#splitdetail-body').length > 0 ? 1 : 0;
+
+            if(isSplitdetail){
                 this._setupForSplitdetail();
             }
         },
@@ -86,8 +87,30 @@ define(function(require, exports, module) {
         },
 
         _setupForSplitdetail: function() {
+            var self = this;
             var template = Handlebars.compile(this.$('[data-role=splitdetail-template]').html());
             this.set('template', template);
+
+            var splitdetails = this.$('[data-role=splitdetails-data]').html();
+            if ($.type(splitdetails) != 'undefined') {
+            
+                var splitdetails = $.parseJSON(splitdetails);
+
+                $.each(splitdetails, function(index, item) {
+                    
+                    var id = self._generateNextGlobalId();
+                    self.addSplitdetail({
+                        sp_id:item.sp_id,
+                        partner_name:item.partner_name,
+                        divide:item.divide,
+                        divide_amount:item.divide_amount,
+                        partner_memo:item.partner_memo,
+                        id:id,
+                    });
+                    $("#partner_type"+id).val(item.partner_type);
+                });
+            }
+
         },
 
         _generateNextGlobalId: function() {

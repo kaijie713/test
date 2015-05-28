@@ -36,7 +36,7 @@
   	<div class="form-group">
   		<label for="partner_name{{id}}" class="col-md-6 control-label hide">开发商/合作媒体名称</label>
 	  	<div class="input-group controls">
-		    <input type="text" id="partner_name{{id}}" name="Splitdetail[partner_name][]" class="form-control" data-widget-cid="widget-15" data-explain="">
+		    <input type="text" id="partner_name{{id}}" {{#if partner_name }}value="{{partner_name}}"{{/if}} name="Splitdetail[partner_name][]" class="form-control" >
   		</div>
   </td>
   <td>
@@ -44,7 +44,7 @@
   		<label for="divide{{id}}" class="col-md-6 control-label hide">分成比例</label>
 	  	<div class="input-group controls">
 	  		<div class="input-group">
-		  		<input type="text" id="divide{{id}}" name="Splitdetail[divide][]" class="form-control" data-widget-cid="widget-15" data-explain="">
+		  		<input type="text" id="divide{{id}}" {{#if divide }}value="{{divide}}"{{/if}} name="Splitdetail[divide][]" class="form-control" >
 		  		<span class="input-group-addon">%</span>
 		  	</div>
   		</div>
@@ -54,7 +54,7 @@
   		<label for="divide_amount{{id}}" class="col-md-6 control-label hide">分成金额</label>
 	  	<div class="input-group controls">
 	  		<div class="input-group">
-		  		<input type="text" id="divide_amount{{id}}" name="Splitdetail[divide_amount][]" class="form-control" data-widget-cid="widget-15" data-explain="">
+		  		<input type="text" id="divide_amount{{id}}" {{#if divide_amount }}value="{{divide_amount}}"{{/if}} name="Splitdetail[divide_amount][]" class="form-control" >
 		  		<span class="input-group-addon">元</span>
 		  	</div>
   		</div>
@@ -63,10 +63,12 @@
   	<div class="form-group">
   		<label for="partner_memo{{id}}" class="col-md-6 control-label hide">备注</label>
 	  	<div class="input-group controls">
-			<input type="text" id="partner_memo{{id}}" name="Splitdetail[partner_memo][]" class="form-control" data-widget-cid="widget-15" data-explain="">
+      <input type="text" id="partner_memo{{id}}" {{#if partner_memo }}value="{{partner_memo}}"{{/if}} name="Splitdetail[partner_memo][]" class="form-control" >
   		</div>
   </td>
   <td>
+      
+    {{#if sp_id }}<input type="hidden" value="{{sp_id}}" id="sp_id{{id}}" name="Splitdetail[sp_id][]" class="form-control" >{{/if}}
 	  <button class="btn btn-default btn-sm" data-role="delete-splitdetail" type="button">删除</button>
   </td>
 </tr>

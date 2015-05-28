@@ -225,6 +225,6 @@
 	</div>
 </div>
 <div id="modal" class="modal"></div>
-<?php include('./script_boot.php');?>
+<?php include('script_boot.php');?>
 </body>
 </html>

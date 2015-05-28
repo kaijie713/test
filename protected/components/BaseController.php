@@ -275,4 +275,10 @@ class BaseController extends Controller
         return CJSON::encode($data);
     }
 
+    public function setFlashMessage ($level, $message, $key = 'flashMessages')
+    {
+        Yii::app()->session->setFlashBag($key, array($level=>$message));
+    }
+
+
 }

@@ -38,6 +38,7 @@ define(function(require, exports, module) {
             this._setupForOutlineoutdetail();
         },
 
+        //计算线下
         calculatorForOutlineoutdetail: function(event) {
             var dvalue = $(event.currentTarget).parents('tbody').data('key');
             var $input = $(event.currentTarget).parents('tbody').find('[id^=out_amount]');
@@ -62,17 +63,15 @@ define(function(require, exports, module) {
         // },
 
         onAddPdetail: function(event) {
-            var pdetailCount = this.$('[data-role=pdetail]').length;
-            if (pdetailCount >= 10) {
-                Notify.danger("选项最多十个!");
-                return false;
-            }
+            // var pdetailCount = this.$('[data-role=pdetail]').length;
+            // if (pdetailCount >= 10) {
+            //     Notify.danger("选项最多十个!");
+            //     return false;
+            // }
             var pdetailCount = this.$('[data-role=pdetail]').length;
             var model = {code:pdetailCount+1, id:this._generateNextGlobalId()}
             this.addPdetail(model);
         },
-
-        
 
         addPdetail: function(model) {
             var self = this;
@@ -82,50 +81,50 @@ define(function(require, exports, module) {
 
             $html.appendTo(this.$('[data-role=pdetails]'));
 
-            this.get("validator").addItem({
-                element: '#bdate'+model.id,
-                required: true,
-                rule: 'time_check',
-            });
+            // this.get("validator").addItem({
+            //     element: '#bdate'+model.id,
+            //     required: true,
+            //     rule: 'time_check',
+            // });
 
-            $('#bdate'+model.id).datetimepicker({
-                language: 'zh-CN',
-                autoclose: true
-            }).on('hide', function(ev){
-                validator.query('#bdate'+model.id).execute();
-            });
+            // $('#bdate'+model.id).datetimepicker({
+            //     language: 'zh-CN',
+            //     autoclose: true
+            // }).on('hide', function(ev){
+            //     validator.query('#bdate'+model.id).execute();
+            // });
 
-            $('#bdate'+model.id).datetimepicker('setStartDate', now);
+            // $('#bdate'+model.id).datetimepicker('setStartDate', now);
 
-            this.get("validator").addItem({
-                element: '#edate'+model.id,
-                required: true,
-                rule: 'time_check',
-            });
+            // this.get("validator").addItem({
+            //     element: '#edate'+model.id,
+            //     required: true,
+            //     rule: 'time_check',
+            // });
 
-            $('#edate'+model.id).datetimepicker({
-                language: 'zh-CN',
-                autoclose: true
-            }).on('hide', function(ev){
-                validator.query('#edate'+model.id).execute();
-            });
+            // $('#edate'+model.id).datetimepicker({
+            //     language: 'zh-CN',
+            //     autoclose: true
+            // }).on('hide', function(ev){
+            //     validator.query('#edate'+model.id).execute();
+            // });
 
-            $('#edate'+model.id).datetimepicker('setStartDate', now);
+            // $('#edate'+model.id).datetimepicker('setStartDate', now);
 
-            this.get("validator").addItem({
-                element: '#sell_house_num'+model.id,
-                required: true
-            });
+            // this.get("validator").addItem({
+            //     element: '#sell_house_num'+model.id,
+            //     required: true
+            // });
 
-            this.get("validator").addItem({
-                element: '#source_type'+model.id,
-                required: true
-            });
+            // this.get("validator").addItem({
+            //     element: '#source_type'+model.id,
+            //     required: true
+            // });
 
-            this.get("validator").addItem({
-                element: '#charge_type'+model.id,
-                required: true
-            });
+            // this.get("validator").addItem({
+            //     element: '#charge_type'+model.id,
+            //     required: true
+            // });
         },
 
         onDeletePdetail: function(event) {

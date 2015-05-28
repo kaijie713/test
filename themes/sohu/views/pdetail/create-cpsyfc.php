@@ -10,7 +10,7 @@
 				<div class="form-group">
 					<label class="col-md-6 control-label" for="bdate">开始时间：</label>
 					<div class="col-md-6 controls">
-					    <input type="text" class="form-control" name="Pdetail[bdate]" id="bdate"/>
+					    <input type="text" class="form-control" value="<?php echo isset($model['bdate'])?$model['bdate']:'';?>" name="Pdetail[bdate]" id="bdate"/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -18,7 +18,7 @@
 					<div class="col-md-6 controls">
 					    <div class="input-group ">
 					  		<div class="input-group">
-						  		<input type="text" class="form-control" name="Pdetail[sell_house_num]" id="sell_house_num"/>
+						  		<input type="text" class="form-control" value="<?php echo isset($model['sell_house_num'])?$model['sell_house_num']:'';?>" name="Pdetail[sell_house_num]" id="sell_house_num"/>
 						  		<span class="input-group-addon">套</span>
 						  	</div>
 					  	</div>
@@ -29,7 +29,7 @@
 					<div class="col-md-6 controls">
 					    <div class="input-group ">
 					  		<div class="input-group">
-						  		<input type="text" readonly class="form-control" name="yujimaoshouru" id="yujimaoshouru"/>
+						  		<input type="text" readonly class="form-control" value="<?php echo isset($model['pre_incoming'])?$model['pre_incoming']:'';?>" name="yujimaoshouru" id="yujimaoshouru"/>
 						  		<span class="input-group-addon">元</span>
 						  	</div>
 					  	</div>
@@ -40,7 +40,7 @@
 					<div class="col-md-6 controls">
 					    <div class="input-group ">
 					  		<div class="input-group">
-						  		<input type="text" class="form-control" name="Pdetail[pre_amount]" id="pre_amount"/>
+						  		<input type="text" class="form-control" value="<?php echo isset($model['pre_amount'])?$model['pre_amount']:'';?>" name="Pdetail[pre_amount]" id="pre_amount"/>
 						  		<span class="input-group-addon">元</span>
 						  	</div>
 					  	</div>
@@ -51,7 +51,7 @@
 					<div class="col-md-6 controls">
 					    <div class="input-group ">
 					  		<div class="input-group">
-						  		<input type="text" class="form-control" name="Pdetail[commission_rate]" id="commission_rate"/>
+						  		<input type="text" class="form-control" value="<?php echo isset($model['commission_rate'])?$model['commission_rate']:'';?>" name="Pdetail[commission_rate]" id="commission_rate"/>
 						  		<span class="input-group-addon">%</span>
 						  	</div>
 					  	</div>
@@ -62,7 +62,7 @@
 					<div class="col-md-6 controls">
 					    <div class="input-group ">
 					  		<div class="input-group">
-						  		<input type="text" class="form-control" name="Pdetail[pre_commission_amount]" id="pre_commission_amount"/>
+						  		<input type="text" class="form-control" value="<?php echo isset($model['pre_commission_amount'])?$model['pre_commission_amount']:'';?>" name="Pdetail[pre_commission_amount]" id="pre_commission_amount"/>
 						  		<span class="input-group-addon">元</span>
 						  	</div>
 					  	</div>
@@ -73,7 +73,7 @@
 					<div class="col-md-6 controls">
 					    <div class="input-group ">
 					  		<div class="input-group">
-						  		<input type="text" class="form-control" name="Pdetail[prjreword_perunit]" id="prjreword_perunit"/>
+						  		<input type="text" class="form-control" value="<?php echo isset($model['prjreword_perunit'])?$model['prjreword_perunit']:'';?>" name="Pdetail[prjreword_perunit]" id="prjreword_perunit"/>
 						  		<span class="input-group-addon">元</span>
 						  	</div>
 					  	</div>
@@ -84,7 +84,7 @@
 					<div class="col-md-6 controls">
 					    <div class="input-group ">
 					  		<div class="input-group">
-						  		<input type="text" class="form-control" name="Pdetail[brokerfees_perunit]" id="brokerfees_perunit"/>
+						  		<input type="text" class="form-control" value="<?php echo isset($model['brokerfees_perunit'])?$model['brokerfees_perunit']:'';?>" name="Pdetail[brokerfees_perunit]" id="brokerfees_perunit"/>
 						  		<span class="input-group-addon">元</span>
 						  	</div>
 					  	</div>
@@ -94,7 +94,7 @@
 					<label class="col-md-6 control-label" for="jd_retain_ratio">焦点留存比例：</label>
 					<div class="col-md-6 controls">
 					    <div class="input-group ">
-						  		<input type="text" readonly class="form-control" name="Pdetail[jd_retain_ratio]" id="jd_retain_ratio"/>
+					  		<input type="text" readonly class="form-control" value="<?php echo isset($model['jd_retain_ratio'])?$model['jd_retain_ratio']:'';?>" name="Pdetail[jd_retain_ratio]" id="jd_retain_ratio"/>
 					  	</div>
 					</div>
 				</div>
@@ -105,7 +105,7 @@
 				<div class="form-group">
 					<label class="col-md-6 control-label" for="edate">结束时间：</label>
 					<div class="col-md-6 controls">
-					    <input type="text" class="form-control" name="Pdetail[edate]" id="edate"/>
+					    <input type="text" class="form-control" value="<?php echo isset($model['edate'])?$model['edate']:'';?>" name="Pdetail[edate]" id="edate"/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -114,7 +114,7 @@
 						<select class="form-control width-input width-input-large" name="Pdetail[source_type]" id="source_type">
 					    	<option value="">--请选择--</option>
 					    	<?php foreach ($sourceType as $value) { ?>
-					    		<option value="<?php echo $value['dict_id'];?>"><?php echo $value['dvalue'];?></option>
+					    		<option <?php if (isset($model->source_type) && $model->source_type== $value['dict_id']) {?> selected <?php }?> value="<?php echo $value['dict_id'];?>"><?php echo $value['dvalue'];?></option>
 					    	<?php } ?>
 					    </select>
 					</div>
@@ -130,7 +130,7 @@
 					<div class="col-md-6 controls">
 					    <div class="input-group ">
 					  		<div class="input-group">
-						  		<input type="text" class="form-control" name="Pdetail[pre_volumn]" id="pre_volumn"/>
+						  		<input type="text" class="form-control" value="<?php echo isset($model['pre_volumn'])?$model['pre_volumn']:'';?>" name="Pdetail[pre_volumn]" id="pre_volumn"/>
 						  		<span class="input-group-addon">套</span>
 						  	</div>
 					  	</div>
@@ -141,7 +141,7 @@
 					<div class="col-md-6 controls">
 					    <div class="input-group ">
 					  		<div class="input-group">
-						  		<input type="text" class="form-control" name="Pdetail[commission_perunit]" id="commission_perunit"/>
+						  		<input type="text" class="form-control" value="<?php echo isset($model['commission_perunit'])?$model['commission_perunit']:'';?>" name="Pdetail[commission_perunit]" id="commission_perunit"/>
 						  		<span class="input-group-addon">元</span>
 						  	</div>
 					  	</div>
@@ -160,7 +160,7 @@
 					<div class="col-md-6 controls">
 					    <div class="input-group ">
 					  		<div class="input-group">
-						  		<input type="text" class="form-control" name="Pdetail[prevolumn_perunit]" id="prevolumn_perunit"/>
+						  		<input type="text" class="form-control" value="<?php echo isset($model['prevolumn_perunit'])?$model['prevolumn_perunit']:'';?>" name="Pdetail[prevolumn_perunit]" id="prevolumn_perunit"/>
 						  		<span class="input-group-addon">套</span>
 						  	</div>
 					  	</div>
@@ -171,7 +171,7 @@
 					<div class="col-md-6 controls">
 					    <div class="input-group ">
 					  		<div class="input-group">
-						  		<input type="text" class="form-control" name="Pdetail[prebrokervolumn]" id="prebrokervolumn"/>
+						  		<input type="text" class="form-control" value="<?php echo isset($model['prebrokervolumn'])?$model['prebrokervolumn']:'';?>" name="Pdetail[prebrokervolumn]" id="prebrokervolumn"/>
 						  		<span class="input-group-addon">套</span>
 						  	</div>
 					  	</div>
@@ -181,7 +181,7 @@
 					<label class="col-md-6 control-label" for="jd_retain_amount">焦点留存金额：</label>
 					<div class="col-md-6 controls">
 					    <div class="input-group ">
-						  		<input type="text" readonly class="form-control" name="Pdetail[jd_retain_amount]" id="jd_retain_amount"/>
+						  		<input type="text" readonly class="form-control" value="<?php echo isset($model['jd_retain_amount'])?$model['jd_retain_amount']:'';?>" name="Pdetail[jd_retain_amount]" id="jd_retain_amount"/>
 					  	</div>
 					</div>
 				</div>
@@ -190,10 +190,11 @@
 		    <div class="form-group col-md-12">
 				<label class="col-md-3 control-label" for="pref_context">优惠情况</label>
 				<div class="col-md-9 controls phl">
-					<textarea class="form-control" rows="2" cols="20" name="Pdetail[pref_context]" id="pref_context" ></textarea>
+					<textarea class="form-control" rows="2" cols="20" name="Pdetail[pref_context]" id="pref_context" ><?php echo isset($model['pref_context'])?$model['pref_context']:'';?></textarea>
 				</div>
 			</div>
 
+			<?php if(!empty($splitdetails)){?><script type="text/plain" data-role="splitdetails-data"><?php  echo $splitdetails;?></script><?php }?>
 			<?php include('splitdetail-modal.php');?>
 		
 	    </div>
@@ -201,6 +202,8 @@
 			<button id="pdetail-create-btn" type="submit" class="btn btn-primary pull-right">确定</button>
 			<button type="button" class="btn btn-link pull-right" data-dismiss="modal">取消</button>
 	    </div>
+
+	    <?php if(!empty($model->pd_id)){?><input type="hidden" name="Pdetail[pd_id]" id="pd_id" value="<?php echo $model->pd_id;?>"><?php }?>
 		<input type="hidden" name="Pdetail[charge_type]" id="charge_type" data-type="<?php echo $chargeType['dkey'];?>" value="<?php echo $chargeType['dict_id'];?>">
     </form>
   </div>

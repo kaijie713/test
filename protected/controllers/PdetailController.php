@@ -144,9 +144,6 @@ class PdetailController extends BaseController
 	public function actionCreate()
 	{
 		$model=new Pdetail;
-
-		
-
 		if(isset($_POST['Pdetail']))
 		{
 			// try
@@ -186,13 +183,6 @@ class PdetailController extends BaseController
 
 	public function actionUpdate()
 	{
-		$id = empty($_POST['id']) ? '0' : trim($_POST['id']);
-
-		$model=$this->loadModel($id);
-
-		var_dump($model);
-		exit();
-
 		if(isset($_POST['Pdetail']))
 		{
 			// try
@@ -211,8 +201,11 @@ class PdetailController extends BaseController
 		 //    }
 			exit(CJSON::encode($var));
 		}
+		$id = empty($_GET['id']) ? '0' : trim($_GET['id']);
+		
+		$model=$this->loadModel($id);
 
-		$dict_id = $this->get('id');
+		$dict_id = $model->charge_type;
 
 		$SysDict = new SysDict();
 		$sourceType = $SysDict->findSysDictByGroup('sourceType');
@@ -223,10 +216,15 @@ class PdetailController extends BaseController
 			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
 		}
 
+		$Splitdetail = new PrjPartnerSplitdetail();
+		$splitdetails = CJSON::encode($Splitdetail->findSysDictByPdId($model->pd_id));
+
 		$this->renderPartial('create-'.$chargeType['dkey'],array(
 			'sourceType' => $sourceType,
 			'chargeType' => $chargeType,
 			'partnerType' => $partnerType,
+			'splitdetails' => $splitdetails,
+			'model' => $model,
 		));
 	}
 
