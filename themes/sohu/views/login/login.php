@@ -47,7 +47,8 @@ img{
                 </div>
             </form>
         </div>
-        <?php include('../layouts/script_boot.php');?>
+
+        <?php $this->renderPartial('/layouts/script_boot');?>
     </body>
 
 </html>

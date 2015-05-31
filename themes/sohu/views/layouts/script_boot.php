@@ -16,11 +16,11 @@
 
   <?php if (isset($this->script_controller)) {  ?>
     app.controller = '<?php echo $this->script_controller;?>';
-  <? } ?>
+  <?php } ?>
 
   <?php if (isset($this->script_arguments)) { ?>
     app.arguments = '<?php echo $this->script_arguments;?>';
-  <? } ?>
+  <?php } ?>
 
   app.mainScript = '<?php echo Yii::app()->theme->baseUrl;?>/assets/js/app.js';
 </script>

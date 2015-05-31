@@ -12,7 +12,7 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'搜狐焦点后台系统',
 	'theme' => 'sohu',
-	'preload'=>array('log'),
+	'preload'=>array('log,bootstrap'),
 	'defaultController'=>'evaluation/admin',
 
 	'aliases' => array(
