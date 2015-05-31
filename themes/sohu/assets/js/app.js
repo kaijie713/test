@@ -1,8 +1,10 @@
 define(function(require, exports, module) {
 	window.$ = window.jQuery = require('jquery');
 	require('bootstrap');
+	require('typeahead');
 	require('common/bootstrap-modal-hack2');
-	var Cookie = require('cookie');
+	require('matrix').run();
+	//var Cookie = require('cookie');
 
 	exports.load = function(name) {
 		

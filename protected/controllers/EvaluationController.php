@@ -8,11 +8,6 @@ class EvaluationController extends BaseController
         parent::__construct($id,$module);
     }
 
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
 	public function accessRules()
 	{
 		return array(
@@ -34,10 +29,6 @@ class EvaluationController extends BaseController
 		);
 	}
 
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
 	public function actionView($id)
 	{
 		$this->render('view',array(
@@ -45,18 +36,10 @@ class EvaluationController extends BaseController
 		));
 	}
 
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
+		
 		if(isset($_POST['Evaluation']))
 		{
 			$model->attributes=$_POST['Evaluation'];
@@ -69,17 +52,11 @@ class EvaluationController extends BaseController
 		));
 	}
 
-	/**
-	 * Lists all models.
-	 */
 	public function actionIndex()
 	{
 		$this->redirect('/index.php?r=evaluation/admin');
 	}
 
-	/**
-	 * Manages all models.
-	 */
 	public function actionAdmin()
 	{
 		$pageIndex = isset($_GET['page'])?$_GET['page']:1;
@@ -89,20 +66,31 @@ class EvaluationController extends BaseController
         $items = $result['items'];
         $count = $result['count'];
 
+
+        $THousesPrj = new THousesPrj();
+        $hourses = $THousesPrj->findTHousrsPtjsByIds(ArrayToolkit::column($items, 'group_id'));
+		$hourses = ArrayToolkit::index($hourses, 'group_id');
+
+		$DictChengshi = new DictChengshi();
+        $citys = $DictChengshi->findictChengshisByIds(ArrayToolkit::column($items, 'city_id'));
+		$citys = ArrayToolkit::index($citys, 'city_id');
+
+		$User = new User();
+		$ids = array_merge(ArrayToolkit::column($items, 'createby'), ArrayToolkit::column($items, 'ec_incharge_id'));
+        $users = ArrayToolkit::index($User->findUsersByIds($ids), 'u_id');
+
         $pages = new CPagination($count);
         $this->render('admin',array(
             'dataProvider'=>$items,
             'pages' => $pages,
             'pageIndex'=>$pageIndex-1,
             'params'=>$params,
+            'citys'=>$citys,
+            'hourses'=>$hourses,
+            'users'=>$users,
         ));
 	}
 
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
 	public function actionDelete()
 	{
 		$id = $this->get('id');
@@ -127,8 +115,40 @@ class EvaluationController extends BaseController
 		if(isset($_POST['Evaluation']))
 		{
 			$model->attributes=$_POST['Evaluation'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->eva_id));
+			$model->eva_id=$this->getUUID();
+			$model->createby = Yii::app()->user->__get('u_id');
+	    	$model->createdate = date("Y-m-d H:i");
+	    	$model->isactive = 0;
+	    	$model->save(false);
+	    	
+	    	if(isset($_POST['EvaformPayment']))
+			{
+				$EvaformPayment=new EvaformPayment;
+				$EvaformPayment->attributes=$_POST['EvaformPayment'];
+				$EvaformPayment->v_id=$this->getUUID();
+				$EvaformPayment->eva_id=$model->eva_id;
+				$EvaformPayment->createby = Yii::app()->user->__get('u_id');
+		    	$EvaformPayment->createdate = date("Y-m-d H:i");
+		    	$EvaformPayment->isactive = 0;
+		    	$EvaformPayment->save(false);
+
+				if(isset($_POST['Outlineoutdetail']))
+				{
+					$Outlineoutdetail=new Outlineoutdetail;
+					$Outlineoutdetail->attributes=$_POST['Outlineoutdetail'];
+					$Outlineoutdetail->outl_id=$this->getUUID();
+					$Outlineoutdetail->v_id=$EvaformPayment->v_id;
+					$Outlineoutdetail->createby = Yii::app()->user->__get('u_id');
+			    	$Outlineoutdetail->createdate = date("Y-m-d H:i");
+			    	$Outlineoutdetail->isactive = 0;
+			    	$Outlineoutdetail->save(false);
+
+				}
+
+			}
+
+	    	$this->setFlashMessage('success', '评估单创建成功');
+			$this->redirect('/index.php?r=evaluation/admin');
 		}
 
 		$SysDict = new SysDict();

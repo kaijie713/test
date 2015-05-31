@@ -4,10 +4,10 @@
 		<table class="table table-striped table-hover table-form" data-search-form="#user-search-form" >
 		  <thead>
 		  	<tr>
-		  		<th colspan="8" style="text-align:center">明细信息
+		  		<th colspan="8" style="text-align:center">
 					<div class="pull-right ">
 				    	  <?php foreach ($chargeType as $value) { ?>
-				    	  <a class="btn btn-default btn-sm" data-role="add-pdetail" data-target="#modal" data-toggle="modal" data-url="/index.php?r=Pdetail/create&id=<?php echo $value['dict_id'];?>" >+<?php echo $value['dvalue'];?></a>
+				    	  <a class="btn btn-default btn-sm" data-role="add-pdetail" data-target="#modal" data-toggle="modal" data-url="/index.php?r=Pdetail/create&id=<?php echo $value['dict_id'];?>" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><?php echo $value['dvalue'];?></a>
 					      <?php } ?>
 					</div>
 		  		</th>
@@ -23,6 +23,9 @@
 		      <th width="10%">操作</th>
 		    </tr>
 		  </thead>
+		  <tbody class="is-null">
+                  <tr><td colspan="20"><div class="empty">暂无记录,请添加.</div></td></tr>
+          </tbody>
 		  <tbody id="pdetail-body" data-role="pdetails">
 
 	 	  </tbody>
@@ -32,7 +35,7 @@
 </div>
 
 <script type="text/x-handlebars-template" data-role="pdetail-template">
-<tr id="tr{{id}}" data-role="pdetail" data-id={{id}} data-charge="false">
+<tr id="tr{{id}}" data-role="pdetail" data-id={{id}} data-type="{{chargeType}}" data-charge="false">
   <td class="code">{{code}}</td>
   <td><p class="form-control-static">{{arr.bdate}}</td>
   <td><p class="form-control-static">{{arr.bdate}}</td>

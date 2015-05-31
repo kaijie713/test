@@ -1,5 +1,5 @@
 <div style="max-height: 260px; overflow-x:hidden;overflow-y:auto;" id="tr-content">	
-	<table class="table table-condensed table-hover table-list">
+	<table class="table table-condensed table-hover table-list cursor">
 	  <thead>
 	    <tr>
 	      <th>姓名</th>
@@ -17,10 +17,10 @@
 	          <th scope="row"><?php echo $value['name']?></th>
 	          <td><?php echo $value['employee_number']?></td>
 	          <td><?php echo $value['email']?></td>
-	          <td><?php echo $value['createby']?></td>
-	          <td><?php echo $value['createdate']?></td>
-	          <td><?php echo $value['updateby']?></td>
-	          <td><?php echo $value['updatedate']?></td>
+	          <td><?php echo $users[$value['createby']]['name'];?></td>
+	          <td><?php echo date('Y-m-d',strtotime($value['createdate']));?></td>
+	          <td><?php echo $users[$value['updateby']]['name'];?></td>
+	          <td><?php echo date('Y-m-d',strtotime($value['updatedate']));?></td>
 	        </tr>
 	  	<?php } ?>
 	    <?php if(empty($dataProvider)){ ?>

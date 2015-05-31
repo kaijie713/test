@@ -107,7 +107,7 @@
 		<div class="form-group col-md-12">
 			<label class="col-md-3 control-label" for="prj_condition">项目情况说明：</label>
 			<div class="col-md-9 controls phl">
-				<textarea class="form-control" rows="7" cols="20" name="Evaluation[prj_condition]" id="prj_condition" ></textarea>
+				<textarea class="form-control" rows="4" cols="20" name="Evaluation[prj_condition]" id="prj_condition" ></textarea>
 			</div>
 		</div>
 	</div>

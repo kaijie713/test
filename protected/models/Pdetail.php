@@ -197,7 +197,12 @@ class Pdetail extends BaseModel
 
     	$this->getRetain($model);
 
-    	$model->pre_incoming = $model->pre_incoming - $model->divideAmountSum;
+    	if($this->jd_retain_ratio != 0){
+                $this->pre_incoming = $this->pre_incoming * $this->jd_retain_ratio / 100;
+        }else{
+            $this->pre_incoming = $this->pre_incoming - $this->divideAmountSum;
+        }
+    	// $model->pre_incoming = $model->pre_incoming * $model->jd_retain_ratio / 100;
 
         $model->pre_incoming = $model->pre_incoming - $model->prjreword_perunit * $model->prevolumn_perunit - $model->brokerfees_perunit * $model->prebrokervolumn;
 

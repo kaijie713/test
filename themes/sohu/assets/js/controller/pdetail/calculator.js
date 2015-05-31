@@ -9,6 +9,7 @@ define(function(require, exports, module) {
             globalId: 1,
             pdetailTemplate: null,
             inputValues: null,
+            chargeType: null,
         },
 
         events: {
@@ -17,6 +18,8 @@ define(function(require, exports, module) {
         },
 
         setup: function() {
+            var chargeType = $('#charge_type').data('type');
+            this.set('chargeType', chargeType);
             this._setupForPdetail();
         },
 
@@ -55,7 +58,11 @@ define(function(require, exports, module) {
 
             // console.log('pre_incoming--'+arr['pre_incoming']);
 
-            arr['pre_incoming'] = arr['pre_incoming'] - arr['divideAmountSum'];
+            if(arr['jd_retain_ratio'] != 0){
+                arr['pre_incoming'] = arr['pre_incoming'] * arr['jd_retain_ratio'] / 100;
+            }else{
+                arr['pre_incoming'] = arr['pre_incoming'] - arr['divideAmountSum'];
+            }
 
             // $("#pref_context").val(arr['prjreword_perunit'] +"--"+ arr['prevolumn_perunit'] +"--"+ arr['brokerfees_perunit'] +"--"+ arr['prebrokervolumn']  );
 
@@ -118,7 +125,13 @@ define(function(require, exports, module) {
         onAddPdetail: function(pdid) {
             var pdetailCount = $('[data-role=pdetail]').length;
             var arr = this.get('inputValues');
-            var model = {code:pdetailCount+1,  arr: arr, id:this._generateNextGlobalId(), pdid:pdid}
+            var model = {
+                code:pdetailCount+1,  
+                arr: arr, 
+                chargeType: this.get('chargeType'), 
+                id:this._generateNextGlobalId(), 
+                pdid:pdid
+            }
             
             this.addPdetail(model);
 
@@ -131,6 +144,7 @@ define(function(require, exports, module) {
             var self = this;
             var template = this.get('pdetailTemplate');
             var $html = $($.trim(template(model)));
+            $(".is-null").addClass('hide');
             $html.appendTo($('[data-role=pdetails]'));
         },
 

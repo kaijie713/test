@@ -150,4 +150,11 @@ class DictChengshi extends BaseModel
         return $sql;
     }
 
+    public function findictChengshisByIds($ids)
+	{
+		$ids = implode(",", $ids);
+		$sql = "select * from dict_chengshi where city_id in ($ids)";
+		return $this->QueryAll($sql);
+	}
+
 }

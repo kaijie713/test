@@ -19,7 +19,7 @@
 					<div >
 						<label class="col-md-6 control-label">短信、call客、 派单费用总额：</label>
 						<div class="col-md-6 controls">
-							<p class="form-control-static"><span data-role="dxckpdfyze">0</span>元 <button type="button" class="btn-xs btn btn-link pull-right" data-role="add-outlineoutdetail" data-for="#outlineoutdetail-body-dxckpdfyze">添加</button></p>
+							<p class="form-control-static"><span id="dxckpdfyze">0</span>元 <button type="button" class="btn-xs btn btn-link pull-right" data-role="add-outlineoutdetail" data-for="#outlineoutdetail-body-dxckpdfyze">添加</button></p>
 
 						</div>
 					</div>
@@ -27,7 +27,7 @@
 				<div class="form-group">
 					<label class="col-md-6 control-label">看房团及其它线下活动费用总额：</label>
 					<div class="col-md-6 controls">
-						<p class="form-control-static"><span data-role="kftdxxhdze">0</span>元 <button type="button" class="btn-xs btn btn-link pull-right" data-role="add-outlineoutdetail" data-for="#outlineoutdetail-body-kftdxxhdze">添加</button></p>
+						<p class="form-control-static"><span id="kftdxxhdze">0</span>元 <button type="button" class="btn-xs btn btn-link pull-right" data-role="add-outlineoutdetail" data-for="#outlineoutdetail-body-kftdxxhdze">添加</button></p>
 					</div>
 				</div>
 			</div>
@@ -47,13 +47,13 @@
 				<div class="form-group">
 					<label class="col-md-6 control-label">驻场人员劳务费总额：</label>
 					<div class="col-md-6 controls">
-						<p class="form-control-static"><span data-role="zcrnlwfyze">0</span>元 <button type="button" class="btn-xs btn btn-link pull-right" data-role="add-outlineoutdetail" data-for="#outlineoutdetail-body-zcrnlwfyze">添加</button></p>
+						<p class="form-control-static"><span id="zcrnlwfyze">0</span>元 <button type="button" class="btn-xs btn btn-link pull-right" data-role="add-outlineoutdetail" data-for="#outlineoutdetail-body-zcrnlwfyze">添加</button></p>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-6 control-label">项目备用金：</label>
 					<div class="col-md-6 controls">
-						<p class="form-control-static"><span data-role="xmbyj">0</span>元 <button type="button" class="btn-xs btn btn-link pull-right" data-role="add-outlineoutdetail" data-for="#outlineoutdetail-body-xmbyj">添加</button></p>
+						<p class="form-control-static"><span id="xmbyj">0</span>元 <button type="button" class="btn-xs btn btn-link pull-right" data-role="add-outlineoutdetail" data-for="#outlineoutdetail-body-xmbyj">添加</button></p>
 					</div>
 				</div>
 			</div>

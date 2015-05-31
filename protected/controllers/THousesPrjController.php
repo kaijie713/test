@@ -168,19 +168,23 @@ class THousesPrjController extends BaseController
         $items = $result['items'];
         $count = $result['count'];
 
-        $DictChengshi = new DictChengshi();
 
-        $condition['ids'] = ArrayToolkit::column($items, 'city_id');
-        $chengshis = $DictChengshi->searchDictChengshis($condition,1,9999);
-        $chengshis = ArrayToolkit::index($chengshis['items'], 'city_id');
+		$DictChengshi = new DictChengshi();
+        $chengshis = $DictChengshi->findictChengshisByIds(ArrayToolkit::column($items, 'city_id'));
+		$chengshis = ArrayToolkit::index($chengshis, 'city_id');
+
+		$User = new User();
+		$ids = array_merge(ArrayToolkit::column($items, 'createby'), ArrayToolkit::column($items, 'updateby'));
+        $users = ArrayToolkit::index($User->findUsersByIds($ids), 'u_id');
+        
         $pages = new CPagination($count);
-
         return $this->renderPartial('list',array(
             'dataProvider'=>$items,
             'pages' => $pages,
             'pageIndex'=>$pageIndex-1,
             'params'=>$params,
             'chengshis'=>$chengshis,
+            'users'=>$users,
         ));
 		
 	}

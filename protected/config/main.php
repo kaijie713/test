@@ -60,9 +60,19 @@ return array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
 				),
-			 	array(
-                    'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',  
-                ), 
+				// 'trace';用于调试环境，追踪程序执行流程  
+				// 'warning';警告信息  
+				// 'error';致命错误信息  
+				// 'info';普通提示信息  
+				// 'profile';性能调试信息 
+				array(  
+		            'class'=>'CWebLogRoute',  
+		            'levels'=>'warning',  
+		            'categories'=>'system.db.*' //只显示关于数据库信息,包括数据库连接,数据库执行语句  
+		        ),  
+			 	// array(
+     //                'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',  
+     //            ), 
 			),
 		),
 		'session'=>array(

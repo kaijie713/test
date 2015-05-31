@@ -1,6 +1,8 @@
 <?php
 class LoginController extends Controller {
 
+    public $script_controller = null;
+    
 	public function actionIndex()
     {
         $this->redirect('/index.php?r=evaluation');
@@ -18,15 +20,12 @@ class LoginController extends Controller {
             if($r = $model->validate())
             {
             	$errorMsg = $model->_identity->errorMessage;
-
-                // $this->actionIndex();
             } 
         }
 
         if(!Yii::app()->user->getIsGuest()){
             $this->redirect('/index.php?r=evaluation');
         }
-        
 
         $this->renderPartial('login',array(
         	'model'=>$model,

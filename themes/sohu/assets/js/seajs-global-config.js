@@ -1,7 +1,10 @@
 seajs.config({
 	alias: {
-		'jquery': 'jquery/1.11.2/jquery',
-		'$': 'jquery/1.11.2/jquery',
+		'theme': 'theme-matrix/',
+		'jquery': 'jquery/1.7.2/jquery',
+		// 'jquery': 'jquery/1.11.2/jquery',
+		'$': 'jquery/1.7.2/jquery',
+		// '$': 'jquery/1.11.2/jquery',
 		'$-debug': 'jquery/1.11.2/jquery',
 		"jquery.form": "jquery-plugin/form/3.44.0/form",
 		"jquery.sortable": "jquery-plugin/sortable/0.9.10/sortable.js",
@@ -23,6 +26,7 @@ seajs.config({
 		"jquery.plupload-queue-zh-cn": "jquery-plugin/plupload-queue/2.0.0/i18n/zh-cn",
 		"mediaelementplayer": "gallery2/mediaelement/2.14.2/mediaelement-and-player",
 		'bootstrap': 'gallery2/bootstrap/3.1.1/bootstrap',
+		'typeahead': 'gallery2/bootstrap/3.1.1/bootstrap-typeahead',
 		'echo.js': 'echo.js/1.7.0/index',
 		'autocomplete': 'arale/autocomplete/1.2.2/autocomplete',
 		'upload': 'arale/upload/1.1.0/upload',
@@ -54,7 +58,9 @@ seajs.config({
 		'edusoho.uploadpanel': 'edusoho/uploadpanel/1.0/upload-panel.js',
 		'edusoho.uploadProgressBar': 'edusoho/uploadprogressbar/1.0/upload-progress-bar.js',
 		'edusoho.webuploader': 'edusoho/webuploader/1.0.0/web-uploader.js',
-		'edusoho.imagecrop': 'edusoho/imagecrop/1.0.0/image-crop.js'
+		'edusoho.imagecrop': 'edusoho/imagecrop/1.0.0/image-crop.js',
+		'excanvas': 'theme-matrix/excanvas.min-cmdized.js',
+		'matrix': 'theme-matrix/matrix-cmdized.js',
 	},
 
 	// 预加载项

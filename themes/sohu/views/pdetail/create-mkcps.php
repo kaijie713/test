@@ -193,7 +193,7 @@
 		    <div class="form-group col-md-12">
 				<label class="col-md-3 control-label" for="pref_context">优惠情况</label>
 				<div class="col-md-9 controls phl">
-					<textarea class="form-control" rows="2" cols="20" value="" id="pref_context" ><?php echo isset($model['pref_context'])?$model['pref_context']:'';?></textarea>
+					<textarea class="form-control" rows="2" cols="20" value="" name="Pdetail[pref_context]" id="pref_context" ><?php echo isset($model['pref_context'])?$model['pref_context']:'';?></textarea>
 				</div>
 			</div>
 		    

@@ -1,5 +1,5 @@
 <div style="max-height: 260px; overflow-x:hidden;overflow-y:auto;" id="tr-content">	
-	<table class="table table-condensed table-hover table-list">
+	<table class="table table-condensed table-hover table-list cursor">
 	  <thead>
 	    <tr>
 	      <th>项目名称</th>
@@ -14,14 +14,11 @@
 	  	<?php foreach ($dataProvider as $key => $value) { ?>
 	      	<tr id="<?php echo $value['group_id']?>" data-name="<?php echo $value['group_name']?>">
 	          <th scope="row"><?php echo $value['group_name']?></th>
-	          <td><?php $this->widget('application.widget.ValueWidget', array(
-		          	'value'=>array($chengshis,$value['city_id'])
-		          ));?>
-			  </td>
-	          <td><?php echo $value['createby']?></td>
-	          <td><?php echo $value['createdate']?></td>
-	          <td><?php echo $value['updateby']?></td>
-	          <td><?php echo $value['updatedate']?></td>
+	          <td><?php echo $chengshis[$value['city_id']]['city_name'];?></td>
+	          <td><?php echo $users[$value['createby']]['name'];?></td>
+	          <td><?php echo date('Y-m-d',strtotime($value['createdate']));?></td>
+	          <td><?php echo $users[$value['updateby']]['name'];?></td>
+	          <td><?php echo date('Y-m-d',strtotime($value['updatedate']));?></td>
 	        </tr>
 	  	<?php } ?>
 	    <?php if(empty($dataProvider)){ ?>

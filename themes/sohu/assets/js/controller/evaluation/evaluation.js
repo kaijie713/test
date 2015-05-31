@@ -38,25 +38,6 @@ define(function(require, exports, module) {
             this._setupForOutlineoutdetail();
         },
 
-        //计算线下
-        calculatorForOutlineoutdetail: function(event) {
-            var dvalue = $(event.currentTarget).parents('tbody').data('key');
-            var $input = $(event.currentTarget).parents('tbody').find('[id^=out_amount]');
-            var sum = 0;
-
-            $input.each(function(){
-                sum = parseInt($(this).val())+parseInt(sum);
-            });
-
-            sum = !isNaN(sum) ? sum : 0;
-
-            $('[data-role='+dvalue+']').text(sum);
-        },
-
-        calculator: function(event) {
-            console.log(2);
-        },
-
         // onSubmit: function(e){
         //     var submitType = $(e.currentTarget).data('submission');
         //     this.get('form').find('[name=submission]').val(submitType);
@@ -150,6 +131,10 @@ define(function(require, exports, module) {
             this.$('[data-role=pdetail]').each(function(index, item){
                 $(this).find('.code').html(index+1);
             });
+
+            if(this.$('[data-role=pdetail]').length<=0){
+                $(".is-null").removeClass('hide');
+            }
         },
 
         _setupForPdetail: function() {
@@ -351,6 +336,7 @@ define(function(require, exports, module) {
             if($("[data-role=outlineoutdetail]").length<=0){
                 $('.outlineoutdetail-table').addClass('hide');
             }
+            this.calculatorForOutlineoutdetail();
         },
 
         _generateNextGlobalOId: function() {
@@ -358,6 +344,156 @@ define(function(require, exports, module) {
             this.set('globalOId', globalOId + 1);
             return globalOId;
         },
+
+        //计算线下
+        calculatorForOutlineoutdetail: function(event) {
+            var $body = $('tbody[id^=outlineoutdetail-body]');
+            $body.each(function(){
+                var dvalue = $(this).data('key');
+                var $input = $(this).find('[id^=out_amount]');
+                var sum = 0;
+                $input.each(function(){
+                    if($(this).val()!="")
+                        sum = parseInt($(this).val())+parseInt(sum);
+                });
+                sum = !isNaN(sum) ? sum : 0;
+
+                $('#'+dvalue).text(sum);
+            });
+        },
+
+        //整体计算
+        calculator: function(event) {
+            var arr = this.prepareCalculator();
+        },
+
+        prepareCalculator: function(){
+            var arr = new Array();
+
+            arr['pdetail'] = this.preparePdetail();
+            //获取输入的值
+
+            arr['ad_discount'] = this.getIntValue($("#ad_discount"), '2');
+
+            arr['ad_distribution_ratio'] = this.getIntValue($("#ad_distribution_ratio"), '2');
+
+            arr['ad_amount_infact'] = this.getIntValue($("#ad_amount_infact"), '4');
+
+            arr['ad_markting_ratio'] = this.getIntValue($("#ad_markting_ratio"), '2');
+
+            arr['pre_ad_amount'] = this.getIntValue($("#pre_ad_amount"), '4');
+
+            arr['pre_tax_ratio'] = this.getIntValue($("#pre_tax_ratio"), '2');
+
+            arr['sale_ad_kanli_amount'] = arr['pdetail']['pre_amount'] / arr['ad_discount'] - arr['pdetail']['pre_amount'] * arr['ad_distribution_ratio'];
+
+            arr['resource_income_multiples'] = arr['sale_ad_kanli_amount'] / arr['pdetail']['pre_amount'];
+
+            arr['offline_amount_sum'] = this.getOfflineAmountSum();
+
+
+            arr['offline_amount'] = this.getOfflineAmount(arr);
+            //
+            arr['net_income'] = this.getNetIncome(arr);
+
+
+            return arr;
+        },
+
+        preparePdetail: function(){
+            var arr = new Array();
+            arr['sell_house_num'] = arr['ajcard_price'] = arr['pre_volumn'] = arr['prjreword_perunit'] = arr['prevolumn_perunit'] = 0;
+            arr['brokerfees_perunit'] = arr['prebrokervolumn'] = arr['pre_amount'] = arr['commission_rate'] = arr['commission_perunit'] = 0;
+            arr['pre_commission_amount'] = arr['pre_incoming'] = arr['jd_retain_ratio'] = arr['jd_retain_amount'] = 0;
+            arr['divideSum'] = arr['divideAmountSum'] = arr['splitdetailNum'] = arr['jd_retain_ratio'] = arr['jd_retain_amount'] = 0;
+
+            $pdetail = $("[data-role=calculator]").length>0?$("[data-role=calculator]"):'';
+            if($pdetail)
+            {
+                $pdetail.each(function(){
+                    arr['sell_house_num'] = arr['sell_house_num'] + $(this).find('[id^=sell_house_num]').val();
+                    arr['ajcard_price'] = arr['ajcard_price'] + $(this).find('[id^=ajcard_price]').val();
+                    arr['pre_volumn'] = arr['pre_volumn'] + $(this).find('[id^=pre_volumn]').val();
+                    arr['prjreword_perunit'] = arr['prjreword_perunit'] + $(this).find('[id^=prjreword_perunit]').val();
+                    arr['prevolumn_perunit'] = arr['prevolumn_perunit'] + $(this).find('[id^=prevolumn_perunit]').val();
+                    arr['brokerfees_perunit'] = arr['brokerfees_perunit'] + $(this).find('[id^=brokerfees_perunit]').val();
+                    arr['prebrokervolumn'] = arr['prebrokervolumn'] + $(this).find('[id^=prebrokervolumn]').val();
+                    arr['pre_amount'] = arr['pre_amount'] + $(this).find('[id^=pre_amount]').val();
+                    arr['commission_rate'] = arr['commission_rate'] + $(this).find('[id^=commission_rate]').val();
+                    arr['commission_perunit'] = arr['commission_perunit'] + $(this).find('[id^=commission_perunit]').val();
+                    arr['pre_commission_amount'] = arr['pre_commission_amount'] + $(this).find('[id^=pre_commission_amount]').val();
+                    arr['pre_incoming'] = arr['pre_incoming'] + $(this).find('[id^=pre_incoming]').val();
+                    arr['jd_retain_ratio'] = arr['jd_retain_ratio'] + $(this).find('[id^=jd_retain_ratio]').val();
+                    arr['jd_retain_amount'] = arr['jd_retain_amount'] + $(this).find('[id^=jd_retain_amount]').val();
+                    arr['divideSum'] = arr['divideSum'] + $(this).find('[id^=divideSum]').val();
+                    arr['divideAmountSum'] = arr['divideAmountSum'] + $(this).find('[id^=divideAmountSum]').val();
+                    arr['splitdetailNum'] = arr['splitdetailNum'] + $(this).find('[id^=splitdetailNum]').val();
+                    arr['jd_retain_ratio'] = arr['jd_retain_ratio'] + $(this).find('[id^=jd_retain_ratio]').val();
+                    arr['jd_retain_amount'] = arr['jd_retain_amount'] + $(this).find('[id^=jd_retain_amount]').val();
+                });
+            }
+
+            return arr;
+        },
+
+        getNetIncome: function(arr){
+        
+            var netIncome = 0;
+            $pdetail = $("[data-role=calculator]").length>0?$("[data-role=calculator]"):'';
+            if($pdetail)
+            {
+                $pdetail.each(function(){
+
+                    var type = $pdetail.parents('tr').data('type');
+
+                    if(type=="mkwfc"){
+                        OfflineAmount = OfflineAmount + arr['offline_amount_sum']/arr['pdetail']['pre_incoming'];
+                    }
+
+                    if(type=="mkytc"){
+                        OfflineAmount = 1 - OfflineAmount + arr['offline_amount_sum']/arr['pdetail']['pre_incoming'];
+
+                    }
+
+                    
+                });
+            }
+
+            return OfflineAmount;
+        },
+
+        getOfflineAmount: function(arr){
+            var OfflineAmount = 0;
+      
+            if(type=="mkwfc"){
+                OfflineAmount = OfflineAmount + arr['offline_amount_sum']/arr['pdetail']['pre_incoming'];
+            }
+
+            if(type=="mkytc"){
+                OfflineAmount = 1 - OfflineAmount + arr['offline_amount_sum']/arr['pdetail']['pre_incoming'];
+
+            }
+
+       
+
+            return OfflineAmount;
+        },
+
+        getOfflineAmountSum: function(){
+            var dxckpdfyze = this.getIntValue($("#dxckpdfyze"), 0, 'text');
+            var zcrnlwfyze = this.getIntValue($("#zcrnlwfyze"), 0, 'text');
+            var kftdxxhdze = this.getIntValue($("#kftdxxhdze"), 0, 'text');
+            var xmbyj = this.getIntValue($("#xmbyj"), 0, 'text');
+            return dxckpdfyze + zcrnlwfyze + kftdxxhdze + xmbyj;
+        },
+
+        getIntValue: function($value, length="2", type="val"){
+            if(type=='val'){
+                return $value.length > 0 && $value.val() != '' && !isNaN($value.val()) ? parseFloat($value.val()).toFixed(length) : 0 ;
+            } else if(type=="text"){
+                return $value.length > 0 && $value.text() != '' && !isNaN($value.text()) ? parseFloat($value.text()).toFixed(length) : 0 ;
+            }
+        }
 
     });
 

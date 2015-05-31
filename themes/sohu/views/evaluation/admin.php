@@ -14,11 +14,12 @@ $this->script_controller = 'evaluation/admin';
 	</h1>
 </div>
 
-<?php $this->widget('bootstrap.widgets.TbBreadcrumb', array(
-    'links' => $this->breadcrumbs,
-)); ?>
+<?php //$this->widget('bootstrap.widgets.TbBreadcrumb', array(
+    //'links' => $this->breadcrumbs,
+//)); ?>
 
 <?php echo $this->renderPartial('filter',array('params'=>$params));?>
+<?php $this->renderPartial('/macro/flashMessage');?>
 
 <div class="page-body clearfix">
 	<table class="table table-striped table-hover">
@@ -43,22 +44,22 @@ $this->script_controller = 'evaluation/admin';
 			    <strong><a href="javascript:;"><?php echo $v['eva_id'];?></a></strong>
 			  </td>
 			  <td>
-			    <?php echo $v['eva_id'];?>
+			    <?php echo $hourses[$v['group_id']]['group_name'];?>
 			  </td>
 			  <td>
-			    <?php echo $v['eva_id'];?>
+			    <?php echo $citys[$v['city_id']]['city_name'];?>
 			  </td>
 			  <td>
-			    <?php echo $v['eva_id'];?>
+			    <?php echo $users[$v['createby']]['name'];?>
 			  </td>
 			  <td>
-			    <?php echo $v['eva_id'];?>
+			    <?php echo $users[$v['ec_incharge_id']]['name'];?>
 			  </td>
 			  <td>
-			    <?php echo $v['eva_id'];?>
+			    <?php //echo $v['eva_id'];?>
 			  </td>
 			  <td>
-			    <?php echo $v['eva_id'];?>
+			    <?php //echo $v['eva_id'];?>
 			  </td>
 			  <td>
 				<div class="btn-group">

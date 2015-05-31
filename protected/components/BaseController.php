@@ -279,6 +279,12 @@ class BaseController extends Controller
     {
         Yii::app()->session->setFlashBag($key, array($level=>$message));
     }
-
+    
+    public function getUUID()
+    {
+        $Idwork = new idwork();
+        $id= $Idwork->nextId();
+        return $id;
+    }
 
 }

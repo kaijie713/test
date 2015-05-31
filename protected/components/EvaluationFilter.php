@@ -3,7 +3,7 @@ class EvaluationFilter
 {
     public static function evaluation($params)
     {
-        $condition[] = "isactive = '1'";
+        $condition[] = "isactive = '0'";
         if ($condition) return implode(' AND ',$condition);
         return '';
     }

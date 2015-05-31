@@ -142,5 +142,12 @@ class THousesPrj extends BaseModel
         return $sql;
     }
 
+    public function findTHousrsPtjsByIds($ids)
+	{
+		$ids = implode(",", $ids);
+		$sql = "select * from t_houses_prj where group_id in ($ids)";
+		return $this->QueryAll($sql);
+	}
+
 
 }

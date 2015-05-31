@@ -11,9 +11,9 @@ $this->script_controller = 'evaluation/create';
 		<h1 style="color:#000">新建评估单</h1>
 	</div>
 
-	<?php $this->widget('bootstrap.widgets.TbBreadcrumb', array(
-	    'links' => $this->breadcrumbs,
-	)); ?>
+	<?php //$this->widget('bootstrap.widgets.TbBreadcrumb', array(
+	    //'links' => $this->breadcrumbs,
+	//)); ?>
 
 	<div id="evaluation-create-widget">
 
@@ -22,12 +22,13 @@ $this->script_controller = 'evaluation/create';
 			<?php require_once('create-evaluation.php');?>
 
 			<?php require_once('create-pdetail.php');?>
+			
+			<?php require_once('create-evaform-payment-2.php');?>
 
 			<?php require_once('create-evaform-payment.php');?>
 
 			<?php require_once('create-outlineoutdetail.php');?>
 
-			<?php require_once('create-evaform-payment-2.php');?>
 
 
 			<div class="form-group">
@@ -44,10 +45,6 @@ $this->script_controller = 'evaluation/create';
 
 			<input type="hidden"  id="modalType" value="" >
 
-
-
-
-
 			<div class="float-consult" id="float-consult" style="margin-top: -21.5px; visibility: visible;">
 			    <div class="consult-contents">
 			      <button type="button" class="btn btn-success" data-role="btn-calculator">计算数值</button>
@@ -55,7 +52,5 @@ $this->script_controller = 'evaluation/create';
 			  </div>
 	    </form>
 	</div>
-
-	
 
 </div>

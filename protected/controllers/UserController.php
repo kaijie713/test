@@ -3,7 +3,7 @@
 class UserController extends BaseController
 {
 	public $filter;
-    public $pagesize = 2;
+    public $pagesize = 18;
     public function __construct($id,$module)
     {
         parent::__construct($id,$module);
@@ -152,13 +152,17 @@ class UserController extends BaseController
         $items = $result['items'];
         $count = $result['count'];
 
-        $pages = new CPagination($count);
+        $User = new User();
+		$ids = array_merge(ArrayToolkit::column($items, 'createby'), ArrayToolkit::column($items, 'updateby'));
+        $users = ArrayToolkit::index($User->findUsersByIds($ids), 'u_id');
 
+        $pages = new CPagination($count);
         return $this->renderPartial('list',array(
             'dataProvider'=>$items,
             'pages' => $pages,
             'pageIndex'=>$pageIndex-1,
             'params'=>$params,
+            'users'=>$users,
         ));
 		
 	}
