@@ -68,7 +68,7 @@ return array(
 				array(  
 		            'class'=>'CWebLogRoute',  
 		            'levels'=>'warning',  
-		            'categories'=>'system.db.*' //只显示关于数据库信息,包括数据库连接,数据库执行语句  
+		            'categories'=>'system.db.*'
 		        ),  
 			 	// array(
      //                'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',  

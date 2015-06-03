@@ -1,46 +1,55 @@
 <?php
-/* @var $this EvaluationController */
-/* @var $model Evaluation */
-
-$this->breadcrumbs=array(
-	'Evaluations'=>array('index'),
-	$model->eva_id,
-);
-
-$this->menu=array(
-	array('label'=>'List Evaluation', 'url'=>array('index')),
-	array('label'=>'Create Evaluation', 'url'=>array('create')),
-	array('label'=>'Update Evaluation', 'url'=>array('update', 'id'=>$model->eva_id)),
-	array('label'=>'Delete Evaluation', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->eva_id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Evaluation', 'url'=>array('admin')),
-);
+$this->pageTitle='新建评估单 - '.Yii::app()->name;
+$this->script_controller = 'evaluation/create';
 ?>
 
-<h1>View Evaluation #<?php echo $model->eva_id; ?></h1>
+<div id="content-header">
+    <div id="breadcrumb"> <a class="tip-bottom" href="/index.php?r=evaluation/admin" data-original-title="去首页"><i class="icon-home"></i> 首页</a> <a class="current" href="#">创建评估单</a> </div>
+    <h1>新建评估单</h1>
+</div>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'group_id',
-		'eva_id',
-		'eva_no',
-		'city_id',
-		'ec_incharge_id',
-		'cooperetion_mode',
-		'sales_id',
-		'customer_type',
-		'customer_level',
-		'pre_opendatetime',
-		'area_id',
-		'prj_condition',
-		'isactive',
-		'createby',
-		'createdate',
-		'updateby',
-		'updatedate',
-		'attribute1',
-		'attribute2',
-		'attribute3',
-	),
-)); ?>
+<div class="container-fluid">
+	<hr>
+	<div class="row-fluid evaluation-create">
+		<div class="span12" id="evaluation-create-widget">
 
+				    <form method="post" id="evaluation-form" class="form-horizontal" novalidate="novalidate" data-role="evaluation-form">
+
+						<?php require_once('view-evaluation.php');?>
+
+						<?php require_once('view-pdetail.php');?>
+
+						<?php require_once('view-evaform-payment-2.php');?>
+
+						<?php require_once('view-evaform-payment.php');?>
+
+						<?php require_once('view-outlineoutdetail.php');?>
+
+
+
+						<div class="form-group">
+						    <div class="col-md-offset-1 col-md-8 controls">
+						    	<button type="submit" id="evaluation-create-btn" class="btn btn-fat btn-primary">保存</button>
+						    	<a class="btn btn-link" href="/index.php?r=evaluation/admin">返回</a>
+						    </div>
+						</div>
+
+						<input type="hidden" name="Evaluation[group_id]" id="group_id" value="" >
+						<input type="hidden" name="Evaluation[city_id]" id="city_id" value="" >
+						<input type="hidden" name="Evaluation[ec_incharge_id]" id="ec_incharge_id" value="" >
+						<input type="hidden" name="Evaluation[sales_id]" id="sales_id" value="" >
+
+						<input type="hidden"  id="modalType" value="" >
+
+						<div class="float-consult" id="float-consult" style="margin-top: -21.5px; visibility: visible;">
+						    <div class="consult-contents">
+						      <button type="button" class="btn btn-success" data-role="btn-calculator">计算数值</button>
+						    </div>
+						  </div>
+				    </form>
+				</div>
+
+
+
+	</div>
+</div>

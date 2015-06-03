@@ -7,7 +7,7 @@ define(function(require, exports, module) {
 
     exports.run = function() {
 
-        require('./default-validator').run();
+        require('./validator').run();
 
         var chargeType = $('#charge_type').data('type');
 

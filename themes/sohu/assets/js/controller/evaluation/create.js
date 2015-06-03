@@ -7,6 +7,8 @@ define(function(require, exports, module) {
 
         $("input").attr("value","");
         $("input").val('');
+        $("#pre_ad_deal_bind1").val(1);
+        $("#pre_ad_deal_bind0").val(0);
         
         var aa = new Evaluation({
             element: '#evaluation-create-widget'
@@ -14,20 +16,6 @@ define(function(require, exports, module) {
 
         // $('[name=endTime]').datetimepicker('setStartDate', now);
         
-        $(".modal").on('click', '.btn-submit', function(e){
-            e.preventDefault();
-            $input = $('.modal input');
-            var $modal = $(e.delegateTarget);
-            $.get($(this).data('url'), $input.serialize(), function(html){
-                $modal.html(html);
-            });
-        });
-
-        $('.modal').on('click','.table-list tbody tr',function(){
-            $(".table-list tbody tr").removeClass('selected');
-            $(this).addClass('selected');
-        });
-
         $(".modal").on('click', '.btn-confirm', function(e){
             var $selected = $('.selected');
             if ($selected.length>0) {

@@ -139,6 +139,9 @@ class User extends BaseModel {
 
 	public function findUsersByIds($ids)
 	{
+		if(empty($ids)){
+			return array();
+		}
 		$ids = implode(",", $ids);
 		$sql = "select * from user where u_id in ($ids)";
 		return $this->QueryAll($sql);

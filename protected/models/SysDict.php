@@ -151,6 +151,9 @@ class SysDict extends BaseModel
 
 	public function findSysDictsByIds($ids)
 	{
+		if(empty($ids)){
+			return array();
+		}
 		$ids = implode(",", $ids);
 		$sql = "select * from sys_dict where dict_id in ($ids)";
 		return $this->QueryAll($sql);

@@ -165,52 +165,39 @@ class PdetailController extends BaseController
 
 		$dict_id = $this->get('id');
 
-		$SysDict = new SysDict();
-		$sourceType = $SysDict->findSysDictByGroup('sourceType');
-		$partnerType = $SysDict->findSysDictByGroup('partnerType');
-		$chargeType = $SysDict->getSysDictById($dict_id);
+		$chargeType = SysDict::model()->getSysDictById($dict_id);
 
 		if(empty($chargeType)){
 			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
 		}
 
 		$this->renderPartial('create-'.$chargeType['dkey'],array(
-			'sourceType' => $sourceType,
 			'chargeType' => $chargeType,
-			'partnerType' => $partnerType,
 		));
 	}
 
 	public function actionUpdate()
 	{
-		if(isset($_POST['Pdetail']))
-		{
-			// try
-			// {
-				if(empty($_POST['Splitdetail'])){
-					$_POST['Splitdetail'] = null;
-				}
 
-				$result = $model->createPdtail($_POST['Pdetail'], $_POST['Splitdetail']);
-				$var['status'] = true;
-      			$var['message'] = $result->pd_id;
-			// }
-			// catch ( Exception $e ) {
-			// 	$var['status'] = false;
-   //    			$var['message'] = '出现错误';
-		 //    }
+		if(isset($_POST['Pdetail'])) {
+			if(empty($_POST['Splitdetail'])){
+				$_POST['Splitdetail'] = null;
+			}
+
+			$result = $model->createPdtail($_POST['Pdetail'], $_POST['Splitdetail']);
+			$var['status'] = true;
+  			$var['message'] = $result->pd_id;
+
 			exit(CJSON::encode($var));
 		}
+		
 		$id = empty($_GET['id']) ? '0' : trim($_GET['id']);
 		
 		$model=$this->loadModel($id);
 
 		$dict_id = $model->charge_type;
 
-		$SysDict = new SysDict();
-		$sourceType = $SysDict->findSysDictByGroup('sourceType');
-		$partnerType = $SysDict->findSysDictByGroup('partnerType');
-		$chargeType = $SysDict->getSysDictById($dict_id);
+		$chargeType = SysDict::model()->getSysDictById($dict_id);
 
 		if(empty($chargeType)){
 			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
@@ -220,9 +207,7 @@ class PdetailController extends BaseController
 		$splitdetails = CJSON::encode($Splitdetail->findSysDictByPdId($model->pd_id));
 
 		$this->renderPartial('create-'.$chargeType['dkey'],array(
-			'sourceType' => $sourceType,
 			'chargeType' => $chargeType,
-			'partnerType' => $partnerType,
 			'splitdetails' => $splitdetails,
 			'model' => $model,
 		));

@@ -30,6 +30,7 @@ define(function(require, exports, module) {
             arr['fanyuan'] = $("#source_type  option:selected").text();
             arr['bdate']  = $("#bdate").val();
             arr['edate']  = $("#edate").val();
+            arr['type']  = this.get('chargeType');
             // console.log(arr['shoufei']);
 
             //参与计算字段
@@ -68,7 +69,6 @@ define(function(require, exports, module) {
 
             arr['pre_incoming'] = arr['pre_incoming'] - arr['prjreword_perunit'] * arr['prevolumn_perunit'] - arr['brokerfees_perunit'] * arr['prebrokervolumn'];
 
-
             arr['pre_incoming'] = parseFloat(arr['pre_incoming']).toFixed(4);
 
             !isNaN(arr['pre_incoming']) && arr['pre_incoming'] != '' ? $("#yujimaoshouru").val(arr['pre_incoming']) : '';
@@ -96,12 +96,17 @@ define(function(require, exports, module) {
 
         getSplitdetail: function(arr) {
             var divideSum = 0;
+            var divideSumKaifashang = 0;
+            var divideSumDisanfang = 0;
             var divideAmountSum = 0;
+            var divideAmountKaifashang= 0;
+            var divideAmountSumDisanfang= 0;
             var splitdetailNum = 0;
 
             if($('[data-role=splitdetail]').length > 0)
             {
                 $('[data-role=splitdetail]').each(function(){
+                    var typeId = $(this).find('[id^=partner_type]').val();
                     var divide = $(this).find('[id^=divide]').val();
                     var divideAmount = $(this).find('[id^=divide_amount]').val();
 
@@ -110,6 +115,16 @@ define(function(require, exports, module) {
 
                     divideSum = parseFloat(divide)+parseFloat(divideSum);
                     divideAmountSum = parseFloat(divideAmount)+parseFloat(divideAmountSum);
+                    //开发商
+                    if(typeId == "528584156513310"){
+                        divideSumKaifashang = parseFloat(divide)+parseFloat(divideSumKaifashang);
+                        divideAmountKaifashang = parseFloat(divideAmount)+parseFloat(divideAmountKaifashang);
+                    }
+                    //第三方
+                    if(typeId == "528584156529664"){
+                        divideSumDisanfang = parseFloat(divide)+parseFloat(divideSumDisanfang);
+                        divideAmountSumDisanfang = parseFloat(divideAmount)+parseFloat(divideAmountSumDisanfang);
+                    }
                     splitdetailNum++;
                 });
                 
@@ -118,6 +133,11 @@ define(function(require, exports, module) {
             arr['divideSum'] = divideSum;
             arr['divideAmountSum'] = divideAmountSum;
             arr['splitdetailNum'] = splitdetailNum;
+
+            arr['divideSumKaifashang'] = divideSumKaifashang;
+            arr['divideAmountKaifashang'] = divideAmountKaifashang;
+            arr['divideSumDisanfang'] = divideSumDisanfang;
+            arr['divideAmountSumDisanfang'] = divideAmountSumDisanfang;
    
             return arr;
         },

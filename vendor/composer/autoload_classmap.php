@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'BootstrapCode' => $vendorDir . '/crisu83/yiistrap/gii/bootstrap/BootstrapCode.php',
     'TbActiveForm' => $vendorDir . '/crisu83/yiistrap/widgets/TbActiveForm.php',
     'TbAffix' => $vendorDir . '/crisu83/yiistrap/widgets/TbAffix.php',
     'TbAlert' => $vendorDir . '/crisu83/yiistrap/widgets/TbAlert.php',
@@ -28,7 +27,6 @@ return array(
     'TbNav' => $vendorDir . '/crisu83/yiistrap/widgets/TbNav.php',
     'TbNavbar' => $vendorDir . '/crisu83/yiistrap/widgets/TbNavbar.php',
     'TbPager' => $vendorDir . '/crisu83/yiistrap/widgets/TbPager.php',
-    'TbPanel' => $vendorDir . '/crisu83/yiistrap/widgets/TbPanel.php',
     'TbScrollspy' => $vendorDir . '/crisu83/yiistrap/widgets/TbScrollspy.php',
     'TbTabs' => $vendorDir . '/crisu83/yiistrap/widgets/TbTabs.php',
     'TbThumbnails' => $vendorDir . '/crisu83/yiistrap/widgets/TbThumbnails.php',

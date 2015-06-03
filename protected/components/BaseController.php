@@ -18,6 +18,7 @@ class BaseController extends Controller
     public $script_arguments = null;
     public $default_img = '/images/';
     public $image_url = '/';
+    public $uploadPath = '/file/attachment';
 
     public function __construct($id,$module)
     {
@@ -277,7 +278,7 @@ class BaseController extends Controller
 
     public function setFlashMessage ($level, $message, $key = 'flashMessages')
     {
-        Yii::app()->session->setFlashBag($key, array($level=>$message));
+        return Yii::app()->session->setFlashBag($key, array($level=>$message));
     }
     
     public function getUUID()

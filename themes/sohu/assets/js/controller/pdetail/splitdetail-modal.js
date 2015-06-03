@@ -3,7 +3,6 @@ define(function(require, exports, module) {
     var Widget = require('widget');
     var Handlebars = require('handlebars');
     var Validator = require('bootstrap.validator');
-    var Notify = require('common/bootstrap-notify');
     require('common/validator-rules').inject(Validator);
 
     var Evaluation = Widget.extend({
@@ -87,15 +86,15 @@ define(function(require, exports, module) {
         },
 
         _setupForSplitdetail: function() {
+
             var self = this;
             var template = Handlebars.compile(this.$('[data-role=splitdetail-template]').html());
             this.set('template', template);
 
             var splitdetails = this.$('[data-role=splitdetails-data]').html();
-            if ($.type(splitdetails) != 'undefined') {
+            if ($.type(splitdetails) != 'undefined' && $.type(splitdetails) != 'null') {
             
                 var splitdetails = $.parseJSON(splitdetails);
-
                 $.each(splitdetails, function(index, item) {
                     
                     var id = self._generateNextGlobalId();
@@ -110,6 +109,7 @@ define(function(require, exports, module) {
                     $("#partner_type"+id).val(item.partner_type);
                 });
             }
+
 
         },
 

@@ -162,33 +162,6 @@ class Pdetail extends BaseModel
     	return $model;
     }
 
-    public function updatePdtail($con, $splitdetail){
-    	$model=new Pdetail;
-		$model->attributes=$con;
-
-		$chargeType = $this->requiredChargeType($con['charge_type']);
-
-    	$model = $this->filterPdetail($model, $con);
-
-    	
-
-    	$model = $this->preparePreIncoming($model, $splitdetail);
-
-    	$result = $model->save(false);
-    	if(!$result)
-    	{
-            throw new Exception('error');
-    	}
-
-    	$Splitdetail = new PrjPartnerSplitdetail();
-
-		$Splitdetail->deleteSplitdetailByPdId($model->pd_id);
-		$Splitdetail->createSplitdetails($splitdetail, $model->pd_id);
-
-    	return $model;
-    }
-
-
     public function preparePreIncoming($model, $splitdetail){
 
     	$model->pre_incoming = $model->ajcard_price * $model->pre_volumn + $model->commission_perunit * $model->pre_volumn;
@@ -197,10 +170,10 @@ class Pdetail extends BaseModel
 
     	$this->getRetain($model);
 
-    	if($this->jd_retain_ratio != 0){
-                $this->pre_incoming = $this->pre_incoming * $this->jd_retain_ratio / 100;
+    	if($model->jd_retain_ratio != 0){
+                $model->pre_incoming = $model->pre_incoming * $model->jd_retain_ratio / 100;
         }else{
-            $this->pre_incoming = $this->pre_incoming - $this->divideAmountSum;
+            $model->pre_incoming = $model->pre_incoming - $model->divideAmountSum;
         }
     	// $model->pre_incoming = $model->pre_incoming * $model->jd_retain_ratio / 100;
 
@@ -215,13 +188,13 @@ class Pdetail extends BaseModel
 
     	$divideSum = 0;
         $divideAmountSum = 0;
+
         if(isset($splitdetail)){
         	foreach ($splitdetail['partner_type'] as $key => $value) {
         		$divideSum  =  $splitdetail['divide'][$key] +  $divideSum;
         		$divideAmountSum  =  $splitdetail['divide_amount'][$key] +  $divideAmountSum;
         	}
         }
-        
 
         $model->divideSum =  $divideSum;
         $model->divideAmountSum =  $divideAmountSum;
@@ -272,6 +245,13 @@ class Pdetail extends BaseModel
 		$id = (int) $id;
 		$sql = "select * from t_pdetail where pd_id = $id limit 1";
 		return $this->QueryRow($sql);
+	}
+
+	public function findPdetailsByEvaId($evaid)
+	{
+		$evaid = (int) $evaid;
+		$sql = "select * from t_pdetail where eva_id = $evaid";
+		return $this->QueryAll($sql);
 	}
 
 
