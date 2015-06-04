@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'PhpConsole' => array($vendorDir . '/php-console/php-console/src'),
     'Monolog' => array($vendorDir . '/monolog/monolog/src'),
 );

@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 
     var Notify = require('common/bootstrap-notify');
-    var Evaluation = require('./evaluation');
+    var BaseEvaluation = require('./evaluation');
 
     exports.run = function() {
 
@@ -9,13 +9,15 @@ define(function(require, exports, module) {
         $("input").val('');
         $("#pre_ad_deal_bind1").val(1);
         $("#pre_ad_deal_bind0").val(0);
-        
-        var aa = new Evaluation({
-            element: '#evaluation-create-widget'
+
+
+        var creator =  new BaseEvaluation({
+            element: '#evaluation-create-widget',
         });
 
-        // $('[name=endTime]').datetimepicker('setStartDate', now);
-        
+        console.log(11);
+
+
         $(".modal").on('click', '.btn-confirm', function(e){
             var $selected = $('.selected');
             if ($selected.length>0) {

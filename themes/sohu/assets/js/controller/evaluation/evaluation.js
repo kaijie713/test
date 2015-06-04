@@ -578,13 +578,15 @@ define(function(require, exports, module) {
             return parseFloat(dxckpdfyze) + parseFloat(zcrnlwfyze) + parseFloat(kftdxxhdze) + parseFloat(xmbyj);
         },
 
-        getIntValue: function(ele, length="2", type="val"){
+        getIntValue: function(ele){
+            var length = arguments[1] ? arguments[1] : 2;
+            var type = arguments[2] ? arguments[2] : "val";
             if(type=='val'){
                 return $(ele).length > 0 && $(ele).val() != '' && !isNaN($(ele).val()) ? parseFloat($(ele).val()).toFixed(length) : 0 ;
             } else if(type=="text"){
                 return $(ele).length > 0 && $(ele).text() != '' && !isNaN($(ele).text()) ? parseFloat($(ele).text()).toFixed(length) : 0 ;
             }
-        }
+        },
 
     });
 

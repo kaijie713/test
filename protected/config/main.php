@@ -56,6 +56,7 @@ return array(
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
+				'class' => '/../../vendor/phpconsole/phpconsole/src/PhpConsoleLogRoute',
 				array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',

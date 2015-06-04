@@ -12,6 +12,7 @@
 	],
     "require": {
         "monolog/monolog": "1.0.*",
-	    "crisu83/yiistrap": "1.x"
+	    "crisu83/yiistrap": "2.0.x-dev",
+	    "php-console/php-console": "3.*"
     }
 }
