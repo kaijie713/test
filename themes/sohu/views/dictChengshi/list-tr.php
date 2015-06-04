@@ -30,7 +30,7 @@
 </div>
 <div class="row">
 	<?php $this->widget(
-	        'bootstrap.widgets.TbLinkPager',
+	        'application.widget.TbLinkPager',
 	        array(
 	            'pages' => $pages,
 	            'currentPage'=>$pageIndex,
