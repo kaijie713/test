@@ -344,12 +344,15 @@ $this->script_controller = 'evaluation/approval';
 
 
 						<div class="form-group">
-						    <div class="col-md-offset-1 col-md-8 controls">
+						    <div class="pull-right span3 controls">
 						    	<?php if(!empty($isApproval)){?>
 						    	<button type="button" data-role = "1" class="btn btn-success btn-submit">通过</button>
 						    	<button type="button" data-role = "0" class="btn btn-success btn-submit">驳回</button>
-						    	<?php }?>
 						    	<a class="btn btn-link" href="/index.php?r=evaluation/admin">返回</a>
+						    	<?php } else {?>
+						    	<a href="/index.php?r=evaluation/admin" class="btn btn-default">返回</a>
+						    	<?php }?>
+
 						    </div>
 						</div>
 

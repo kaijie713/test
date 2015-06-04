@@ -39,6 +39,15 @@ $this->script_controller = 'evaluation/set-approve';
 	          </div>
 	        </div>
 	      </div>
+
+
+	      <div class="form-group">
+		    <div class="pull-right offset2 span3 controls">
+		    	<a href="/index.php?r=evaluation/admin" class="btn btn-default">返回</a>
+		    </div>
+		</div>
+
+
 	    </div>
 	</div>
 </div>
