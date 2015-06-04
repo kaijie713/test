@@ -83,7 +83,7 @@ $this->script_controller = 'evaluation/admin';
 					</div>
 					
 					    <?php $this->widget(
-					            'bootstrap.widgets.TbLinkPager',
+					            'application.widget.TbLinkPager',
 					            array(
 					                'pages' => $pages,
 					                'currentPage'=>$pageIndex,
