@@ -1,3 +1,4 @@
 /assets/*
 /protected/runtime/*
 /protected/config/database.php
+.idea
