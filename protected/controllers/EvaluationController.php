@@ -29,11 +29,29 @@ class EvaluationController extends BaseController
 		);
 	}
 
-	public function actionView($id)
+	public function actionView()
 	{
-		// $id = isset($_GET['id'])?$_GET['id']:1;
+		$id = isset($_GET['id'])?$_GET['id']:1;
 
-		// $evaluation = $this->loadModel($id);
+		$evaluation = $this->loadModel($id);
+
+		$model=new Evaluation;
+
+		if(isset($_POST['Evaluation']))
+		{
+			if (empty($_POST['Pdetail']))
+				throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+
+			if (empty($_POST['Outlineoutdetail']))
+				$_POST['Outlineoutdetail'] = null;
+
+			$evaluation = $model->create($_POST['Evaluation'],$_POST['EvaformPayment'],$_POST['Outlineoutdetail'],$_POST['Pdetail']);
+
+			PermissionAccess::model()->createPermissionAccessByEvaId($evaluation->eva_id);
+
+	    	$this->setFlashMessage('success', '评估单创建成功');
+			$this->redirect('/index.php?r=evaluation/admin');
+		}
 		
 		$this->render('view',array(
 			'model'=>$model,
@@ -128,7 +146,25 @@ class EvaluationController extends BaseController
 		));
 	}
 
-	
+
+	public function actionCalculatorOnCreate()
+	{
+		$model=new Evaluation;
+
+		if (empty($_POST['Pdetail']) || empty($_POST['Evaluation']))
+			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+
+		if (empty($_POST['Outlineoutdetail'])) $_POST['Outlineoutdetail'] = null;
+
+		$model->calculator($_POST['Evaluation'],$_POST['EvaformPayment'],$_POST['Outlineoutdetail'],$_POST['Pdetail']);
+
+		$arr = $model->arr;
+		$arr['pdetail']	= $model->arrPdetail;
+
+		exit(CJSON::encode($arr));
+
+	}
+
 
 
 	public function actionApproval(){
