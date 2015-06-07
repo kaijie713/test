@@ -32,6 +32,7 @@ define(function(require, exports, module) {
             $.post($form.attr('action'), $form.serialize(), function(response) {
                 // console.log(response);
                 if (response.status) {
+
                     $('[data-role=pdetail-form]').find("[data-dismiss=modal]").click();
                     if($('#'+response.message).length>0){
                         $('#'+response.message).parents('tr').remove();

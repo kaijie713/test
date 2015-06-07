@@ -55,8 +55,11 @@ class Dict{
 	static public function get($type, $val){
 		return self::$dict[$type][$val];
 	}
-
 	static public function gets($type){
 		return SysDict::model()->findSysDictByGroup($type);
+	}
+	static public function getValue($id){
+		$row = SysDict::model()->getSysDictById($id);
+		return empty($row['dvalue'])?'null':$row['dvalue'];
 	}
 }

@@ -31,30 +31,33 @@ class EvaluationController extends BaseController
 
 	public function actionView()
 	{
+
 		$id = isset($_GET['id'])?$_GET['id']:1;
 
-		$evaluation = $this->loadModel($id);
+		$model = $this->loadModel($id);
 
-		$model=new Evaluation;
+		$users = ArrayToolkit::index(User::model()->findUsersByIds(array($model->ec_incharge_id,$model->createby,$model->sales_id)),"u_id");
 
-		if(isset($_POST['Evaluation']))
-		{
-			if (empty($_POST['Pdetail']))
-				throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+        $project = THousesPrj::model()->findByPk($model->group_id);
 
-			if (empty($_POST['Outlineoutdetail']))
-				$_POST['Outlineoutdetail'] = null;
+		$city = DictChengshi::model()->findByPk($model->city_id);
 
-			$evaluation = $model->create($_POST['Evaluation'],$_POST['EvaformPayment'],$_POST['Outlineoutdetail'],$_POST['Pdetail']);
+		$area = Area::model()->findByPk($model->area_id);
 
-			PermissionAccess::model()->createPermissionAccessByEvaId($evaluation->eva_id);
+		$pdetails = Pdetail::model()->findPdetailsByEvaId($id);
+		$evaformPayment = EvaformPayment::model()->findEvaformPaymentByEvaId($id);
 
-	    	$this->setFlashMessage('success', '评估单创建成功');
-			$this->redirect('/index.php?r=evaluation/admin');
-		}
-		
+		$logs = PermissionAccessLog::model()->findPermissionAccessLogByEvaId($id);
+
 		$this->render('view',array(
 			'model'=>$model,
+			'users'=>$users,
+			'project'=>$project,
+			'city'=>$city,
+			'area'=>$area,
+			'pdetails'=>$pdetails,
+			'evaformPayment'=>$evaformPayment,
+			'logs'=>$logs,
 		));
 	}
 

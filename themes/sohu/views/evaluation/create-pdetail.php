@@ -16,11 +16,13 @@
 		      <th width="3%">行号</th>
 		      <th width="8%">开始时间</th>
 		      <th width="8%">结束时间</th>
+
 		      <th width="8%">可售房源数量</th>
 		      <th width="8%">房源类型</th>
 		      <th width="7%">预计毛收入</th>
 		      <th width="9%">收费方式</th>
 		      <th width="14%">操作</th>
+
 		    </tr>
 		  </thead>
 		  <tbody class="is-null">
@@ -48,7 +50,7 @@
   	  <button type="button" class="btn btn-default btn-sm" data-url="/index.php?r=Pdetail/Update&id={{pdid}}" data-toggle="modal" data-target="#modal" id="{{pdid}}">设置详情</button>
 	  <button type="button" data-role="delete-pdetail" class="btn btn-default btn-sm">删除</button>
 	  <span data-role="calculator" data-id="{{id}}">
-		<input type="hidden" name="Pdetail[pd_id][]" id="pd_id{{id}}" value="{{pdid}}">
+	  <input type="hidden" name="Pdetail[pd_id][]" id="pd_id{{id}}" value="{{pdid}}">
   	  </span>
   </td>
 </tr>

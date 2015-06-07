@@ -204,6 +204,7 @@ class PdetailController extends BaseController
 		}
 
 		$Splitdetail = new PrjPartnerSplitdetail();
+
 		$splitdetails = CJSON::encode($Splitdetail->findSplitdetailByPdId($model->pd_id));
 
 		$this->renderPartial('create-'.$chargeType['dkey'],array(

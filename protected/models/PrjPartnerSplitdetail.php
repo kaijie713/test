@@ -92,7 +92,9 @@ class PrjPartnerSplitdetail extends BaseModel
 
 
 
+
 	public function findSplitdetailByPdId($pdid)
+
 	{
 		$pdid = (int) $pdid;
 		$sql = "select * from t_prj_partner_splitdetail where pd_id = $pdid";
@@ -129,7 +131,6 @@ class PrjPartnerSplitdetail extends BaseModel
 		return parent::model($className);
 	}
 
-
     public function prepareSplitdetailByPdId($pdids){
 
     	$arr = array(
@@ -160,4 +161,5 @@ class PrjPartnerSplitdetail extends BaseModel
   
         return $arr;
     }
+
 }

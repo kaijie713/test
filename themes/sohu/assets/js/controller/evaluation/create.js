@@ -48,9 +48,10 @@ define(function(require, exports, module) {
 
         $('body').on('click', '.for-modal', function () {
             $('#modalType').val($(this).data('type'));
+
         });
 
-        
+
 
         function getArea(id){
             $.get($("#area_id").data('url'), { 'id': id  },function(data){

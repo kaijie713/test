@@ -226,5 +226,4 @@ class BaseModel extends CActiveRecord
         return $id;
     }
 
-     
 } 

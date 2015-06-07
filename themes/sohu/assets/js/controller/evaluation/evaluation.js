@@ -27,7 +27,9 @@ define(function(require, exports, module) {
             'click [data-role=delete-outlineoutdetail]': 'onDeleteOutlineoutdetail',
 
             "keyup input[name^='Outlineoutdetail']": 'calculatorForOutlineoutdetail',
+
             'click [data-role=btn-calculator]': 'calculator2',
+
 
 
         },
@@ -39,6 +41,7 @@ define(function(require, exports, module) {
         },
 
         onAddPdetail: function(event) {
+
 
             var pdetailCount = this.$('[data-role=pdetail]').length;
             var model = {code:pdetailCount+1, id:this._generateNextGlobalId()}
@@ -369,6 +372,7 @@ define(function(require, exports, module) {
             this.prepareShow(arr);
         },
 
+
         //整体计算
         calculator2: function(event) {
             if($("[data-role=calculator]").length<=0){
@@ -381,6 +385,7 @@ define(function(require, exports, module) {
                 self.prepareShow(data);
             },'json');
         },
+
 
         prepareCalculator: function(){
             var arr = new Array();
@@ -433,8 +438,10 @@ define(function(require, exports, module) {
             $(".pre_incoming").html(arr['pdetail']['pre_incoming']+'元');
             $(".net_income").html(arr['net_income']+'元');
             $(".offline_ratio").html(arr['offline_ratio']+'%');
+
             $(".splitdetail_divide_sum").html(arr['pdetail']['divideSumKFS']+'%');
             $(".developers_divide_sum").html(arr['pdetail']['divideAmountSumDSF']+'%');
+
             $(".ad_markting_ratio").html(arr['ad_markting_ratio']+'%');
             $(".sale_ad_kanli_amount").html(arr['sale_ad_kanli_amount']+'元');
             $(".resource_income_multiples").html(arr['resource_income_multiples']);
@@ -447,7 +454,9 @@ define(function(require, exports, module) {
         preparePdetail: function()
         {
             var arr = new Array();
+
             arr['sell_house_num'] = arr['ajcard_price'] = arr['pre_volumn'] = arr['prjreword_perunit'] = arr['prevolumn_perunit'] = arr['brokerfees_perunit'] = arr['prebrokervolumn'] = arr['pre_amount'] = arr['commission_rate'] = arr['commission_perunit'] = arr['pre_commission_amount'] = arr['pre_incoming'] = arr['jd_retain_ratio'] = arr['jd_retain_amount'] = arr['divideSum'] = arr['divideAmountSum'] = arr['jd_retain_ratio'] = arr['jd_retain_amount'] = arr['divideSumKFS'] = arr['divideAmountSumKFS'] = arr['divideSumDSF'] = arr['divideAmountSumDSF'] = 0;
+
 
             if ($("[data-role=calculator]").length > 0)
             {
@@ -470,10 +479,12 @@ define(function(require, exports, module) {
                     arr['divideSum'] = parseFloat(arr['divideSum']) + parseFloat($(this).find('[id^=divideSum]').val());
                     arr['divideAmountSum'] = parseFloat(arr['divideAmountSum']) + parseFloat($(this).find('[id^=divideAmountSum]').val());
 
+
                     arr['divideSumKFS'] = parseFloat(arr['divideSumKFS']) + parseFloat($(this).find('[id^=divideSumKFS]').val());
                     arr['divideAmountSumKFS'] = parseFloat(arr['divideAmountSumKFS']) + parseFloat($(this).find('[id^=divideAmountSumKFS]').val());
                     arr['divideSumDSF'] = parseFloat(arr['divideSumDSF']) + parseFloat($(this).find('[id^=divideSumDSF]').val());
                     arr['divideAmountSumDSF'] = parseFloat(arr['divideAmountSumDSF']) + parseFloat($(this).find('[id^=divideAmountSumDSF]').val());
+
 
                 });
             }

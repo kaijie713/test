@@ -110,12 +110,14 @@ define(function(require, exports, module) {
 
                     divideSum = parseFloat(divide)+parseFloat(divideSum);
                     divideAmountSum = parseFloat(divideAmount)+parseFloat(divideAmountSum);
+
                 });
                 
             }
 
             arr['divideSum'] = divideSum;
             arr['divideAmountSum'] = divideAmountSum;
+
             return arr;
         },
 

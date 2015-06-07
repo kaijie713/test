@@ -255,6 +255,7 @@ class Evaluation extends BaseModel
         if(count($outlineoutdetail)>0){
         	foreach ($outlineoutdetail['out_amount'] as $key => $value) {
         		$num = $num + $value;
+
         		if($outlineoutdetail['out_type'][$key] == Dict::get('outType', 'dxckpdfyze')){
         			$this->arr['ol_fee1'] = $this->arr['ol_fee1'] + $outlineoutdetail['out_amount'][$key];
         		}
@@ -265,6 +266,7 @@ class Evaluation extends BaseModel
         			$this->arr['ol_fee3'] = $this->arr['ol_fee3'] + $outlineoutdetail['out_amount'][$key];
         		}
         		if($outlineoutdetail['out_type'][$key] == Dict::get('outType', 'xmbyj')){
+
         			$this->arr['ol_fee84'] = $this->arr['ol_fee84'] + $outlineoutdetail['out_amount'][$key];
         		}
 
@@ -290,6 +292,7 @@ class Evaluation extends BaseModel
 
         $this->arr['sale_ad_kanli_amount'] =  number_format($this->arr['sale_ad_kanli_amount'], 2, '.', '');
     }
+
 
 
 	public function preparePdetail($pdetailPost)
@@ -345,6 +348,7 @@ class Evaluation extends BaseModel
 
         $offlineRatio = $amountRatio = $netIncome = 0;
 
+
         if(empty($pdetailPost) && empty($pdetailPost['pd_id'])) return ;
 
         foreach ($pdetailPost['pd_id'] as $key => $value) 
@@ -359,7 +363,10 @@ class Evaluation extends BaseModel
 			    $amountRatio = $this->arr['offline_amount_sum']/$this->arrPdetail['pre_incoming'];
 
 			    $netIncome = $this->arrPdetail['pre_incoming']/(1 - $amountRatio);
+
 			} else if($model->charge_type=="mkyfc"){
+
+
 			    $offlineRatio = $this->arr['offline_amount_sum']/($this->arrPdetail['pre_incoming']+$this->arr['pre_ad_amount']);
 
 			    $netIncome = $this->arrPdetail['pre_incoming']*(100-$this->arr['ad_markting_ratio']-$this->arr['pre_tax_ratio'])/100-$this->arr['offline_amount_sum'];
@@ -374,16 +381,16 @@ class Evaluation extends BaseModel
 
 			    $amountRatio =$this->arr['pre_tax_ratio'] + $offlineRatio + $netIncome;
 
-
 			}else if($model->charge_type=="cpsyfc"){
+
 			    $offlineRatio = $this->arr['offline_amount_sum']/$this->arrPdetail['pre_incoming'];
 
 			    $netIncome = $this->arrPdetail['pre_incoming'] * (1-$offlineRatio);
 
 			    $amountRatio = $pdetail['divideSum'][$key]+ $this->arr['pre_tax_ratio'] + $this->arr['ad_markting_ratio'] + $offlineRatio;
-			    
 
 			}else if($model->charge_type=="mkcps"){
+
 			    $offlineRatio = $this->arr['offline_amount_sum']/$this->arrPdetail['pre_incoming'];
 
 			    $netIncome = $this->arrPdetail['pre_incoming']*(100-$this->arr['ad_markting_ratio']-$this->arr['pre_tax_ratio'])/100-$this->arr['offline_amount_sum'];
@@ -409,6 +416,7 @@ class Evaluation extends BaseModel
         $this->arr['brokerfees_perunit_sum'] = 0;
 
         $anchang = $jingjiren = 0;
+
 		if(empty($pdetailPost) && empty($pdetailPost['pd_id'])) return ;
 
         foreach ($pdetailPost['pd_id'] as $key => $value) 
@@ -418,6 +426,7 @@ class Evaluation extends BaseModel
 
         	$anchang  = $model->prjreword_perunit * $model->prevolumn_perunit+ $anchang;
         	$jingjiren  = $model->brokerfees_perunit * $model->prebrokervolumn+ $anchang;
+
         }
 
         $this->arr['prjreword_perunit_sum']  = number_format($anchang, 2, '.', '');
@@ -428,8 +437,9 @@ class Evaluation extends BaseModel
     public function setEvaluationStatusById($id, $flag){
 
         $Evaluation = Evaluation::model()->findByPk($id);
+
         if(empty($Evaluation)) return false;;
-      	
+
 		$Evaluation->status= Dict::get('evaStatus',$flag);
 		$Evaluation->isNewRecord =  false;
 		$Evaluation->save(false);

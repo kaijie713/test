@@ -1,11 +1,13 @@
 <?php
 $this->pageTitle='调整评估单 - '.Yii::app()->name;
+
 // $this->script_controller = 'evaluation/create';
 ?>
 
 <div id="content-header">
     <div id="breadcrumb"> <a class="tip-bottom" href="/index.php?r=evaluation/admin" data-original-title="去首页"><i class="icon-home"></i> 首页</a> <a class="current" href="#">创建评估单</a> </div>
     <h1>调整评估单</h1>
+
 </div>
 
 <div class="container-fluid">
@@ -216,6 +218,7 @@ $this->pageTitle='调整评估单 - '.Yii::app()->name;
 		<input type="hidden" name="Pdetail[divideAmountSumKFS][]" id="divideAmountSumKFS{{id}}" value="{{arr.divideAmountSumKFS}}">
 		<input type="hidden" name="Pdetail[divideSumDSF][]" id="divideSumDSF{{id}}" value="{{arr.divideSumDSF}}">
 		<input type="hidden" name="Pdetail[divideAmountSumDSF][]" id="divideAmountSumDSF{{id}}" value="{{arr.divideAmountSumDSF}}">
+
 		<input type="hidden" name="Pdetail[type][]" id="type{{id}}" value="{{arr.type}}">
 		<input type="hidden" name="Pdetail[pd_id][]" id="pd_id{{id}}" value="{{pdid}}">
   	  </span>
