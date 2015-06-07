@@ -6,7 +6,10 @@ class Pdetail extends BaseModel
 	 */
 	public $divideSum = 0;
 	public $divideAmountSum = 0;
-
+	public $divideSumDSF = 0;
+	public $divideSumKFS = 0;
+	public $divideAmountSumDSF = 0;
+	public $divideAmountSumKFS = 0;
 
 	public function tableName()
 	{

@@ -1,11 +1,11 @@
 <?php
-$this->pageTitle='调整评估单 - '.Yii::app()->name;
+$this->pageTitle='评估单详情 - '.Yii::app()->name;
 // $this->script_controller = 'evaluation/create';
 ?>
 
 <div id="content-header">
     <div id="breadcrumb"> <a class="tip-bottom" href="/index.php?r=evaluation/admin" data-original-title="去首页"><i class="icon-home"></i> 首页</a> <a class="current" href="#">创建评估单</a> </div>
-    <h1>调整评估单</h1>
+    <h1>评估单详情</h1>
 </div>
 
 <div class="container-fluid">
