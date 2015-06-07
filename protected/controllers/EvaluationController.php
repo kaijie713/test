@@ -31,7 +31,6 @@ class EvaluationController extends BaseController
 
 	public function actionView()
 	{
-
 		$id = isset($_GET['id'])?$_GET['id']:1;
 
 		$model = $this->loadModel($id);

@@ -129,7 +129,6 @@ class Pdetail extends BaseModel
 
     public function createPdtail($con, $splitdetail){
 
-
     	if(empty($con['pd_id']))
     	{
     		$model=new Pdetail;
@@ -147,11 +146,9 @@ class Pdetail extends BaseModel
     	if(!empty($splitdetail)){
     		$Splitdetail = new PrjPartnerSplitdetail();
 			$Splitdetail->createSplitdetails($splitdetail, $model->pd_id);
-
     	}
 
 		$model->attributes=$con;
-
 
 		$this->requiredChargeType($con['charge_type']);
 
@@ -161,21 +158,14 @@ class Pdetail extends BaseModel
 
     	$result = $model->save(false);
 
-
     	if(!$result)
     	{
             throw new Exception('error');
     	}
 
-   //  	if(!empty($splitdetail)){
-   //  		$Splitdetail = new PrjPartnerSplitdetail();
-			// $Splitdetail->createSplitdetails($splitdetail, $model->pd_id);
-   //  	}
-
 
     	return $model;
     }
-
 
     public function preparePdetail($model){
 
@@ -193,14 +183,12 @@ class Pdetail extends BaseModel
             $model->pre_incoming = $model->pre_incoming - $model->divideAmountSum;
         }
 
-
         $model->pre_incoming = $model->pre_incoming - $model->prjreword_perunit * $model->prevolumn_perunit - $model->brokerfees_perunit * $model->prebrokervolumn;
 
         $model->pre_incoming = number_format($model->pre_incoming, 4, '.', '');
 
 		return $model;
     }
-
 
     public function prepareSplitdetail($model, $pdid){
 
@@ -216,7 +204,6 @@ class Pdetail extends BaseModel
 
 
     public function getJDRetain($model){
-
     	$model->jd_retain_ratio = 100 - $model->divideSum;
     	$model->jd_retain_amount = $model->pre_incoming;
     	return $model;
@@ -239,15 +226,12 @@ class Pdetail extends BaseModel
     	$model->pre_commission_amount = !empty($con['pre_commission_amount']) && $con['pre_commission_amount'] != "" ? number_format($con['pre_commission_amount'], 4, '.', '') : 0 ; 
     	$model->jd_retain_ratio = !empty($con['jd_retain_ratio']) && $con['jd_retain_ratio'] != "" ? number_format($con['jd_retain_ratio'], 4, '.', '') : 0 ; 
     	$model->jd_retain_amount = !empty($con['jd_retain_amount']) && $con['jd_retain_amount'] != "" ? number_format($con['jd_retain_amount'], 4, '.', '') : 0 ; 
-
     }
 
 
 	public function requiredChargeType($id)
     {
-
         $chargeType = SysDict::model()->getSysDictById($id);
-
         if(empty($chargeType)){
 			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
         }
