@@ -1,0 +1,7 @@
+ALTER TABLE `t_prj_partner_splitdetail` CHANGE `partner_type` `partner_type` VARCHAR(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '开发商/合作媒体类别';
+ALTER TABLE `t_pdetail` CHANGE `source_type` `source_type` CHAR(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '房源类型';
+ALTER TABLE `t_pdetail` CHANGE `charge_type` `charge_type` VARCHAR(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '收费方式';
+ALTER TABLE `t_pdetail` CHANGE `bdate` `bdate` DATETIME NULL DEFAULT NULL COMMENT '开始时间';
+ALTER TABLE `t_pdetail` CHANGE `edate` `edate` DATETIME NULL DEFAULT NULL COMMENT '结束时间';
+ALTER TABLE `t_evaform_payment` CHANGE `ad_distribution_ratio` `ad_distribution_ratio` DECIMAL(3,2) NULL DEFAULT NULL COMMENT '广告配送比';
+ALTER TABLE `t_evaform_payment` CHANGE `ad_markting_ratio` `ad_markting_ratio` DECIMAL(3,2) NULL DEFAULT NULL COMMENT '营销费用比例';
