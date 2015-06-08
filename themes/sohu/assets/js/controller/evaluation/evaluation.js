@@ -442,7 +442,7 @@ define(function(require, exports, module) {
             $(".splitdetail_divide_sum").html(arr['pdetail']['divideSumKFS']+'%');
             $(".developers_divide_sum").html(arr['pdetail']['divideAmountSumDSF']+'%');
 
-            $(".ad_markting_ratio").html(arr['ad_markting_ratio']+'%');
+            $(".ad_markting_ratio").html(arr['evaformPayment']['ad_markting_ratio']+'%');
             $(".sale_ad_kanli_amount").html(arr['sale_ad_kanli_amount']+'元');
             $(".resource_income_multiples").html(arr['resource_income_multiples']);
             $(".offline_amount_sum").html(arr['offline_amount_sum']+'元');

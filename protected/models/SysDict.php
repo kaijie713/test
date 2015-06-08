@@ -149,6 +149,12 @@ class SysDict extends BaseModel
 		return $this->QueryRow($sql);
 	}
 
+	public function getSysDictByDkeyAndGroupCode($code, $key)
+	{
+		$sql = "select * from sys_dict where dkey = '$key' and group_code = '$code' limit 1 ";
+		return $this->QueryRow($sql);
+	}
+
 	public function findSysDictsByIds($ids)
 	{
 		if(empty($ids)){

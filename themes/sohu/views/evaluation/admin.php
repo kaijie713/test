@@ -56,7 +56,7 @@ $this->script_controller = 'evaluation/admin';
 						     <?php echo $v['status'];?>
 						  </td>
 						  <td class="center">
-						     <?php F::subDecimal($v['net_income']);?>
+						     <?php F::d2($v['net_income']);?>
 						  </td>
 						  <td class="center">
 							<div class="btn-group">
@@ -66,8 +66,8 @@ $this->script_controller = 'evaluation/admin';
 							    <span class="caret"></span>&nbsp;
 							  </a>
 							  <ul class="dropdown-menu">
-							    <li><a href="/index.php?r=evaluation/Approval&id=<?php echo $v['eva_id'];?>"><i class="glyphicon glyphicon-cog"></i> 审批评估单</a></li>
-							    <li><a href="/index.php?r=evaluation/SetPermissionAccess&id=<?php echo $v['eva_id'];?>"><i class="glyphicon glyphicon-cog"></i> 设置授权</a></li>
+							    <li><a href="/index.php?r=PermissionAccess/approval&id=<?php echo $v['eva_id'];?>"><i class="glyphicon glyphicon-cog"></i> 审批评估单</a></li>
+							    <li><a href="/index.php?r=PermissionAccess/SetPermissionAccess&id=<?php echo $v['eva_id'];?>"><i class="glyphicon glyphicon-cog"></i> 设置授权</a></li>
 							    <li><a href="/index.php?r=evaluation/Update&id=<?php echo $v['eva_id'];?>"><i class="glyphicon glyphicon-cog"></i> 调整评估单</a></li>
 							    <li><a data-url="/index.php?r=evaluation/delete&id=<?php echo $v['eva_id'];?>" data-target="<?php echo $v['eva_id'];?>" class="delete-btn" href="javascript:">删除</a></li>
 							  </ul>

@@ -4,9 +4,7 @@ class Dict{
 		'evaStatus' => array(
 			'cj'=>'528584156529680',
 			'shtg'=>'528584156529682',
-			'1'=>'528584156529682',
 			'bh'=>'528584156529683',
-			'0'=>'528584156529683',
 			'zstg'=>'528584156529684',
 		),
 		'partnerType' => array(
@@ -53,7 +51,8 @@ class Dict{
 	);
 	
 	static public function get($type, $val){
-		return self::$dict[$type][$val];
+		$row = SysDict::model()->getSysDictByDkeyAndGroupCode($type, $val);
+		return empty($row['dict_id'])?'null':$row['dict_id'];
 	}
 	static public function gets($type){
 		return SysDict::model()->findSysDictByGroup($type);

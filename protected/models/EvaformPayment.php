@@ -139,11 +139,12 @@ class EvaformPayment extends BaseModel
 		return parent::model($className);
 	}
 
-	public function findEvaformPaymentByEvaId($evaid)
+	public function getEvaformPaymentByEvaId($evaid)
 	{
 		$evaid = (int) $evaid;
-		$sql = "select * from t_evaform_payment where eva_id = $evaid limit 1";
+		$sql = "select * from t_evaform_payment where eva_id = $evaid and isactive = 0 limit 1";
 		return $this->QueryRow($sql);
 	}
+
 
 }

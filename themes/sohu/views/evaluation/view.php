@@ -171,37 +171,37 @@ $this->pageTitle='评估单详情 - '.Yii::app()->name;
 			<div class="control-group form-group">
 				<label class="control-label">可售房源总数：</label>
 				<div class="controls">
-					<p class="help-block sell_house_sum" >0</p>
+					<p class="help-block sell_house_sum" ><?php echo $calculator->pdetail->sell_house_num;?>套</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
 				<label class="control-label">预计成交总额：</label>
 				<div class="controls">
-					<p class="help-block pre_amount_sum">0</p>
+					<p class="help-block pre_amount_sum"><?php echo F::ds4($calculator->pdetail->pre_amount);?>万元</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
 				<label class="control-label" for="pre_ad_amount">保底广告费金额：</label>
 				<div class="controls">
-					<p class="help-block pre_ad_amount">0</p>
+					<p class="help-block pre_ad_amount"><?php echo F::d2($calculator->evaformPayment->pre_ad_amount);?>元</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
 				<label class="control-label">预计焦点净收益：</label>
 				<div class="controls">
-					<p class="help-block net_income">0</p>
+					<p class="help-block net_income"><?php echo $calculator->net_income;?>元</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
 				<label class="control-label">第三方分成比例：</label>
 				<div class="controls">
-					<p class="help-block splitdetail_divide_sum">0</p>
+					<p class="help-block splitdetail_divide_sum"><?php echo $calculator->pdetail->divideSumKFS;?>%</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
 				<label class="control-label" for="pre_tax_ratio">税金比例：</label>
 				<div class="controls">
-					<p class="help-block pre_tax_ratio">0</p>
+					<p class="help-block pre_tax_ratio"><?php echo $calculator->evaformPayment->pre_tax_ratio;?>%</p>
 				</div>
 			</div>
 
@@ -210,13 +210,13 @@ $this->pageTitle='评估单详情 - '.Yii::app()->name;
 			<div class="control-group form-group">
 				<label class="control-label">预计成交套数：</label>
 				<div class="controls">
-					<p class="help-block pre_volumn_sum">0</p>
+					<p class="help-block pre_volumn_sum"><?php echo $calculator->pdetail->pre_volumn;?>套</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
 				<label class="control-label">预计焦点毛收入：</label>
 				<div class="controls">
-					<p class="help-block pre_incoming">0</p>
+					<p class="help-block pre_incoming"><?php echo F::ds4($calculator->pdetail->pre_incoming);?>万元</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
@@ -229,19 +229,19 @@ $this->pageTitle='评估单详情 - '.Yii::app()->name;
 			<div class="control-group form-group">
 				<label class="control-label">线下总支出比例：</label>
 				<div class="controls">
-					<p class="help-block offline_ratio">0</p>
+					<p class="help-block offline_ratio"><?php echo $calculator->offline_ratio;?>%</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
 				<label class="control-label">开发商分成比例：</label>
 				<div class="controls">
-					<p class="help-block developers_divide_sum">0</p>
+					<p class="help-block developers_divide_sum"><?php echo $calculator->pdetail->divideAmountSumDSF;?>%</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
 				<label class="control-label">营销费用比例：</label>
 				<div class="controls">
-					<p class="help-block ad_markting_ratio">0</p>
+					<p class="help-block ad_markting_ratio"><?php echo $calculator->evaformPayment->ad_markting_ratio;?>%</p>
 				</div>
 			</div>
 		</div>
@@ -260,39 +260,39 @@ $this->pageTitle='评估单详情 - '.Yii::app()->name;
 			<div class="control-group form-group">
 				<label class="control-label" for="ad_discount">广告折扣：</label>
 				<div class="controls">
-					<p class="help-block ad_discount">0</p>
+					<p class="help-block ad_discount"><?php echo F::d2($calculator->evaformPayment->ad_discount);?>%</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
 				<label class="control-label">按销售政策计算广告刊例金额：</label>
 				<div class="controls">
-					<p class="help-block sale_ad_kanli_amount">0</p>
+					<p class="help-block sale_ad_kanli_amount"><?php echo F::d2($calculator->sale_ad_kanli_amount);?>%</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
 				<label class="control-label">资源比预计收入倍数：</label>
 				<div class="controls">
-					<p class="help-block resource_income_multiples">0</p>
+					<p class="help-block resource_income_multiples"><?php echo F::d2($calculator->resource_income_multiples);?></p>
 				</div>
 			</div>
 		</div>
 		<div class="span6">
 			<div class="control-group form-group">
-				<label class="control-label" for="ad_distribution_ratio">广告配送比：</label>
+				<label class="control-label" for="ad_distribution_ratio">广告配送倍数：</label>
 				<div class="controls">
-					<p class="help-block ad_distribution_ratio">0</p>
+					<p class="help-block ad_distribution_ratio"><?php echo F::d2($calculator->evaformPayment->ad_distribution_ratio);?></p>
 				</div>
 			</div>
 			<div class="control-group form-group">
 				<label class="control-label" for="ad_amount_infact">实际申请的广告刊例金额：</label>
 				<div class="controls">
-					<p class="help-block ad_amount_infact">0</p>
+					<p class="help-block ad_amount_infact"><?php echo F::d2($calculator->evaformPayment->ad_amount_infact);?>元</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
 				<label class="control-label" for="ad_markting_ratio">营销费用比例：</label>
 				<div class="controls">
-					<p class="help-block ad_markting_ratio">0</p>
+					<p class="help-block ad_markting_ratio"><?php echo F::d2($calculator->evaformPayment->ad_markting_ratio);?>%</p>
 				</div>
 			</div>
 		</div>
@@ -311,20 +311,20 @@ $this->pageTitle='评估单详情 - '.Yii::app()->name;
 				<div class="control-group form-group">
 					<label class="control-label">线下总支出：</label>
 					<div class="controls">
-						<p class="help-block offline_amount_sum">0</p>
+						<p class="help-block offline_amount_sum"><?php echo $calculator->offline_amount_sum;?>元</p>
 					</div>
 				</div>
 				<div class="control-group form-group">
 					<label class="control-label">案场奖励总额：</label>
 					<div class="controls">
-						<p class="help-block prjreword_perunit_sum">0</p>
+						<p class="help-block prjreword_perunit_sum"><?php echo $calculator->prjreword_perunit_sum;?>元</p>
 					</div>
 				</div>
 				<div class="control-group form-group ">
 					<div >
 						<label class="control-label">短信、call客、 派单费用总额：</label>
 						<div class="controls">
-							<p class="help-block"><span id="dxckpdfyze">0</span>元</p>
+							<p class="help-block"><span id="dxckpdfyze"><?php echo F::d2($calculator->evaformPayment->ol_fee1);?></span>元</p>
 
 						</div>
 					</div>
@@ -332,7 +332,7 @@ $this->pageTitle='评估单详情 - '.Yii::app()->name;
 				<div class="control-group form-group">
 					<label class="control-label">看房团及其它线下活动费用总额：</label>
 					<div class="controls">
-						<p class="help-block"><span id="kftdxxhdze">0</span>元</p>
+						<p class="help-block"><span id="kftdxxhdze"><?php echo F::d2($calculator->evaformPayment->ol_fee3);?></span>元</p>
 					</div>
 				</div>
 			</div>
@@ -340,45 +340,66 @@ $this->pageTitle='评估单详情 - '.Yii::app()->name;
 				<div class="control-group form-group">
 					<label class="control-label">线下总支出比例：</label>
 					<div class="controls">
-						<p class="help-block offline_ratio">0</p>
+						<p class="help-block offline_ratio"><?php echo $calculator->offline_ratio;?>%</p>
 					</div>
 				</div>
 				<div class="control-group form-group">
 					<label class="control-label">门店经纪人服务费总额：</label>
 					<div class="controls">
-						<p class="help-block  brokerfees_perunit_sum">0</p>
+						<p class="help-block  brokerfees_perunit_sum"><?php echo $calculator->brokerfees_perunit_sum;?>元</p>
 					</div>
 				</div>
 				<div class="control-group form-group">
 					<label class="control-label">驻场人员劳务费总额：</label>
 					<div class="controls">
-						<p class="help-block "><span id="zcrnlwfyze">0</span>元</p>
+						<p class="help-block "><span id="zcrnlwfyze"><?php echo F::d2($calculator->evaformPayment->ol_fee2);?></span>元</p>
 					</div>
 				</div>
 				<div class="control-group form-group">
 					<label class="control-label">项目备用金：</label>
 					<div class="controls">
-						<p class="help-block"><span id="xmbyj">0</span>元</p>
+						<p class="help-block"><span id="xmbyj"><?php echo F::d2($calculator->evaformPayment->ol_fee84);?></span>元</p>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="widget-box">
 			<div class="widget-content nopadding ">
-				<table class=" table table-striped table-condensed table-hover hide outlineoutdetail-table">
+				<table class=" table table-striped table-condensed table-hover outlineoutdetail-table">
 				  <thead>
 				    <tr>
 				      <th width="30%">属于</th>
 				      <th width="30%">支出项名称</th>
 				      <th width="20%">支出项金额</th>
-				      <th width="10%">操作</th>
 				    </tr>
 				  </thead>
 
-				  <?php foreach (Dict::gets('outType') as $key => $value) { ?>
-					  <tbody id="outlineoutdetail-body-<?php echo $value['dkey'];?>" data-dictId="<?php echo $key;?>" data-key="<?php echo $value['dkey'];?>" data-dvalue="<?php echo $value['dvalue'];?>">
-					  </tbody>
-				  <?php } ?>
+<?php foreach ($outlineoutdetail as $key => $value) { ?>
+  <tr>
+  	  <td>
+  	  	<?php echo Dict::getValue($value['out_type']);?>
+  	  </td>
+	  <td>
+	  	<div class="control-group form-group">
+	  		<label for="out_name{{id}}" class="control-label hide">支出项名称</label>
+		  	<div class="input-group controls mlz">
+		  		<?php echo $value['out_name'];?>
+		  	</div>
+	  	</div>
+	  </td>
+	  <td>
+	  	<div class="control-group form-group">
+	  		<label for="out_amount{{id}}" class="control-label hide">支出项金额</label>
+		  	<div class="input-group controls mlz">
+		  		<div class="input-group">
+			  		<?php echo F::d2($value['out_amount']);?>
+			  	</div>
+		  	</div>
+	  	</div>
+	  </td>
+
+	</tr>
+<?php } ?>
 
 				</table>
 		    </div>
@@ -388,35 +409,62 @@ $this->pageTitle='评估单详情 - '.Yii::app()->name;
 	</div>
 </div>
 
-<script type="text/x-handlebars-template" data-role="outlineoutdetail-template">
-	<tr data-charge="false" data-role="outlineoutdetail" id="outlineoutdetail-tr{{id}}" data-id="{{id}}">
-	  <td class="code">{{dvalue}}</td>
-	  <td>
-	  	<div class="control-group form-group">
-	  		<label for="out_name{{id}}" class="control-label hide">支出项名称</label>
-		  	<div class="input-group controls mlz">
-		  		<input type="text" id="out_name{{id}}" name="Outlineoutdetail[out_name][]" class="mlz form-control">
-		  	</div>
-	  	</div>
-	  </td>
-	  <td>
-	  	<div class="control-group form-group">
-	  		<label for="out_amount{{id}}" class="control-label hide">支出项金额</label>
-		  	<div class="input-group controls mlz">
-		  		<div class="input-group">
-			  		<input type="text" id="out_amount{{id}}" name="Outlineoutdetail[out_amount][]" class="mlz form-control">
-			  		<span class="input-group-addon">元</span>
-			  	</div>
-		  	</div>
-	  	</div>
-	  </td>
-	  <td >
-		  <button class="btn btn-default btn-sm" data-role="delete-outlineoutdetail" type="button">删除</button>
-	  </td>
-	</tr>
 
-	<input type="hidden" name="Outlineoutdetail[out_type][]" id="out_type{{id}}" value="">
-</script>
+
+
+<div class="widget-box">
+	<div class="widget-title"><h5>授权使用</h5></div>
+	<div class="widget-content nopadding">
+		<table class="table table-striped table-hover table-form" data-search-form="#user-search-form" >
+		  <thead>
+		    <tr>
+		      <th width="33%">授权人</th>
+		      <th width="33%">授权时间</th>
+		      <th width="33%">授权说明</th>
+		    </tr>
+		  </thead>
+		  <tbody id="pdetail-body" data-role="pdetails">
+		  	<?php foreach ($permission as $key => $val) {?>
+			  	<tr>
+				  <td><p class="form-control-static"><?php echo $users[$val['u_id']]['name'];?></td>
+				  <td><p class="form-control-static"><?php echo F::ymd($val['createdate']);?></td>
+				  <td><p class="form-control-static">无</td>
+				</tr>
+			<?php }?>
+	 	  </tbody>
+		</table>
+
+		<div class="clear">
+		</div>
+	</div>
+</div>
+
+
+
+
+<div class="widget-box">
+	<div class="widget-title"><h5>审批信息</h5></div>
+	<div class="widget-content nopadding">
+		<table class="table table-striped table-hover table-form" data-search-form="#user-search-form" >
+		  <thead>
+		    <tr>
+		      <th width="25%">审批人</th>
+		      <th width="25%">审批时间</th>
+		      <th width="20%">审批动作</th>
+		      <th width="20%">审批意见</th>
+		      <th width="10%">附件</th>
+		    </tr>
+		  </thead>
+		  <tbody class="is-null">
+                  <tr><td colspan="20"><div class="empty">暂无审批记录.</div></td></tr>
+          </tbody>
+		</table>
+
+		<div class="clear">
+		</div>
+	</div>
+</div>
+
 
 
 

@@ -1,6 +1,6 @@
 <?php
 $this->pageTitle='审批评估单 - '.Yii::app()->name;
-$this->script_controller = 'evaluation/approval';
+$this->script_controller = 'permission-access/approval';
 ?>
 
 <div id="content-header">
@@ -319,7 +319,7 @@ $this->script_controller = 'evaluation/approval';
 				  <td><p class="form-control-static"><?php echo $log['content'];?></td>
 				  <td>
 				  	<?php if(!empty($log['attachment'])) {?>
-				  	  <a  class="btn btn-default btn-sm" target="_blank" href="/index.php?r=Evaluation/LogAttachmentDownload&id=<?php echo $log['id'];?>" >附件下载</a>
+				  	  <a  class="btn btn-default btn-sm" target="_blank" href="/index.php?r=PermissionAccess/attachmentDownload&id=<?php echo $log['id'];?>" >附件下载</a>
 				  	  <?php }?>
 				  </td>
 				</tr>
@@ -358,7 +358,7 @@ $this->script_controller = 'evaluation/approval';
 
 					<input type="hidden" name="Approval[flag]" id="flag" value="">
 				    </form>
-				</div>
+		</div>
 
 
 

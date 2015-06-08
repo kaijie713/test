@@ -148,14 +148,15 @@ class Evaluation extends BaseModel
 
     public function delete($id)
     {
-        $sql = "update t_prj_evaluationforms set isactive = 0 WHERE eva_id = $id";
+        $sql = "update t_prj_evaluationforms set isactive = 1 WHERE eva_id = $id";
         return $sql?$this->Execute($sql):true;
     }
 
     public function create($evaluation, $evaformPayment, $outlineoutdetail, $pdetail)
     {
-        $this->calculator($evaluation, $evaformPayment, $outlineoutdetail, $pdetail);
 
+        $fields = CalculatorFactory::create('Post')->calculator($_POST['Evaluation'],$_POST['EvaformPayment'],$_POST['Outlineoutdetail'],$_POST['Pdetail']);
+   
         $model=new Evaluation;
         $model->attributes=$_POST['Evaluation'];
         $model->eva_id=$this->getUUID();
@@ -165,6 +166,7 @@ class Evaluation extends BaseModel
         $model->isactive = 0;
         $model->save(false);
 
+
         $EvaformPayment=new EvaformPayment;
         $EvaformPayment->attributes=$_POST['EvaformPayment'];
         $EvaformPayment->v_id=$this->getUUID();
@@ -173,20 +175,20 @@ class Evaluation extends BaseModel
         $EvaformPayment->createdate = date("Y-m-d H:i");
         $EvaformPayment->isactive = 0;
         $EvaformPayment->isadjust = 0;
-        $EvaformPayment->ol_fee1 = $this->arr['ol_fee1'];
-        $EvaformPayment->ol_fee2 = $this->arr['ol_fee2'];
-        $EvaformPayment->ol_fee3 = $this->arr['ol_fee3'];
-        $EvaformPayment->ol_fee84 = $this->arr['ol_fee84'];
-        $EvaformPayment->pre_deal_amount = $this->arrPdetail['pre_amount'];
-        $EvaformPayment->pre_ad_deal_bind = $this->arr['pre_ad_deal_bind'];
-        $EvaformPayment->offline_amount = $this->arr['offline_amount_sum'];
+        $EvaformPayment->ol_fee1 = $fields->ol_fee1;
+        $EvaformPayment->ol_fee2 = $fields->ol_fee2;
+        $EvaformPayment->ol_fee3 = $fields->ol_fee3;
+        $EvaformPayment->ol_fee84 = $fields->ol_fee84;
+        $EvaformPayment->pre_deal_amount = $fields->pdetail->pre_amount;
+        $EvaformPayment->pre_ad_deal_bind = $fields->evaformPayment->pre_ad_deal_bind;
+        $EvaformPayment->offline_amount = $fields->offline_amount_sum;
 
-        $EvaformPayment->offline_ratio = $this->arr['offline_ratio'];
-        $EvaformPayment->resource_income_multiples = $this->arr['resource_income_multiples'];
-        $EvaformPayment->prjreword_perunit_sum = $this->arr['prjreword_perunit_sum'];
-        $EvaformPayment->brokerfees_perunit_sum = $this->arr['brokerfees_perunit_sum'];
-        $EvaformPayment->sale_ad_kanli_amount = $this->arr['sale_ad_kanli_amount'];
-        $EvaformPayment->net_income = $this->arr['net_income'];
+        $EvaformPayment->offline_ratio = $fields->offline_ratio;
+        $EvaformPayment->resource_income_multiples = $fields->resource_income_multiples;
+        $EvaformPayment->prjreword_perunit_sum = $fields->prjreword_perunit_sum;
+        $EvaformPayment->brokerfees_perunit_sum = $fields->brokerfees_perunit_sum;
+        $EvaformPayment->sale_ad_kanli_amount = $fields->sale_ad_kanli_amount;
+        $EvaformPayment->net_income = $fields->net_income;
         $EvaformPayment->save(false);
 
         if(isset($_POST['Outlineoutdetail']))
@@ -208,222 +210,19 @@ class Evaluation extends BaseModel
 
         if(!empty($pdetail) && !empty($pdetail['pd_id'])){
             foreach ($pdetail['pd_id'] as $key => $value) {
-                if(!empty($value)){
-                    $Pdetail = Pdetail::model()->findByPk($value);
-                    $Pdetail->isNewRecord = false;
-                    $Pdetail->eva_id = $model->eva_id;
-                    $Pdetail->isactive = 0;
-                    $Pdetail->save(false);
-                }
+                if(empty($value)) continue;
+                
+                $Pdetail = Pdetail::model()->findByPk($value);
+                $Pdetail->isNewRecord = false;
+                $Pdetail->eva_id = $model->eva_id;
+                $Pdetail->isactive = 0;
+                $Pdetail->save(false);
             }
         }
         return $model;
     }
 
-    public function calculator($evaluation, $evaformPayment, $outlineoutdetail, $pdetail)
-    {
-        $this->arr = $evaformPayment;
-
-        //线下总支出 
-        $this->arr['offline_amount_sum'] = $this->getOfflineAmountSum($outlineoutdetail);
-
-        //获取优惠明细相关数据
-        $this->arrPdetail = $this->preparePdetail($pdetail);
-
-        //线下总支出比例  预计焦点净收益 焦点支出总比例
-        $this->getElse($pdetail);
-
-        //按销售政策计算广告刊例金额
-        $this->getSaleAdKanliAmount();
-
-        // 资源比预计收入倍数
-        $this->arr['resource_income_multiples'] = $this->arr['sale_ad_kanli_amount'] / $this->arrPdetail['pre_incoming'];
-
-        $this->arr['resource_income_multiples'] = number_format($this->arr['resource_income_multiples'], 2, '.', '');
-
-        //案场奖励总和 经纪人奖励
-        $this->getPrjrewordAndBrokerfees($pdetail);
-    }
-
-    public function getOfflineAmountSum($outlineoutdetail){
-        $num = 0;
-        $this->arr['ol_fee1'] = 0;
-        $this->arr['ol_fee2'] = 0;
-        $this->arr['ol_fee3'] = 0;
-        $this->arr['ol_fee84'] = 0;
-
-        if(count($outlineoutdetail)>0){
-            foreach ($outlineoutdetail['out_amount'] as $key => $value) {
-                $num = $num + $value;
-                if($outlineoutdetail['out_type'][$key] == Dict::get('outType', 'dxckpdfyze')){
-                    $this->arr['ol_fee1'] = $this->arr['ol_fee1'] + $outlineoutdetail['out_amount'][$key];
-                }
-                if($outlineoutdetail['out_type'][$key] == Dict::get('outType', 'zcrnlwfyze')){
-                    $this->arr['ol_fee2'] = $this->arr['ol_fee2'] + $outlineoutdetail['out_amount'][$key];
-                }
-                if($outlineoutdetail['out_type'][$key] == Dict::get('outType', 'kftdxxhdze')){
-                    $this->arr['ol_fee3'] = $this->arr['ol_fee3'] + $outlineoutdetail['out_amount'][$key];
-                }
-                if($outlineoutdetail['out_type'][$key] == Dict::get('outType', 'xmbyj')){
-                    $this->arr['ol_fee84'] = $this->arr['ol_fee84'] + $outlineoutdetail['out_amount'][$key];
-                }
-
-            }
-        }
-        return $num;
-    }
-
-    public function getSaleAdKanliAmount(){
-        if($this->arr['ad_discount']  == 0){
-            $sale1 = 0;
-        } else {
-            $sale1=$this->arrPdetail['pre_incoming'] / ($this->arr['ad_discount'] / 100);
-        }
-
-        if($this->arr['ad_distribution_ratio']  == 0){
-            $sale2 = 0;
-        } else {
-            $sale2=$this->arrPdetail['pre_incoming'] * ($this->arr['ad_distribution_ratio'] / 100);
-        }
-
-        $this->arr['sale_ad_kanli_amount'] = $sale1 - $sale2;
-
-        $this->arr['sale_ad_kanli_amount'] =  number_format($this->arr['sale_ad_kanli_amount'], 2, '.', '');
-    }
-
-
-    public function preparePdetail($pdetailPost)
-    {
-        $arr =  array();
-        $arr['sell_house_num'] = $arr['ajcard_price'] = $arr['pre_volumn'] = $arr['prjreword_perunit'] = $arr['prevolumn_perunit'] = $arr['brokerfees_perunit'] = $arr['prebrokervolumn'] = $arr['pre_amount'] = $arr['commission_rate'] = $arr['commission_perunit'] = $arr['pre_commission_amount'] = $arr['pre_incoming'] = $arr['jd_retain_ratio'] = $arr['jd_retain_amount'] = $arr['divideSum'] = $arr['divideAmountSum'] = $arr['jd_retain_ratio'] = $arr['jd_retain_amount'] = $arr['divideSumKFS'] = $arr['divideAmountSumKFS'] = $arr['divideSumDSF'] = $arr['divideAmountSumDSF'] = 0;
-
-
-        if(empty($pdetailPost) && empty($pdetailPost['pd_id'])) return $arr;
-
-        foreach ($pdetailPost['pd_id'] as $key => $value) 
-        {
-            if(empty($value)) continue;
-
-            if(!($Pdetail = Pdetail::model()->findByPk($value))) continue;
-
-            $Pdetail->preparePdetail($Pdetail);
-
-            $arr['sell_house_num'] =  $arr['sell_house_num'] +  $Pdetail->sell_house_num;
-            $arr['ajcard_price'] =  $arr['ajcard_price'] +  $Pdetail->ajcard_price;
-            $arr['pre_volumn'] =  $arr['pre_volumn'] +  $Pdetail->pre_volumn;
-            $arr['prjreword_perunit'] =  $arr['prjreword_perunit'] +  $Pdetail->prjreword_perunit;
-            $arr['prevolumn_perunit'] =  $arr['prevolumn_perunit'] +  $Pdetail->prevolumn_perunit;
-            $arr['brokerfees_perunit'] =  $arr['brokerfees_perunit'] +  $Pdetail->brokerfees_perunit;
-            $arr['prebrokervolumn'] =  $arr['prebrokervolumn'] +  $Pdetail->prebrokervolumn;
-            $arr['pre_amount'] =  $arr['pre_amount'] +  $Pdetail->pre_amount;
-            $arr['commission_rate'] =  $arr['commission_rate'] +  $Pdetail->commission_rate;
-            $arr['commission_perunit'] =  $arr['commission_perunit'] +  $Pdetail->commission_perunit;
-            $arr['pre_commission_amount'] =  $arr['pre_commission_amount'] +  $Pdetail->pre_commission_amount;
-            $arr['pre_incoming'] =  $arr['pre_incoming'] +  $Pdetail->pre_incoming;
-            $arr['jd_retain_ratio'] =  $arr['jd_retain_ratio'] +  $Pdetail->jd_retain_ratio;
-            $arr['jd_retain_amount'] =  $arr['jd_retain_amount'] +  $Pdetail->jd_retain_amount;
-            $arr['divideSum'] =  $arr['divideSum'] +  $Pdetail->divideSum;
-            $arr['divideAmountSum'] =  $arr['divideAmountSum'] +  $Pdetail->divideAmountSum;
-            $arr['divideSumKFS'] =  $arr['divideSumKFS'] +  $Pdetail->divideSumKFS;
-            $arr['divideAmountSumKFS'] =  $arr['divideAmountSumKFS'] +  $Pdetail->divideAmountSumKFS;
-            $arr['divideSumDSF'] =  $arr['divideSumDSF'] +  $Pdetail->divideSumDSF;
-            $arr['divideAmountSumDSF'] =  $arr['divideAmountSumDSF'] +  $Pdetail->divideAmountSumDSF;
-            
-        }
-
-        return $arr;
-    }
-
-    public function getElse($pdetail){
-
-        //线下总支出比例
-        $this->arr['offline_ratio'] = 0;
-        //焦点支出总比例
-        $this->arr['amount_ratio'] = 0;
-        //预计焦点净收益
-        $this->arr['net_income'] = 0;
-
-        $offlineRatio = $amountRatio = $netIncome = 0;
-
-        if(empty($pdetailPost) && empty($pdetailPost['pd_id'])) return ;
-
-        foreach ($pdetailPost['pd_id'] as $key => $value) 
-        {
-
-            if(empty($value) || !($model = Pdetail::model()->findByPk($value))) continue;
-
-            if($model->charge_type=="mkwfc"){
-
-                $offlineRatio = $this->arr['offline_amount_sum']/$this->arrPdetail['pre_incoming'];
-
-                $amountRatio = $this->arr['offline_amount_sum']/$this->arrPdetail['pre_incoming'];
-
-                $netIncome = $this->arrPdetail['pre_incoming']/(1 - $amountRatio);
-            } else if($model->charge_type=="mkyfc"){
-                $offlineRatio = $this->arr['offline_amount_sum']/($this->arrPdetail['pre_incoming']+$this->arr['pre_ad_amount']);
-
-                $netIncome = $this->arrPdetail['pre_incoming']*(100-$this->arr['ad_markting_ratio']-$this->arr['pre_tax_ratio'])/100-$this->arr['offline_amount_sum'];
-
-                $amountRatio =1-($netIncome/($this->arrPdetail['pre_incoming']+$this->arr['pre_ad_amount']));
-
-            } else if($model->charge_type=="cpswfc"){
-
-                $offlineRatio = $this->arr['offline_amount_sum']/($this->arrPdetail['pre_incoming']+$pdetail['pre_commission_amount'][$key]+$this->arr['ad_amount_infact']);
-
-                $netIncome = $this->arrPdetail['pre_incoming']*(1-$offlineRatio);
-
-                $amountRatio =$this->arr['pre_tax_ratio'] + $offlineRatio + $netIncome;
-
-
-            }else if($model->charge_type=="cpsyfc"){
-                $offlineRatio = $this->arr['offline_amount_sum']/$this->arrPdetail['pre_incoming'];
-
-                $netIncome = $this->arrPdetail['pre_incoming'] * (1-$offlineRatio);
-
-                $amountRatio = $pdetail['divideSum'][$key]+ $this->arr['pre_tax_ratio'] + $this->arr['ad_markting_ratio'] + $offlineRatio;
-                
-
-            }else if($model->charge_type=="mkcps"){
-                $offlineRatio = $this->arr['offline_amount_sum']/$this->arrPdetail['pre_incoming'];
-
-                $netIncome = $this->arrPdetail['pre_incoming']*(100-$this->arr['ad_markting_ratio']-$this->arr['pre_tax_ratio'])/100-$this->arr['offline_amount_sum'];
-
-                $amountRatio = 1 - ($netIncome/($this->arrPdetail['pre_incoming']+$pdetail['pre_commission_amount'][$key]+$this->arr['ad_amount_infact']));
-            } 
-
-            $this->arr['offline_ratio']  = $this->arr['offline_ratio'] + $offlineRatio;
-            $this->arr['amount_ratio']     = $this->arr['amount_ratio'] + $amountRatio;
-            $this->arr['net_income']     = $this->arr['net_income'] + $netIncome;
-        }
-
-        $this->arr['offline_ratio']  = number_format($this->arr['offline_ratio']*100, 2, '.', '');
-        $this->arr['amount_ratio']     = number_format($this->arr['amount_ratio']*100, 2, '.', '');
-        $this->arr['net_income']     = number_format($this->arr['net_income'], 2, '.', '');
-    }
-
-
-    public function getPrjrewordAndBrokerfees($pdetail){
-
-
-        $this->arr['prjreword_perunit_sum'] = 0;
-        $this->arr['brokerfees_perunit_sum'] = 0;
-
-        $anchang = $jingjiren = 0;
-        if(empty($pdetailPost) && empty($pdetailPost['pd_id'])) return ;
-
-        foreach ($pdetailPost['pd_id'] as $key => $value) 
-        {
-
-            if(empty($value) || !($model = Pdetail::model()->findByPk($value))) continue;
-
-            $anchang  = $model->prjreword_perunit * $model->prevolumn_perunit+ $anchang;
-            $jingjiren  = $model->brokerfees_perunit * $model->prebrokervolumn+ $anchang;
-        }
-
-        $this->arr['prjreword_perunit_sum']  = number_format($anchang, 2, '.', '');
-        $this->arr['brokerfees_perunit_sum'] = number_format($jingjiren, 2, '.', '');
-
-    }
+    
 
     public function setEvaluationStatusById($id, $flag){
 

@@ -4,7 +4,7 @@ $this->breadcrumbs=array(
     '设置审批流程'
 );
 $this->pageTitle='设置审批流程 - '.Yii::app()->name;
-$this->script_controller = 'evaluation/set-approve';
+$this->script_controller = 'permission-access/set-approve';
 ?>
 
 <div id="content-header">
@@ -22,12 +22,12 @@ $this->script_controller = 'evaluation/set-approve';
 	      <div class="widget-box">
 	        <div class="widget-title bg_lg"><span class="icon"><i class="icon-signal"></i></span>
 	          <h5>审批流程</h5>
-	          <button class="btn btn-info pull-right set-user" data-url="/index.php?r=User/list" data-add="/index.php?r=evaluation/AddPermissionAccess"  data-toggle="modal" data-target="#modal">添加审批人</button>
+	          <button class="btn btn-info pull-right set-user" data-url="/index.php?r=User/list" data-add="/index.php?r=PermissionAccess/AddPermissionAccess"  data-toggle="modal" data-target="#modal">添加审批人</button>
 	        </div>
 	        <div class="widget-content" style="min-height:150px">
 	          <div class="row-fluid">
 	            <div class="span12">
-	              <ul class="site-stats" data-sort-url="/index.php?r=evaluation/PermissionAccessSort">
+	              <ul class="site-stats" data-sort-url="/index.php?r=PermissionAccess/PermissionAccessSort">
 	                <?php foreach ($dataProvider as $key => $value) { ?>
 					   	<?php include ('set-permission-li.php');?>
 				  	<?php } ?>
