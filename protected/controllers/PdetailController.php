@@ -19,11 +19,6 @@ class PdetailController extends BaseController
 		);
 	}
 
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
 	public function accessRules()
 	{
 		return array(
@@ -42,51 +37,9 @@ class PdetailController extends BaseController
 		);
 	}
 
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
-	// /**
-	//  * Creates a new model.
-	//  * If creation is successful, the browser will be redirected to the 'view' page.
-	//  */
-	// public function actionCreate()
-	// {
-	// 	$model=new Pdetail;
-
-	// 	// Uncomment the following line if AJAX validation is needed
-	// 	// $this->performAjaxValidation($model);
-
-	// 	if(isset($_POST['Pdetail']))
-	// 	{
-	// 		$model->attributes=$_POST['Pdetail'];
-	// 		if($model->save())
-	// 			$this->redirect(array('view','id'=>$model->pd_id));
-	// 	}
-
-	// 	$this->render('create',array(
-	// 		'model'=>$model,
-	// 	));
-	// }
-
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
 	public function actionUpdates($id)
 	{
 		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Pdetail']))
 		{
@@ -100,23 +53,14 @@ class PdetailController extends BaseController
 		));
 	}
 
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
 	public function actionDelete($id)
 	{
 		$this->loadModel($id)->delete();
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
-	/**
-	 * Lists all models.
-	 */
 	public function actionIndex()
 	{
 
@@ -126,9 +70,6 @@ class PdetailController extends BaseController
 		// ));
 	}
 
-	/**
-	 * Manages all models.
-	 */
 	public function actionAdmin()
 	{
 		$model=new Pdetail('search');
@@ -210,6 +151,32 @@ class PdetailController extends BaseController
 		$this->renderPartial('create-'.$chargeType['dkey'],array(
 			'chargeType' => $chargeType,
 			'splitdetails' => $splitdetails,
+			'model' => $model,
+		));
+	}
+
+	public function actionView()
+	{
+		$id = empty($_GET['id']) ? '0' : trim($_GET['id']);
+		
+		$model=$this->loadModel($id);
+
+		$dict_id = $model->charge_type;
+
+		$chargeType = SysDict::model()->getSysDictById($dict_id);
+
+		if(empty($chargeType)){
+			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+		}
+
+		$Splitdetail = new PrjPartnerSplitdetail();
+
+		$splitdetails = CJSON::encode($Splitdetail->findSplitdetailByPdId($model->pd_id));
+		
+		$this->render('view',array(
+			'chargeType' => $chargeType,
+			'splitdetails' => $splitdetails,
+			'type' => $chargeType['dkey'],
 			'model' => $model,
 		));
 	}

@@ -105,8 +105,6 @@ class EvaluationController extends BaseController
 		$this->redirect('/index.php?r=evaluation/admin');
 	}
 
-	
-
 	public function actionAdmin()
 	{
 		$pageIndex = isset($_GET['page'])?$_GET['page']:1;

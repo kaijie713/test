@@ -10,6 +10,14 @@ $this->pageTitle='评估单详情 - '.Yii::app()->name;
 
 <div class="container-fluid">
 	<hr>
+	<div class="pull-right ">
+		  <a href="#" class="btn btn-info ">申请电商执行资源</a>
+		  <a href="#" class="btn btn-info ">关联CRM合同</a>
+		  <a href="#" class="btn btn-info ">同步至房销宝</a>
+		  <a href="#" class="btn btn-info ">同步至订单系统</a>
+		  <a href="/index.php?r=evaluation/admin" class="btn btn-default ">提交</a>
+		  <a href="/index.php?r=evaluation/admin" class="btn btn-default ">返回</a>
+	</div>
 	<div class="row-fluid evaluation-create">
 		<div class="span12" id="evaluation-create-widget">
 
@@ -18,7 +26,9 @@ $this->pageTitle='评估单详情 - '.Yii::app()->name;
 
 
 <div class="widget-box">
-	<div class="widget-title"><h5>项目基本情况</h5></div>
+	<div class="widget-title"><h5>项目基本情况</h5>
+		
+	</div>
 	<div class="widget-content nopadding ">
 		<div class="span6">
 			<div class="control-group form-group">
@@ -100,7 +110,7 @@ $this->pageTitle='评估单详情 - '.Yii::app()->name;
 			</div>
 		</div>
 		<!-- style="margin-left:172px" style="width:153px" -->
-			<div class="control-group form-group span12">
+			<div class="control-group form-group span11">
 				<label class="control-label span3"  for="prj_condition">项目情况说明：</label>
 				<div class="controls " >
 					<span><?php echo $model->prj_condition;?></span>
@@ -148,7 +158,7 @@ $this->pageTitle='评估单详情 - '.Yii::app()->name;
 				  <td><p class="help-block"><?php F::d2($pdetail['pre_incoming']);?>元</p></td>
 				  <td><p class="help-block"><?php echo $chargeType[$pdetail['charge_type']]['dvalue'];?></td>
 				  <td>
-				  	  <button type="button" class="btn btn-default btn-sm" data-url="/index.php?r=Pdetail/Update&id={{pdid}}" data-toggle="modal" data-target="#modal">查看详情</button>
+				  	  <a target="_blank" class="btn btn-default btn-sm" href="/index.php?r=Pdetail/view&id=<?php echo $pdetail['pd_id'];?>">查看详情</a>
 				  </td>
 				</tr>
 			<?php $i++;   }?>

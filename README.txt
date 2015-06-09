@@ -1,2 +1,3 @@
-1.把protected/data 下载  database.php  复制到 protected/config/下 并修改
-2.把framework文件夹复制到上层目录
+1.把protected/data/database.php复制到protected/config/
+2.把protected/data/framework  复制到和项目同层目录 
+

@@ -17,9 +17,9 @@ define(function(require, exports, module) {
         });
 
         // 开始时间
-        validator.addItem({element: '#bdate',required: true,rule: 'time_check',});
+        validator.addItem({element: '#bdate',required: true,rule: 'date',});
         // 结束时间
-        validator.addItem({element: '#edate',required: true,rule: 'time_check',});
+        validator.addItem({element: '#edate',required: true,rule: 'date',});
         // 可售房源数量
         validator.addItem({element: '#sell_house_num',required: true,rule: 'integer',});
         // 房源类型
@@ -57,16 +57,24 @@ define(function(require, exports, module) {
 
         $('#bdate').datetimepicker({
             language: 'zh-CN',
+            startView:4,
+            minView:2,
+            format:"yyyy-mm-dd",
             autoclose: true
         }).on('hide', function(ev){
             validator.query('#bdate').execute();
         });
+
         $('#edate').datetimepicker({
             language: 'zh-CN',
+            startView:4,
+            minView:2,
+            format:"yyyy-mm-dd",
             autoclose: true
         }).on('hide', function(ev){
             validator.query('#edate').execute();
         });
+
         $('#bdate').datetimepicker('setStartDate', now);
         $('#edate').datetimepicker('setStartDate', now);
     }

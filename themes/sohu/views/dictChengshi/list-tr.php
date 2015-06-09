@@ -28,7 +28,7 @@
 	</table>
 
 </div>
-<div class="row">
+<div class="row-fluid">
 	<?php $this->widget(
 	        'application.widget.TbLinkPager',
 	        array(

@@ -7,7 +7,7 @@
 		  		<th colspan="8" style="text-align:center">
 					<div class="pull-right ">
 				    	  <?php foreach (Dict::gets('chargeType') as $value) { ?>
-				    	  <a class="btn btn-default btn-sm" data-role="add-pdetail" data-target="#modal" data-toggle="modal" data-url="/index.php?r=Pdetail/create&id=<?php echo $value['dict_id'];?>" ><span class=" icon icon-plus" aria-hidden="true"></span><?php echo $value['dvalue'];?></a>
+				    	  <a class="btn btn-info btn-sm" data-role="add-pdetail" data-target="#modal" data-toggle="modal" data-url="/index.php?r=Pdetail/create&id=<?php echo $value['dict_id'];?>" ><span class=" icon icon-plus" aria-hidden="true"></span><?php echo $value['dvalue'];?></a>
 					      <?php } ?>
 					</div>
 		  		</th>
