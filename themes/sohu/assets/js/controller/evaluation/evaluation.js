@@ -187,7 +187,7 @@ define(function(require, exports, module) {
             validator.addItem({
                 element: '[name="Evaluation[pre_opendatetime]"]',
                 required: true,
-                rule: 'time_check'
+                rule: 'date'
             });
 
             validator.addItem({
@@ -250,6 +250,9 @@ define(function(require, exports, module) {
 
             $('[name="Evaluation[pre_opendatetime]"]').datetimepicker({
                 language: 'zh-CN',
+                startView:3,
+                minView:2,
+                format:"yyyy-mm-dd",
                 autoclose: true
             }).on('hide', function(ev){
                 validator.query('[name="Evaluation[pre_opendatetime]"]').execute();

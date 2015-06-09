@@ -57,7 +57,7 @@ define(function(require, exports, module) {
 
         $('#bdate').datetimepicker({
             language: 'zh-CN',
-            startView:4,
+            startView:3,
             minView:2,
             format:"yyyy-mm-dd",
             autoclose: true
@@ -67,7 +67,7 @@ define(function(require, exports, module) {
 
         $('#edate').datetimepicker({
             language: 'zh-CN',
-            startView:4,
+            startView:3,
             minView:2,
             format:"yyyy-mm-dd",
             autoclose: true
