@@ -542,6 +542,7 @@ $this->pageTitle='调整评估单 - '.Yii::app()->name;
 						      <button type="button" class="btn btn-success" data-role="btn-calculator">计算数值</button>
 						    </div>
 						  </div>
+						  <input type="hidden" name="YII_CSRF_TOKEN" value="<?php echo Yii::app()->request->getCsrfToken();?>">
 				    </form>
 				</div>
 

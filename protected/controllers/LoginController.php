@@ -14,13 +14,22 @@ class LoginController extends Controller {
         $errorMsg = "";
 	        // var_dump(Yii::app()->user->__get('is_login'));
 	        // exit();
+
         if(isset($_POST['User']))
         {
             $model->attributes=$_POST['User'];
             if($r = $model->validate())
             {
             	$errorMsg = $model->_identity->errorMessage;
-            } 
+            } else {
+                $errors = $model->getErrors();
+                foreach ($errors as $key1 => $error) {
+                    foreach ($error as $key2 => $value) {
+                        $errorMsg .= $value.'</br>';
+                    }
+                    
+                }
+            }
         }
 
         if(!Yii::app()->user->getIsGuest()){

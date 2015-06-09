@@ -6,6 +6,7 @@ $this->script_controller = 'evaluation/create';
 <div id="content-header">
     <div id="breadcrumb"> <a class="tip-bottom" href="/index.php?r=evaluation/admin" data-original-title="去首页"><i class="icon-home"></i> 首页</a> <a class="current" href="#">创建评估单</a> </div>
     <h1>新建评估单</h1>
+    <?php var_dump(Yii::app()->request->getCsrfToken());?>
 </div>
 
 <div class="container-fluid">
@@ -46,6 +47,7 @@ $this->script_controller = 'evaluation/create';
 						      <button type="button" class="btn btn-success" data-role="btn-calculator">计算数值</button>
 						    </div>
 						  </div>
+						  <input type="hidden" name="YII_CSRF_TOKEN" value="<?php echo Yii::app()->request->getCsrfToken();?>">
 				    </form>
 				</div>
 

@@ -45,6 +45,8 @@ img{
                 <div class="form-actions">
                     <span class="pull-right"><button type="submit" class="btn btn-success" /> 登录</button></span>
                 </div>
+                <input type="hidden" name="YII_CSRF_TOKEN" value="<?php echo Yii::app()->request->getCsrfToken();?>">
+
             </form>
         </div>
 

@@ -10,7 +10,7 @@
 				<div class="form-group control-group">
 					<label class="control-label" for="bdate">开始时间：</label>
 					<div class="controls">
-					    <input type="text" class="form-control" value="<?php echo isset($model['bdate'])?$model['bdate']:'';?>"  name="Pdetail[bdate]" id="bdate"/>
+					    <input type="text" class="form-control" value="<?php echo isset($model['bdate'])?F::ymd($model['bdate']):'';?>"  name="Pdetail[bdate]" id="bdate"/>
 					</div>
 				</div>
 				<div class="form-group control-group">
@@ -26,7 +26,7 @@
 					<label class="control-label" for="yujimaoshouru">预计毛收入：</label>
 					<div class="controls">
 					    <div class="input-prepend input-append">
-					  		<input type="text" readonly class="form-control span11" value="<?php echo isset($model['pre_incoming'])?$model['pre_incoming']:'';?>"  name="yujimaoshouru" id="yujimaoshouru"/>
+					  		<input type="text" readonly class="form-control span11" value="<?php echo isset($model['pre_incoming'])?F::d2($model['pre_incoming']):'';?>"  name="yujimaoshouru" id="yujimaoshouru"/>
 					  		<span class="add-on">元</span>
 					  	</div>
 					</div>
@@ -35,7 +35,7 @@
 					<label class="control-label" for="ajcard_price">爱家卡单价：</label>
 					<div class="controls">
 					    <div class="input-prepend input-append">
-					  		<input type="text" class="form-control span11" value="<?php echo isset($model['ajcard_price'])?$model['ajcard_price']:'';?>"  name="Pdetail[ajcard_price]" id="ajcard_price"/>
+					  		<input type="text" class="form-control span11" value="<?php echo isset($model['ajcard_price'])?F::d2($model['ajcard_price']):'';?>"  name="Pdetail[ajcard_price]" id="ajcard_price"/>
 					  		<span class="add-on">元</span>
 					  	</div>
 					</div>
@@ -44,7 +44,7 @@
 					<label class="control-label" for="prjreword_perunit">案场奖励/每套：</label>
 					<div class="controls">
 					    <div class="input-prepend input-append">
-					  		<input type="text" class="form-control span11" value="<?php echo isset($model['prjreword_perunit'])?$model['prjreword_perunit']:'';?>"  name="Pdetail[prjreword_perunit]" id="prjreword_perunit"/>
+					  		<input type="text" class="form-control span11" value="<?php echo isset($model['prjreword_perunit'])?F::d2($model['prjreword_perunit']):'';?>"  name="Pdetail[prjreword_perunit]" id="prjreword_perunit"/>
 					  		<span class="add-on">元</span>
 					  	</div>
 					</div>
@@ -53,7 +53,7 @@
 					<label class="control-label" for="brokerfees_perunit">经纪人服务费/每套：</label>
 					<div class="controls">
 					    <div class="input-prepend input-append">
-					  		<input type="text" class="form-control span11" value="<?php echo isset($model['brokerfees_perunit'])?$model['brokerfees_perunit']:'';?>"  name="Pdetail[brokerfees_perunit]" id="brokerfees_perunit"/>
+					  		<input type="text" class="form-control span11" value="<?php echo isset($model['brokerfees_perunit'])?F::d2($model['brokerfees_perunit']):'';?>"  name="Pdetail[brokerfees_perunit]" id="brokerfees_perunit"/>
 					  		<span class="add-on">元</span>
 					  	</div>
 					</div>
@@ -73,7 +73,7 @@
 				<div class="form-group control-group">
 					<label class="control-label" for="edate">结束时间：</label>
 					<div class="controls">
-					    <input type="text" class="form-control" value="<?php echo isset($model['edate'])?$model['edate']:'';?>"  name="Pdetail[edate]" id="edate"/>
+					    <input type="text" class="form-control" value="<?php echo isset($model['edate'])?F::ymd($model['edate']):'';?>"  name="Pdetail[edate]" id="edate"/>
 					</div>
 				</div>
 				<div class="form-group control-group">
@@ -124,7 +124,7 @@
 					<label class="control-label" for="jd_retain_amount">焦点留存金额：</label>
 					<div class="controls">
 					    <div class="input-group ">
-						  		<input type="text" readonly class="form-control" value="<?php echo isset($model['jd_retain_amount'])?$model['jd_retain_amount']:'';?>"  name="Pdetail[jd_retain_amount]" id="jd_retain_amount"/>
+						  		<input type="text" readonly class="form-control" value="<?php echo isset($model['jd_retain_amount'])?F::d2($model['jd_retain_amount']):'';?>"  name="Pdetail[jd_retain_amount]" id="jd_retain_amount"/>
 					  	</div>
 					</div>
 				</div>
@@ -151,6 +151,7 @@
 		<?php if(!empty($model->pd_id)){?><input type="hidden" name="Pdetail[pd_id]" id="pd_id" value="<?php echo $model->pd_id;?>"><?php }?>
 		
 		<input type="hidden" name="Pdetail[charge_type]" id="charge_type" data-type="<?php echo $chargeType['dkey'];?>" value="<?php echo $chargeType['dict_id'];?>">
+		<input type="hidden" name="YII_CSRF_TOKEN" value="<?php echo Yii::app()->request->getCsrfToken();?>">
     </form>
   </div>
   <script>app.load("pdetail/create");</script>

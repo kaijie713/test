@@ -9,7 +9,6 @@
 
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'搜狐焦点后台系统',
 	'theme' => 'sohu',
 	'preload'=>array('log,bootstrap'),
@@ -41,6 +40,11 @@ return array(
 	),
 
 	'components'=>array(
+		'request'=>array(
+			'class'=>'HttpRequest',
+            'enableCsrfValidation'=>true,
+            'noCsrfValidationRoutes'=>array('logisn/login', 'some/*'),
+        ),
 		'user'=>array(
             'class'=>'WebUser',
             'allowAutoLogin'=>true,

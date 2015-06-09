@@ -485,7 +485,7 @@ $this->pageTitle='评估单详情 - '.Yii::app()->name;
 						    	<a type="button"class="btn btn-fat btn-primary" href="/index.php?r=evaluation/admin">返回</a>
 						    </div>
 						</div>
-
+						<input type="hidden" name="YII_CSRF_TOKEN" value="<?php echo Yii::app()->request->getCsrfToken();?>">
 				    </form>
 				</div>
 

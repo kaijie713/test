@@ -5,10 +5,10 @@ define(function(require, exports, module) {
 
     exports.run = function() {
 
-        $("input").attr("value","");
-        $("input").val('');
-        $("#pre_ad_deal_bind1").val(1);
-        $("#pre_ad_deal_bind0").val(0);
+        // $("input").attr("value","");
+        // $("input").val('');
+        // $("#pre_ad_deal_bind1").val(1);
+        // $("#pre_ad_deal_bind0").val(0);
 
 
         var creator =  new BaseEvaluation({

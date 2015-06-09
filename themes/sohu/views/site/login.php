@@ -23,7 +23,7 @@ $this->breadcrumbs=array(
 )); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
+	<input type="hidden" name="YII_CSRF_TOKEN" value="<?php echo Yii::app()->request->getCsrfToken();?>">
 	<div class="row">
 		<?php echo $form->labelEx($model,'username'); ?>
 		<?php echo $form->textField($model,'username'); ?>

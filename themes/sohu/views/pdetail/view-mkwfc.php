@@ -134,6 +134,7 @@
 	    
 		<?php if(!empty($model->pd_id)){?><input type="hidden" name="Pdetail[pd_id]" id="pd_id" value="<?php echo $model->pd_id;?>"><?php }?>
 		<input type="hidden" name="Pdetail[charge_type]" id="charge_type" data-type="<?php echo $chargeType['dkey'];?>" value="<?php echo $chargeType['dict_id'];?>">
+		<input type="hidden" name="YII_CSRF_TOKEN" value="<?php echo Yii::app()->request->getCsrfToken();?>">
     </form>
   </div>
 <script>app.load("pdetail/create");</script>

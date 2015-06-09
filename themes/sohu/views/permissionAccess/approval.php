@@ -357,6 +357,7 @@ $this->script_controller = 'permission-access/approval';
 						</div>
 
 					<input type="hidden" name="Approval[flag]" id="flag" value="">
+					<input type="hidden" name="YII_CSRF_TOKEN" value="<?php echo Yii::app()->request->getCsrfToken();?>">
 				    </form>
 		</div>
 
