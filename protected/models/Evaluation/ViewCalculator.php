@@ -30,7 +30,12 @@ class ViewCalculator extends AbstractCalculator
         $this->getSaleAdKanliAmount();
 
         // 资源比预计收入倍数
-        $this->cal->resource_income_multiples = $this->cal->sale_ad_kanli_amount / $this->cal->pdetail->pre_incoming;
+
+        if(empty($this->cal->pdetail->pre_incoming) || $this->cal->pdetail->pre_incoming == 0){
+            $this->cal->resource_income_multiples = 0;
+        }else{
+            $this->cal->resource_income_multiples = $this->cal->sale_ad_kanli_amount / $this->cal->pdetail->pre_incoming;
+        }
 
         $this->cal->resource_income_multiples = number_format($this->cal->resource_income_multiples, 4, '.', '');
 

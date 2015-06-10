@@ -6,7 +6,6 @@ $this->script_controller = 'evaluation/create';
 <div id="content-header">
     <div id="breadcrumb"> <a class="tip-bottom" href="/index.php?r=evaluation/admin" data-original-title="去首页"><i class="icon-home"></i> 首页</a> <a class="current" href="#">创建评估单</a> </div>
     <h1>新建评估单</h1>
-    <?php var_dump(Yii::app()->request->getCsrfToken());?>
 </div>
 
 <div class="container-fluid">
@@ -28,8 +27,8 @@ $this->script_controller = 'evaluation/create';
 
 
 
-						<div class="form-group">
-						    <div class="col-md-offset-1 col-md-8 controls">
+						<div class="form-group  evaluation-bottom" >
+						    <div class="offset1 span4 controls pull-right">
 						    	<button type="submit" id="evaluation-create-btn" class="btn btn-fat btn-primary">保存</button>
 						    	<a class="btn btn-link" href="/index.php?r=evaluation/admin">返回</a>
 						    </div>

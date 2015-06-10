@@ -15,8 +15,6 @@ define(function(require, exports, module) {
             element: '#evaluation-create-widget',
         });
 
-        console.log(11);
-
 
         $(".modal").on('click', '.btn-confirm', function(e){
             var $selected = $('.selected');
@@ -44,6 +42,15 @@ define(function(require, exports, module) {
 
             $("#modal").modal('hide');
 
+        });
+        
+
+        $(".modal").on('click', '.btn-model-select', function(e){
+            $(".table-list tbody tr").removeClass('selected');
+            $(this).parents('tr').addClass('selected');
+            
+            $(e.delegateTarget).find('.modal-footer .btn-confirm').click();
+            
         });
 
         $('body').on('click', '.for-modal', function () {
