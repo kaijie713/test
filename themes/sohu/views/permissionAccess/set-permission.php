@@ -1,9 +1,9 @@
 <?php
 $this->breadcrumbs=array(
     '电商评估管理'=>array('admin'),
-    '设置审批流程'
+    '设置授权人'
 );
-$this->pageTitle='设置审批流程 - '.Yii::app()->name;
+$this->pageTitle='设置授权人 - '.Yii::app()->name;
 $this->script_controller = 'permission-access/set-approve';
 ?>
 
@@ -11,7 +11,7 @@ $this->script_controller = 'permission-access/set-approve';
     <div id="breadcrumb"> 
     	<a class="tip-bottom" href="/index.php?r=evaluation/admin" data-original-title="去首页"><i class="icon-home"></i> 首页</a> 
     	<a  href="/index.php?r=evaluation/admin">评估单列表</a> 
-    	<a class="current" href="#">设置审批流程</a> </div>
+    	<a class="current" href="#">设置授权人</a> </div>
     <h1><?php echo $hourses[$evaluation->group_id]['group_name'];?></h1>
 </div>
 
@@ -21,8 +21,8 @@ $this->script_controller = 'permission-access/set-approve';
 		<div class="row-fluid">
 	      <div class="widget-box">
 	        <div class="widget-title bg_lg"><span class="icon"><i class="icon-signal"></i></span>
-	          <h5>审批流程</h5>
-	          <button class="btn btn-info pull-right set-user" data-url="/index.php?r=User/list" data-add="/index.php?r=PermissionAccess/AddPermissionAccess"  data-toggle="modal" data-target="#modal">添加审批人</button>
+	          <h5>授权人</h5>
+	          <button class="btn btn-info pull-right set-user" data-url="/index.php?r=User/list" data-add="/index.php?r=PermissionAccess/AddPermissionAccess"  data-toggle="modal" data-target="#modal">添加授权</button>
 	        </div>
 	        <div class="widget-content" style="min-height:150px">
 	          <div class="row-fluid">

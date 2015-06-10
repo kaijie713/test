@@ -1,6 +1,6 @@
 <?php
 
-class HttpRequest extends CHttpRequest {
+class WHttpRequest extends CHttpRequest {
 
     public $noCsrfValidationRoutes = array();
 
@@ -12,7 +12,7 @@ class HttpRequest extends CHttpRequest {
     protected function normalizeRequest()
     {
         parent::normalizeRequest();
-        if ($this->enableCsrfValidation && $this->checkPaths() !== false)
+        if ($this->getIsPostRequest() && $this->enableCsrfValidation && $this->checkPaths() !== false)
                 Yii::app()->detachEventHandler('onbeginRequest', array($this, 'validateCsrfToken'));
     }
     

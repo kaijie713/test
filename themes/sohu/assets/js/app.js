@@ -37,13 +37,20 @@ define(function(require, exports, module) {
 		exports.loadScript(app.scripts);
 	}
 
+	$( document ).ajaxSend(function(a, b, c) {
+		if (c.type == 'POST') {
+			c.data += c.data+'&YII_CSRF_TOKEN='+$('meta[name=YII_CSRF_TOKEN]').attr('content');
+			// b.setRequestHeader('YII_CSRF_TOKEN', $('meta[name=YII_CSRF_TOKEN]').attr('content'));
+		}
+	});
+
 	$(document).ajaxError(function(event, jqxhr, settings, exception) {
 		var json = jQuery.parseJSON(jqxhr.responseText);
 			error = json.error;
 		if (!error) {
 			return ;
 		}
-
+		
 		if (error.name == 'Unlogin') {
 			$('.modal').modal('hide');
 			$("#login-modal").modal('show');

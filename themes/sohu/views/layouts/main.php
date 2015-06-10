@@ -4,6 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
+  <meta content="<?php echo Yii::app()->request->getCsrfToken();?>" name="YII_CSRF_TOKEN" />
 
 	 <link href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css2/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
     <link href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css2/bootstrap-responsive.min.css" media="all" rel="stylesheet" type="text/css" />

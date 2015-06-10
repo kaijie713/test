@@ -31,7 +31,7 @@ define(function(require, exports, module) {
         $list.on('click', '.delete-btn', function(e) {
             var $btn = $(e.currentTarget);
 
-            $.post($(this).data('url'), function(response) {
+            $.get($(this).data('url'), function(response) {
                 $btn.parents('li').remove();
                 sortList($list);
                 Notify.success('此授权已删除！');
@@ -82,6 +82,14 @@ define(function(require, exports, module) {
 
             // $("#modal").modal('hide');
 
+        });
+
+        $(".modal").on('click', '.btn-model-select', function(e){
+            $(".table-list tbody tr").removeClass('selected');
+            $(this).parents('tr').addClass('selected');
+            
+            $(e.delegateTarget).find('.modal-footer .btn-confirm').click();
+            
         });
 
       

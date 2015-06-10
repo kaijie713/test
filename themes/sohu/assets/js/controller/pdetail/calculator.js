@@ -69,7 +69,7 @@ define(function(require, exports, module) {
 
             arr['pre_incoming'] = arr['pre_incoming'] - arr['prjreword_perunit'] * arr['prevolumn_perunit'] - arr['brokerfees_perunit'] * arr['prebrokervolumn'];
 
-            arr['pre_incoming'] = parseFloat(arr['pre_incoming']).toFixed(4);
+            arr['pre_incoming'] = parseFloat(arr['pre_incoming']).toFixed(2);
 
             !isNaN(arr['pre_incoming']) && arr['pre_incoming'] != '' ? $("#yujimaoshouru").val(arr['pre_incoming']) : '';
 

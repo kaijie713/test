@@ -41,8 +41,9 @@ return array(
 
 	'components'=>array(
 		'request'=>array(
-			'class'=>'HttpRequest',
+			'class'=>'WHttpRequest',
             'enableCsrfValidation'=>true,
+            'enableCookieValidation'=>true,
             'noCsrfValidationRoutes'=>array('logisn/login', 'some/*'),
         ),
 		'user'=>array(
