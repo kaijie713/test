@@ -47,7 +47,11 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
     {
         list($billId, $billType, $code) = self::checkFields($fields);
 
-        $node = WorkflowNode::model()->getFlowNodeByCodeAndType($code ,'start');
+        // if(empty($fields['node_id'])){
+            $node = WorkflowNode::model()->getFlowNodeByCodeAndType($code ,'start');
+        // }else{
+        //     $node = WorkflowNode::model()->getFlowNodeById($fields['node_id']);
+        // }
 
         if(empty($node)) {
              throw new CHttpException(500,'工作流不存在!');
@@ -154,7 +158,7 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
         $transaction->attributes= $fields;
         $transaction->isNewRecord = false;
         $transaction->save();
-   
+
         if($fields['estate'] == 1)
         {
             transaction::model()->setTransactionNextByBillAndCode($fields['bill_id'], $fields['bill_type'], $fields['code']);
@@ -251,9 +255,20 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
             return 'null';
         }
 
-        if($node['node_type']=="start" || $node['node_type']=="end"){
+        if($node['node_type']=="end"){
             return $node['node_name'];
         }
+
+        if($node['node_type']=="start"){
+            $transaction = transaction::model()->findTransactionByBillAndCodeAndDelete($billId, $billType, $code);
+            if(count($transaction)>0){
+                return "驳回";
+            }else{
+                return $node['node_name'];
+            }
+
+        }
+
         return $node['node_name'].'中';
     }
 

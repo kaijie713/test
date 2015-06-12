@@ -129,6 +129,8 @@ class EvaluationController extends BaseController
         $items = $result['items'];
         $count = $result['count'];
 
+
+        
         $pages = new CPagination($count);
         $this->render('admin',array(
             'dataProvider'=>$items,

@@ -121,6 +121,16 @@ class WorkflowNode extends BaseModel
 		return $this->QueryRow($sql);
 	}
 
+	public function getFlowNodeById($id)
+	{
+		if(empty($id)){
+			return array();
+		}
+		
+		$sql = "select * from t_workflow_node where node_id = '".$id."' and  and isactive = 0  limit 1";
+		return $this->QueryRow($sql);
+	}
+
 	public function getFlowNodeByCodeAndPreviousNodeId($code, $nodeId)
 	{
 		if(empty($code) || empty($nodeId)){

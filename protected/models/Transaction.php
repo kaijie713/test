@@ -193,4 +193,12 @@ class Transaction extends BaseModel
 
 		return $this->Execute($sql);
 	}
+
+	public function findTransactionByBillAndCodeAndDelete($billId, $billType, $code)
+	{
+		$billId = (int) $billId;
+
+		$sql = "select * from t_transaction where bill_id = '".$billId."'  and bill_type = '".$billType."'  and workflow_code = '".$code."' and isactive = 1  order by seq desc limit 1";
+		return $this->QueryRow($sql);
+	}
 }
