@@ -1,21 +1,19 @@
 <?php
-class WorkflowAll extends BaseModel
+class WorkflowNodeUser extends BaseModel
 {
 	public function tableName()
 	{
-		return 't_workflow_all';
+		return 't_workflow_node_user';
 	}
 
 	public function rules()
 	{
 		return array(
-			array('workflow_id', 'required'),
-			array('workflow_id, createby, updateby', 'length', 'max'=>36),
-			array('workflow_name, workflow_code, attribute1, attribute2, attribute3, attribute4, attribute5', 'length', 'max'=>200),
-			array('description', 'length', 'max'=>400),
-			array('disabled', 'length', 'max'=>1),
-			array('disable_date, enable_date, createdate, updatedate', 'safe'),
-			array('workflow_id, workflow_name, workflow_code, description, disabled, disable_date, enable_date, createby, createdate, updateby, updatedate, attribute1, attribute2, attribute3, attribute4, attribute5', 'safe', 'on'=>'search'),
+			array('no_uid', 'required'),
+			array('no_uid, wordflow_code, node_id, citi_id, user_id, createby, updateby', 'length', 'max'=>36),
+			array('attribute1, attribute2, attribute3, attribute4, attribute5', 'length', 'max'=>200),
+			array('enable_date, disable_date, createdate, updatedate', 'safe'),
+			array('no_uid, wordflow_code, node_id, citi_id, user_id, enable_date, disable_date, createby, createdate, updateby, updatedate, attribute1, attribute2, attribute3, attribute4, attribute5', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -28,13 +26,13 @@ class WorkflowAll extends BaseModel
 	public function attributeLabels()
 	{
 		return array(
-			'workflow_id' => 'Workflow',
-			'workflow_name' => 'Workflow Name',
-			'workflow_code' => 'Workflow Code',
-			'description' => 'Description',
-			'disabled' => 'Disabled',
-			'disable_date' => 'Disable Date',
+			'no_uid' => 'No Uid',
+			'wordflow_code' => 'Wordflow Code',
+			'node_id' => 'Node',
+			'citi_id' => 'Citi',
+			'user_id' => 'User',
 			'enable_date' => 'Enable Date',
+			'disable_date' => 'Disable Date',
 			'createby' => 'Createby',
 			'createdate' => 'Createdate',
 			'updateby' => 'Updateby',
@@ -51,13 +49,13 @@ class WorkflowAll extends BaseModel
 	{
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('workflow_id',$this->workflow_id,true);
-		$criteria->compare('workflow_name',$this->workflow_name,true);
-		$criteria->compare('workflow_code',$this->workflow_code,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('disabled',$this->disabled,true);
-		$criteria->compare('disable_date',$this->disable_date,true);
+		$criteria->compare('no_uid',$this->no_uid,true);
+		$criteria->compare('wordflow_code',$this->wordflow_code,true);
+		$criteria->compare('node_id',$this->node_id,true);
+		$criteria->compare('citi_id',$this->citi_id,true);
+		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('enable_date',$this->enable_date,true);
+		$criteria->compare('disable_date',$this->disable_date,true);
 		$criteria->compare('createby',$this->createby,true);
 		$criteria->compare('createdate',$this->createdate,true);
 		$criteria->compare('updateby',$this->updateby,true);
@@ -73,10 +71,16 @@ class WorkflowAll extends BaseModel
 		));
 	}
 
-	
-
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function findFlowNodeUsersByNodeId($nodeId)
+	{
+		$nodeId = (int) $nodeId;
+
+		$sql = "select * from t_workflow_node_user where node_id = '".$nodeId."'  and isactive = 0  ";
+		return $this->QueryAll($sql);
 	}
 }

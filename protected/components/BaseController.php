@@ -284,8 +284,60 @@ class BaseController extends Controller
     public function getUUID()
     {
         $Idwork = new idwork();
-        $id= $Idwork->nextId();
-        return $id;
+        return $Idwork->nextId();
     }
+
+    public function uploadFile($uploadedFile)
+    {
+        if($uploadedFile == null || $uploadedFile->hasError)
+        {
+            return array();
+        } 
+
+        $File = new File();
+
+        $save_path = Yii::app()->basePath.$this->uploadPath.  '/' . date("Ymd") . "/";
+
+        if(! file_exists($save_path))
+        {
+            mkdir($save_path, 0777, true);
+        }
+        $file_name = $uploadedFile->getName();
+        $file_size = $uploadedFile->getSize();
+        $file_type = $uploadedFile->getType();
+            
+        $new_file_name = date("YmdHis") . '_' . rand(10000, 99999) . '.' . $file_name;
+            
+        $uploadedFile->saveAs($save_path . $new_file_name);
+
+        $File->name = $file_name;
+        $File->uri=$this->uploadPath.  '/' . date("Ymd") . "/" . $new_file_name;
+        $File->size=$file_size;
+        $File->mime=$file_type;
+
+        $File->user_id=Yii::app()->user->__get('u_id');
+        $File->createdate=date("Y-m-d H:i");
+        $result = $File->save();
+       
+        return empty($result)?$result:$File;
+    }
+
+    public function fileDownload($id)  
+    {  
+        $File = File::model()->findByPk($id);
+
+        if(empty($File) ){
+            throw new CHttpException ('500', '文件不存在'); 
+        }
+
+        $path = Yii::app()->basePath . $File->uri ; 
+                 
+        if (file_exists($path)){ 
+            yii::app ()->request->sendFile ($File->name,  file_get_contents ($path));
+        } 
+
+    } 
+
+    
 
 }

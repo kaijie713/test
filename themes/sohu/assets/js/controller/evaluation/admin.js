@@ -6,7 +6,7 @@ define(function(require, exports, module) {
        $('body').on('click', '.delete-btn', function() {
             if (!confirm('确认要删除此评估单吗？')) return false;
             var $btn = $(this);
-            $.post($btn.data('url'), function(response) {
+            $.get($btn.data('url'), function(response) {
                 if (response) {
                     $('#' + $btn.data('target')).remove();
                     Notify.success('删除成功!');

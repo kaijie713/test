@@ -1,23 +1,16 @@
 <?php
-class Transaction extends CActiveRecord
+class Transaction extends BaseModel
 {
-	/**
-	 * @return string the associated database table name
-	 */
+
 	public function tableName()
 	{
 		return 't_transaction';
 	}
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
-			array('transaction_id, currently, file_id', 'required'),
+			array('transaction_id', 'required'),
 			array('currently', 'numerical', 'integerOnly'=>true),
 			array('transaction_id, node_id, bill_id, approver_id, file_id, createby, updateby', 'length', 'max'=>36),
 			array('bill_type, attribute2, attribute3, attribute4, attribute5, attribute1', 'length', 'max'=>200),
@@ -26,26 +19,16 @@ class Transaction extends CActiveRecord
 			array('isactive', 'length', 'max'=>1),
 			array('approval_type', 'length', 'max'=>50),
 			array('approval_date, createdate, updatedate', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
 			array('transaction_id, node_id, bill_type, bill_id, approver_id, approval_date, content, estate, isactive, approval_type, currently, file_id, createby, createdate, updateby, updatedate, attribute2, attribute3, attribute4, attribute5, attribute1', 'safe', 'on'=>'search'),
 		);
 	}
 
-	/**
-	 * @return array relational rules.
-	 */
 	public function relations()
 	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		return array(
 		);
 	}
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
 	public function attributeLabels()
 	{
 		return array(
@@ -73,22 +56,8 @@ class Transaction extends CActiveRecord
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('transaction_id',$this->transaction_id,true);
@@ -118,14 +87,110 @@ class Transaction extends CActiveRecord
 		));
 	}
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return TTransaction the static model class
-	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function clearTransactionByBillAndCode($billId, $billType, $code)
+	{
+		$params['isactive'] = 1;
+		$condition['bill_id'] = $billId;
+		$condition['bill_type'] = $billType;
+		$condition['workflow_code'] = $code;
+		return $this->ModelEdit($this->tableName(),$condition,$params);
+	}
+
+	public function getTransactionCurrentByBillAndCode($billId, $billType, $code)
+	{
+		$billId = (int) $billId;
+
+		$sql = "select * from t_transaction where bill_id = '".$billId."'  and bill_type = '".$billType."'  and workflow_code = '".$code."'  and currently = 1 and isactive = 0  order by seq desc limit 1";
+
+		// echo $sql;
+		return $this->QueryRow($sql);
+	}
+
+	public function getTransactionNextByBillAndCode($billId, $billType, $code)
+	{
+		$billId = (int) $billId;
+
+		$sql = "select * from t_transaction where bill_id = '".$billId."'  and bill_type = '".$billType."'  and workflow_code = '".$code."'  and currently = 0 and isactive = 0  order by seq asc limit 1";
+		return $this->QueryRow($sql);
+	}
+
+	public function findTransactionByBillAndCode($billId, $billType, $code)
+	{
+		$billId = (int) $billId;
+
+		$sql = "select * from t_transaction where bill_id = '".$billId."'  and bill_type = '".$billType."'  and workflow_code = '".$code."' and isactive = 0  order by seq asc";
+		return $this->QueryAll($sql);
+	}
+
+	public function getLastTransactionByBillAndCode($billId, $billType, $code)
+	{
+		$billId = (int) $billId;
+
+		$sql = "select * from t_transaction where bill_id = '".$billId."'  and bill_type = '".$billType."'  and workflow_code = '".$code."' and isactive = 0  order by seq desc limit 1";
+		return $this->QueryRow($sql);
+	}
+
+	public function findTransactionByBillAndCodeAndApproverId($billId, $billType, $code, $approverId)
+	{
+		$billId = (int) $billId;
+		$approverId = (int) $approverId;
+
+		$sql = "select * from t_transaction where bill_id = '".$billId."'  and bill_type = '".$billType."'  and workflow_code = '".$code."' and approver_id = '".$approverId."' and isactive = 0  order by seq asc";
+		return $this->QueryAll($sql);
+	}
+
+	public function findTransactionByBillAndCodeAndCurrently($billId, $billType, $code, $currently)
+	{
+		$billId = (int) $billId;
+		$currently = (int) $currently;
+
+		$sql = "select * from t_transaction where bill_id = '".$billId."'  and bill_type = '".$billType."'  and workflow_code = '".$code."' and currently = '".$currently."' and isactive = 0  order by seq asc";
+		// echo $sql;
+		return $this->QueryAll($sql);
+	}
+
+	public function getTransactionByBillAndCodeAndNodeIdAndCurrently($billId, $billType, $code, $nodeId, $currently)
+	{
+		$billId = (int) $billId;
+		$nodeId = (int) $nodeId;
+
+		$sql = "select * from t_transaction where bill_id = '".$billId."'  and node_id = '".$nodeId."'  and bill_type = '".$billType."'  and workflow_code = '".$code."' and currently = '".$currently."' and isactive = 0  order by seq asc limit 1";
+		return $this->QueryRow($sql);
+	}
+
+
+
+	public function setTransactionNextByBillAndCode($billId, $billType, $code)
+	{
+		$transaction = $this->getTransactionNextByBillAndCode($billId, $billType, $code);
+		if(empty($transaction)){
+			return array();
+		}
+
+		$params['currently'] = 1;
+		$condition['transaction_id'] = $transaction['transaction_id'];
+		return $this->ModelEdit($this->tableName(),$condition,$params);
+	}
+
+	public function updateUserIdById($id, $userId)
+	{
+		$sql = "update t_transaction set approver_id  = '".$userId."' where transaction_id = '".$id."' ";
+		return $this->Execute($sql);
+	}
+
+	public function deleteTransactionByIds($ids)
+	{
+		if(empty($ids)){
+			return array();
+		}
+		$ids = implode(",", $ids);
+		$sql = "update t_transaction set isactive  = 1 where transaction_id in (".$ids.") ";
+
+		return $this->Execute($sql);
 	}
 }

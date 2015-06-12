@@ -1,6 +1,7 @@
 <?php
 
 Yii::import("application.models.Evaluation.CalculatorFactory"); 
+Yii::import("application.service.Approval.Impl.ApprovalServiceImpl"); 
 
 class EvaluationController extends BaseController
 {
@@ -57,6 +58,17 @@ class EvaluationController extends BaseController
 		$outlineoutdetail = Outlineoutdetail::model()->findOutlineoutdetailsByVid($evaformPayment['v_id']);
 
         $calculator = CalculatorFactory::create('View')->calculator($id);
+
+
+        $fields['bill_id'] = $id;
+        $fields['bill_type'] = 'evaluation';
+        $fields['code'] = 'evaluation';
+
+		$status = ApprovalServiceImpl::getApprovaStatus($fields);
+
+		$isCreate = ApprovalServiceImpl::isCreate($fields);
+		
+
 // echo "<pre>";
 //         var_dump($calculator);
 // echo "</pre>";
@@ -72,6 +84,8 @@ class EvaluationController extends BaseController
 			'outlineoutdetail'=>$outlineoutdetail,
 			'permission'=>$permission,
 			'calculator'=>$calculator,
+			'status'=>$status,
+			'isCreate'=>$isCreate,
 		));
 	}
 
@@ -88,6 +102,7 @@ class EvaluationController extends BaseController
 				$_POST['Outlineoutdetail'] = null;
 
 			$evaluation = $model->create($_POST['Evaluation'],$_POST['EvaformPayment'],$_POST['Outlineoutdetail'],$_POST['Pdetail']);
+
 
 			PermissionAccess::model()->createPermissionAccessByEvaId($evaluation->eva_id);
 
@@ -150,6 +165,11 @@ class EvaluationController extends BaseController
 
 			$evaluation = $model->create($_POST['Evaluation'],$_POST['EvaformPayment'],$_POST['Outlineoutdetail'],$_POST['Pdetail']);
 
+
+			$fields['bill_id'] =  $evaluation->eva_id;
+			$fields['bill_type'] =  'evaluation';
+			$fields['code']  =  'evaluation';
+			ApprovalServiceImpl::createTransation($fields);
 			PermissionAccess::model()->createPermissionAccessByEvaId($evaluation->eva_id);
 
 	    	$this->setFlashMessage('success', '评估单创建成功');

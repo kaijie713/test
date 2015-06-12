@@ -75,7 +75,7 @@ define(function(require, exports, module) {
             validator.query('#edate').execute();
         });
 
-        $('#bdate').datetimepicker('setStartDate', now);
-        $('#edate').datetimepicker('setStartDate', now);
+        // $('#bdate').datetimepicker('setStartDate', now);
+        // $('#edate').datetimepicker('setStartDate', now);
     }
 });

@@ -66,7 +66,7 @@ $this->script_controller = 'evaluation/admin';
 							    <span class="caret"></span>&nbsp;
 							  </a>
 							  <ul class="dropdown-menu">
-							    <li><a href="/index.php?r=PermissionAccess/approval&id=<?php echo $v['eva_id'];?>"><i class="glyphicon glyphicon-cog"></i> 审批评估单</a></li>
+							    <li><a href="/index.php?r=Transaction/approval&bill_id=<?php echo $v['eva_id'];?>&bill_type=evaluation"><i class="glyphicon glyphicon-cog"></i> 审批评估单</a></li>
 							    <li><a href="/index.php?r=PermissionAccess/SetPermissionAccess&id=<?php echo $v['eva_id'];?>"><i class="glyphicon glyphicon-cog"></i> 设置授权</a></li>
 							    <li><a href="/index.php?r=evaluation/Update&id=<?php echo $v['eva_id'];?>"><i class="glyphicon glyphicon-cog"></i> 调整评估单</a></li>
 							    <li><a data-url="/index.php?r=evaluation/delete&id=<?php echo $v['eva_id'];?>" data-target="<?php echo $v['eva_id'];?>" class="delete-btn" href="javascript:">删除</a></li>

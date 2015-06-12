@@ -109,7 +109,7 @@ class PdetailController extends BaseController
 		$chargeType = SysDict::model()->getSysDictById($dict_id);
 
 		if(empty($chargeType)){
-			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+			throw new CHttpException(400, 'Invalid chargeTypeId '.$dict_id.' . Please do not repeat this request again.');
 		}
 
 		$this->renderPartial('create-'.$chargeType['dkey'],array(
@@ -141,7 +141,7 @@ class PdetailController extends BaseController
 		$chargeType = SysDict::model()->getSysDictById($dict_id);
 
 		if(empty($chargeType)){
-			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+			throw new CHttpException(400, 'Invalid chargeType {$dict_id} . Please do not repeat this request again.');
 		}
 
 		$Splitdetail = new PrjPartnerSplitdetail();
@@ -172,7 +172,7 @@ class PdetailController extends BaseController
 		$Splitdetail = new PrjPartnerSplitdetail();
 
 		$splitdetails = CJSON::encode($Splitdetail->findSplitdetailByPdId($model->pd_id));
-		
+
 		$this->render('view',array(
 			'chargeType' => $chargeType,
 			'splitdetails' => $splitdetails,

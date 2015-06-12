@@ -384,7 +384,6 @@ define(function(require, exports, module) {
             }
             $form = $('#evaluation-form');
             var self = this;
-            console.log($form.serialize());
             $.post("/index.php?r=evaluation/CalculatorOnCreate", $form.serialize(),function(data){
                 self.prepareShow(data);
             },'json');

@@ -1,21 +1,13 @@
 <?php
-class WorkflowNode extends CActiveRecord
+class WorkflowNode extends BaseModel
 {
-	/**
-	 * @return string the associated database table name
-	 */
 	public function tableName()
 	{
 		return 't_workflow_node';
 	}
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('node_id', 'required'),
 			array('overrule', 'numerical', 'integerOnly'=>true),
@@ -27,26 +19,16 @@ class WorkflowNode extends CActiveRecord
 			array('disabled', 'length', 'max'=>1),
 			array('approval_type', 'length', 'max'=>2),
 			array('enable_date, disable_date, createdate, updatedate', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
 			array('workflow_code, node_id, node_name, node_code, node_type, previous_node_id, next_node_id, rejected_node_id, purview_type, description, attribute1, attribute2, attribute3, attribute4, attribute5, disabled, enable_date, disable_date, createby, createdate, updateby, updatedate, approval_type, overrule', 'safe', 'on'=>'search'),
 		);
 	}
 
-	/**
-	 * @return array relational rules.
-	 */
 	public function relations()
 	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		return array(
 		);
 	}
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
 	public function attributeLabels()
 	{
 		return array(
@@ -77,22 +59,8 @@ class WorkflowNode extends CActiveRecord
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('workflow_code',$this->workflow_code,true);
@@ -125,14 +93,41 @@ class WorkflowNode extends CActiveRecord
 		));
 	}
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return TWorkflowNode the static model class
-	 */
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+
+	public function findFlowNodesByCode($code)
+	{
+		if(empty($code)){
+			return array();
+		}
+
+		$sql = "select * from t_workflow_node where workflow_code = '".$code."' and isactive = 0  ";
+		return $this->QueryAll($sql);
+	}
+
+
+	public function getFlowNodeByCodeAndType($code, $type)
+	{
+		if(empty($code) || empty($type)){
+			return array();
+		}
+
+		$sql = "select * from t_workflow_node where workflow_code = '".$code."' and node_type = '".$type."'  and isactive = 0  limit 1";
+		return $this->QueryRow($sql);
+	}
+
+	public function getFlowNodeByCodeAndPreviousNodeId($code, $nodeId)
+	{
+		if(empty($code) || empty($nodeId)){
+			return array();
+		}
+
+		$sql = "select * from t_workflow_node where workflow_code = '".$code."' and previous_node_id = '".$nodeId."' and isactive = 0 limit 1";
+		return $this->QueryRow($sql);
 	}
 }

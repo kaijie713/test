@@ -1,29 +1,22 @@
 <?php
 $this->pageTitle='评估单详情 - '.Yii::app()->name;
-$this->script_controller = 'evaluation/view';
+$this->script_controller = 'transaction/approval';
 ?>
 
 <div id="content-header">
-    <div id="breadcrumb"> <a class="tip-bottom" href="/index.php?r=evaluation/admin" data-original-title="去首页"><i class="icon-home"></i> 首页</a> <a class="current" href="#">创建评估单</a> </div>
-    <h1>评估单详情</h1>
+    <div id="breadcrumb"> <a class="tip-bottom" href="/index.php?r=evaluation/admin" data-original-title="去首页">
+    	<i class="icon-home"></i> 首页</a> <a class="current" href="/index.php?r=evaluation/admin">评估单列表</a> 
+    	<a class="current" href="#">审批评估单</a>
+    </div>
+    <h1>审批评估单</h1>
 </div>
 
 <div class="container-fluid">
 	<hr>
-	<div class="pull-right ">
-		  <a href="#" class="btn btn-info ">申请电商执行资源</a>
-		  <a href="#" class="btn btn-info ">关联CRM合同</a>
-		  <a href="#" class="btn btn-info ">同步至房销宝</a>
-		  <a href="#" class="btn btn-info ">同步至订单系统</a>
-		  <?php if($isCreate) {?>
-		  <button data-url="/index.php?r=Transaction/create&bill_id=<?php echo $model->eva_id;?>&bill_type=evaluation" data-toggle="modal" data-target="#modal" type="button" class="btn btn-default">提交</button>
-		  <?php }?>
-		  <a href="/index.php?r=evaluation/admin" class="btn btn-default ">返回</a>
-	</div>
 	<div class="row-fluid evaluation-create">
 		<div class="span12" id="evaluation-create-widget">
 
-				    <form method="post" id="evaluation-form" class="form-horizontal" novalidate="novalidate" data-role="evaluation-form">
+				    <form method="post" id="approval-form" class="form-horizontal" novalidate="novalidate" enctype="multipart/form-data" data-role="evaluation-form">
 
 
 
@@ -417,8 +410,7 @@ $this->script_controller = 'evaluation/view';
 				</table>
 		    </div>
 		</div>
-
-		<?php }?>
+		<?php } ?>
 
 		<div class="clear"> </div>
 	</div>
@@ -455,30 +447,9 @@ $this->script_controller = 'evaluation/view';
 </div>
 
 
+<?php Yii::app()->runController('Transaction/view/bill_id/'.$billId.'/bill_type/'.$billType.'/code/'.$code) ;?>
 
 
-<div class="widget-box">
-	<div class="widget-title"><h5>审批信息</h5></div>
-	<div class="widget-content nopadding">
-		<table class="table table-striped table-hover table-form" data-search-form="#user-search-form" >
-		  <thead>
-		    <tr>
-		      <th width="25%">审批人</th>
-		      <th width="25%">审批时间</th>
-		      <th width="20%">审批动作</th>
-		      <th width="20%">审批意见</th>
-		      <th width="10%">附件</th>
-		    </tr>
-		  </thead>
-		  <tbody class="is-null">
-                  <tr><td colspan="20"><div class="empty">暂无审批记录.</div></td></tr>
-          </tbody>
-		</table>
-
-		<div class="clear">
-		</div>
-	</div>
-</div>
 
 
 
@@ -486,11 +457,16 @@ $this->script_controller = 'evaluation/view';
 
 
 						<div class="form-group">
-						    <div class="offset4 span5 controls pull-right">
-						    	<a type="button"class="btn btn-fat btn-primary" href="/index.php?r=evaluation/admin">返回</a>
+						    <div class="pull-right span3 controls">
+						    	<button type="button" data-role = "1" class="btn btn-success btn-submit">通过</button>
+						    	<button type="button" data-role = "0" class="btn btn-success btn-submit">驳回</button>
+						    	<a class="btn btn-link" href="/index.php?r=evaluation/admin">返回</a>
 						    </div>
 						</div>
 						<input type="hidden" name="YII_CSRF_TOKEN" value="<?php echo Yii::app()->request->getCsrfToken();?>">
+						<input type="hidden" name="Approval[bill_id]" value="<?php echo $billId;?>">
+						<input type="hidden" name="Approval[bill_type]" value="<?php echo $billType;?>">
+						<input type="hidden" name="Approval[estate]" id="estate" value="">
 				    </form>
 				</div>
 

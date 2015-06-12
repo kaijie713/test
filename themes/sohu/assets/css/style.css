@@ -49,12 +49,10 @@
 .modal-dialog {
     margin: 30px auto;
     width: 600px;
-}
-.modal-dialog {
-    margin: 10px auto;
     position: relative;
-    width: auto;
+    
 }
+
 .modal-lg {
     width: 900px;
 }
@@ -70,12 +68,15 @@
     top: 0;
     z-index: 1050;
     width: 100%;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     background: none;
     border: none;;
      box-shadow: 0px;
 }
+
+
+
 .modal-content {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }

@@ -103,13 +103,13 @@ class PermissionAccess extends BaseModel
 
 	public function findPermissionAccessByEvaId($evaId)
 	{
-		$sql = "select * from t_permission_access where eva_id = $evaId order by seq asc";
+		$sql = "select * from t_permission_access where eva_id = $evaId and isApproval = 0 order by seq asc";
 		return $this->QueryAll($sql);
 	}
 
 	public function getPermissionAccessByEvaIdAndUid($evaId, $uid)
 	{
-		$sql = "select * from t_permission_access where eva_id = $evaId and u_id = $uid order by seq asc";
+		$sql = "select * from t_permission_access where eva_id = $evaId and u_id = $uid and isApproval = 0 order by seq asc";
 		return $this->QueryRow($sql);
 	}
 

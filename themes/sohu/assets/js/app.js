@@ -39,6 +39,7 @@ define(function(require, exports, module) {
 
 	$( document ).ajaxSend(function(a, b, c) {
 		if (c.type == 'POST') {
+			c.data = typeof c.data ==  "undefined" ? '':c.data;
 			c.data += c.data+'&YII_CSRF_TOKEN='+$('meta[name=YII_CSRF_TOKEN]').attr('content');
 			// b.setRequestHeader('YII_CSRF_TOKEN', $('meta[name=YII_CSRF_TOKEN]').attr('content'));
 		}
