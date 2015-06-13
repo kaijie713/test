@@ -44,7 +44,13 @@ return array(
 			'class'=>'WHttpRequest',
             'enableCsrfValidation'=>true,
             'enableCookieValidation'=>true,
-            'noCsrfValidationRoutes'=>array('logisn/login', 'some/*'),
+            'noCsrfValidationRoutes'=>array(
+            	'post/test', 
+            	'stock/quote',
+            	'login/login',
+            	'webServer/quote',
+            	'some/te3t',
+            ),
         ),
 		'user'=>array(
             'class'=>'WebUser',
