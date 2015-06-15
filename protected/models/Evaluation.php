@@ -14,15 +14,15 @@ class Evaluation extends BaseModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('group_id, eva_id', 'required'),
-            array('group_id, eva_id, city_id, ec_incharge_id, sales_id, area_id, createby, updateby', 'length', 'max'=>36),
+            array('hourse_id, eva_id', 'required'),
+            array('hourse_id, eva_id, city_id, ec_incharge_id, sales_id, area_id, createby, updateby', 'length', 'max'=>36),
             array('eva_no', 'length', 'max'=>50),
             array('cooperetion_mode, customer_type, customer_level', 'length', 'max'=>2),
             array('prj_condition', 'length', 'max'=>2000),
             array('isactive', 'length', 'max'=>1),
             array('attribute1, attribute2, attribute3', 'length', 'max'=>100),
             array('pre_opendatetime, createdate, updatedate', 'safe'),
-            array('group_id, eva_id, eva_no, city_id, ec_incharge_id, cooperetion_mode, sales_id, customer_type, customer_level, pre_opendatetime, area_id, prj_condition, isactive, createby, createdate, updateby, updatedate, attribute1, attribute2, attribute3', 'safe', 'on'=>'search'),
+            array('hourse_id, eva_id, eva_no, city_id, ec_incharge_id, cooperetion_mode, sales_id, customer_type, customer_level, pre_opendatetime, area_id, prj_condition, isactive, createby, createdate, updateby, updatedate, attribute1, attribute2, attribute3', 'safe', 'on'=>'search'),
         );
     }
 
@@ -35,7 +35,7 @@ class Evaluation extends BaseModel
     public function attributeLabels()
     {
         return array(
-            'group_id' => 'Group',
+            'hourse_id' => 'Group',
             'eva_id' => 'Eva',
             'eva_no' => 'Eva No',
             'city_id' => 'City',
@@ -64,7 +64,7 @@ class Evaluation extends BaseModel
 
         $criteria=new CDbCriteria;
 
-        $criteria->compare('group_id',$this->group_id,true);
+        $criteria->compare('hourse_id',$this->hourse_id,true);
         $criteria->compare('eva_id',$this->eva_id,true);
         $criteria->compare('eva_no',$this->eva_no,true);
         $criteria->compare('city_id',$this->city_id,true);
@@ -135,7 +135,7 @@ class Evaluation extends BaseModel
         $sql = "SELECT {$select} FROM t_prj_evaluationforms e ";
         $sql = $sql." left join sys_dict s on e.cooperetion_mode = s.dict_id";
         $sql = $sql." left join sys_dict s2 on e.status = s2.dict_id";
-        $sql = $sql." left join t_houses_prj h on e.group_id = h.group_id";
+        $sql = $sql." left join t_houses_prj h on e.hourse_id = h.hourse_id";
         $sql = $sql." left join dict_chengshi dc on e.city_id = dc.city_id";
         $sql = $sql." left join user u on e.ec_incharge_id = u.u_id";
         $sql = $sql." left join user u2 on e.createby = u2.u_id";

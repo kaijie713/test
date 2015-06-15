@@ -90,7 +90,7 @@
 	  	<div class="control-group form-group">
 	  		<label for="out_name{{id}}" class="control-label hide">支出项名称</label>
 		  	<div class="input-group controls mlz">
-		  		<input type="text" id="out_name{{id}}" name="Outlineoutdetail[out_name][]" class="mlz form-control">
+		  		<input type="text" id="out_name{{id}}" name="Outlineoutdetail[out_name][]" class="mlz form-control" />
 		  	</div>
 	  	</div>
 	  </td>
@@ -99,7 +99,7 @@
 	  		<label for="out_amount{{id}}" class="control-label hide">支出项金额</label>
 		  	<div class="input-group controls mlz">
 		  		<div class="input-group">
-			  		<input type="text" id="out_amount{{id}}" name="Outlineoutdetail[out_amount][]" class="mlz form-control">
+			  		<input type="text" id="out_amount{{id}}" name="Outlineoutdetail[out_amount][]" class="mlz form-control" />
 			  		<span class="input-group-addon">元</span>
 			  	</div>
 		  	</div>
@@ -108,7 +108,8 @@
 	  <td >
 		  <button class="btn btn-default btn-sm" data-role="delete-outlineoutdetail" type="button">删除</button>
 	  </td>
+	  <input type="hidden" name="Outlineoutdetail[out_type][]" id="out_type{{id}}" value="" />
+
 	</tr>
 
-	<input type="hidden" name="Outlineoutdetail[out_type][]" id="out_type{{id}}" value="">
 </script>

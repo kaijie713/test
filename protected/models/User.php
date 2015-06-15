@@ -84,9 +84,10 @@ class User extends BaseModel {
     {
         $this->_identity = new WebUserIdentity($this->email,$this->password);
         $res = $this->_identity->authenticate();	
-
         if($res == true){
-        	$duration=3600*24*30; // 30 days  
+        	$duration=3600*24*7; // 30 days  
+        	// $duration=1; // 30 days  
+        	// $duration=time()+Yii::app()->params['sessionTimeoutSeconds'];
         	// $duration=$this->remember_me ? 3600*24*30 : 0; // 30 days  
         	Yii::app()->user->login($this->_identity,$duration); 
         	// $this->error = 
@@ -142,8 +143,8 @@ class User extends BaseModel {
 		if(empty($ids)){
 			return array();
 		}
-		$ids = implode(",", $ids);
-		$sql = "select * from user where u_id in ($ids)";
+		$ids = implode("','", $ids);
+		$sql = "select * from user where u_id in ('$ids')";
 		return $this->QueryAll($sql);
 	}
 

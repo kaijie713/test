@@ -13,9 +13,9 @@
 	  </thead>
 	  <tbody>
 	  	<?php foreach ($dataProvider as $key => $value) { ?>
-	      	<tr id="<?php echo $value['group_id']?>" data-name="<?php echo $value['group_name']?>">
+	      	<tr id="<?php echo $value['hourse_id']?>" data-name="<?php echo $value['group_name']?>">
 	          <th scope="row"><?php echo $value['group_name']?></th>
-	          <td><?php echo $chengshis[$value['city_id']]['city_name'];?></td>
+	          <td><?php if(empty($chengshis[$value['city_id']]))continue; echo  $chengshis[$value['city_id']]['city_name'] ;?></td>
 	          <td><?php echo $users[$value['createby']]['name'];?></td>
 	          <td><?php echo date('Y-m-d',strtotime($value['createdate']));?></td>
 	          <td><?php echo $users[$value['updateby']]['name'];?></td>

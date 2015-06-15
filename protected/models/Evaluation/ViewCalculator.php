@@ -77,7 +77,7 @@ class ViewCalculator extends AbstractCalculator
         if($this->cal->evaformPayment->ad_distribution_ratio  == 0){
             $sale2 = 0;
         } else {
-            $sale2=$this->cal->pdetail->pre_incoming * ($this->cal->evaformPayment->ad_distribution_ratio / 100);
+            $sale2=$this->cal->pdetail->pre_incoming * $this->cal->evaformPayment->ad_distribution_ratio;
         }
 
         $this->cal->sale_ad_kanli_amount = $sale1 - $sale2;

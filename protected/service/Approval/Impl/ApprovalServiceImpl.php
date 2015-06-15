@@ -22,6 +22,26 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
         return $nodes;
     }
 
+    //按条件过滤审批节点
+    public function filterApproveNodes($nodes, $billId, $billType){
+        
+        if(empty($nodes)) return array();
+
+        $calculator = CalculatorFactory::create('View')->calculator($billId);
+
+        foreach ($nodes as $key => $node) 
+        {
+            if($node['where_is'] != "" && $node['where_is']!=null)  {
+
+                if($calculator->resource_income_multiples < 9999){
+                    unset($nodes[$key]);
+                }
+                
+            }
+        }
+        return $nodes;
+    }
+
 
     //查询节点上的用户
     public function findusersByNodeIds(array $nodeIds){
@@ -261,7 +281,8 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
 
         if($node['node_type']=="start"){
             $transaction = transaction::model()->findTransactionByBillAndCodeAndDelete($billId, $billType, $code);
-            if(count($transaction)>0){
+           
+            if(!empty($transaction) && count($transaction)>0){
                 return "驳回";
             }else{
                 return $node['node_name'];

@@ -96,7 +96,7 @@ class Area extends BaseModel
 
 	public function getAreaByCityId($id){
 
-		$sql = 'SELECT * FROM area WHERE city_id = '.$id." ORDER BY createDate DESC";
+		$sql = "SELECT * FROM area WHERE city_id = '$id' ORDER BY createDate DESC";
 
         return $this->QueryAll($sql);
 	}

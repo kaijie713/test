@@ -70,7 +70,7 @@ class THousesPrjController extends BaseController
 		{
 			$model->attributes=$_POST['THousesPrj'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->group_id));
+				$this->redirect(array('view','id'=>$model->hourse_id));
 		}
 
 		$this->render('create',array(
@@ -94,7 +94,7 @@ class THousesPrjController extends BaseController
 		{
 			$model->attributes=$_POST['THousesPrj'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->group_id));
+				$this->redirect(array('view','id'=>$model->hourse_id));
 		}
 
 		$this->render('update',array(

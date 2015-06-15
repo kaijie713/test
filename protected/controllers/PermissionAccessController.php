@@ -79,7 +79,7 @@ class PermissionAccessController extends BaseController {
 
         $isApproval =PermissionAccess::model()->checkApproval($id);
 
-        $hourse = THousesPrj::model()->findByPk($model->group_id);
+        $hourse = THousesPrj::model()->findByPk($model->hourse_id);
         $user = User::model()->findByPk($model->createby);
         $ecIncharge = User::model()->findByPk($model->ec_incharge_id);
         $city = DictChengshi::model()->findByPk($model->city_id);
@@ -131,8 +131,8 @@ class PermissionAccessController extends BaseController {
         }
 
         $THousesPrj = new THousesPrj();
-        $hourses = $THousesPrj->findTHousrsPtjsByIds(array($evaluation->group_id));
-        $hourses = ArrayToolkit::index($hourses, 'group_id');
+        $hourses = $THousesPrj->findTHousrsPtjsByIds(array($evaluation->hourse_id));
+        $hourses = ArrayToolkit::index($hourses, 'hourse_id');
 
         $PermissionAccess = new PermissionAccess();
         $result = $PermissionAccess->findPermissionAccessByEvaId($id);

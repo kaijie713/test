@@ -34,7 +34,7 @@ $this->script_controller = 'evaluation/create';
 						    </div>
 						</div>
 
-						<input type="hidden" name="Evaluation[group_id]" id="group_id" value="" >
+						<input type="hidden" name="Evaluation[hourse_id]" id="hourse_id" value="" >
 						<input type="hidden" name="Evaluation[city_id]" id="city_id" value="" >
 						<input type="hidden" name="Evaluation[ec_incharge_id]" id="ec_incharge_id" value="" >
 						<input type="hidden" name="Evaluation[sales_id]" id="sales_id" value="" >

@@ -93,7 +93,7 @@ $this->script_controller = 'evaluation/view';
 			<div class="control-group form-group">
 				<label class="control-label" for="sales_name">销售姓名：</label>
 				<div class="controls">
-					<span class="help-block"><?php echo $users[$model->sales_id]['name']?></span>
+					<span class="help-block"><?php echo empty($users[$model->sales_id]) ? '' :$users[$model->sales_id]['name']?></span>
 				</div>
 			</div>
 			<div class="control-group form-group">
@@ -189,7 +189,7 @@ $this->script_controller = 'evaluation/view';
 			<div class="control-group form-group">
 				<label class="control-label">预计成交总额：</label>
 				<div class="controls">
-					<p class="help-block pre_amount_sum"><?php echo F::ds4($calculator->pdetail->pre_amount);?>万元</p>
+					<p class="help-block pre_amount_sum"><?php echo F::ds4($calculator->pdetail->pre_amount);?>元</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
@@ -278,21 +278,21 @@ $this->script_controller = 'evaluation/view';
 			<div class="control-group form-group">
 				<label class="control-label">按销售政策计算广告刊例金额：</label>
 				<div class="controls">
-					<p class="help-block sale_ad_kanli_amount"><?php echo F::d2($calculator->sale_ad_kanli_amount);?>%</p>
+					<p class="help-block sale_ad_kanli_amount"><?php echo F::d2($calculator->sale_ad_kanli_amount);?>元</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
 				<label class="control-label">资源比预计收入倍数：</label>
 				<div class="controls">
-					<p class="help-block resource_income_multiples"><?php echo F::d2($calculator->resource_income_multiples);?></p>
+					<p class="help-block resource_income_multiples"><?php echo F::d2($calculator->resource_income_multiples);?>倍</p>
 				</div>
 			</div>
 		</div>
 		<div class="span6">
 			<div class="control-group form-group">
-				<label class="control-label" for="ad_distribution_ratio">广告配送倍数：</label>
+				<label class="control-label" for="ad_distribution_ratio">广告配送比：</label>
 				<div class="controls">
-					<p class="help-block ad_distribution_ratio"><?php echo F::d2($calculator->evaformPayment->ad_distribution_ratio);?></p>
+					<p class="help-block ad_distribution_ratio"><?php echo F::d2($calculator->evaformPayment->ad_distribution_ratio);?>倍</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
@@ -405,7 +405,7 @@ $this->script_controller = 'evaluation/view';
 	  		<label for="out_amount{{id}}" class="control-label hide">支出项金额</label>
 		  	<div class="input-group controls mlz">
 		  		<div class="input-group">
-			  		<?php echo F::d2($value['out_amount']);?>
+			  		<?php echo F::d2($value['out_amount']);?>元
 			  	</div>
 		  	</div>
 	  	</div>

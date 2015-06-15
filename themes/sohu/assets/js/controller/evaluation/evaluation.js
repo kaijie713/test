@@ -186,7 +186,7 @@ define(function(require, exports, module) {
 
             validator.addItem({
                 element: '[name="Evaluation[pre_opendatetime]"]',
-                required: true,
+                required: false,
                 rule: 'date'
             });
 
@@ -437,21 +437,21 @@ define(function(require, exports, module) {
 
             $(".sell_house_sum").html(arr['pdetail']['sell_house_num']+'套');
             $(".pre_volumn_sum").html(arr['pdetail']['pre_volumn']+'套');
-            $(".pre_amount_sum").html(arr['pdetail']['pre_amount']+'元');
-            $(".pre_incoming").html(arr['pdetail']['pre_incoming']+'元');
-            $(".net_income").html(arr['net_income']+'元');
-            $(".offline_ratio").html(arr['offline_ratio']+'%');
+            $(".pre_amount_sum").html(this.ds4(arr['pdetail']['pre_amount'])+'元');
+            $(".pre_incoming").html(this.ds4(arr['pdetail']['pre_incoming'])+'元');
+            $(".net_income").html(this.d2(arr['net_income'])+'元');
+            $(".offline_ratio").html(this.d2(arr['offline_ratio'])+'%');
 
             $(".splitdetail_divide_sum").html(arr['pdetail']['divideSumKFS']+'%');
             $(".developers_divide_sum").html(arr['pdetail']['divideAmountSumDSF']+'%');
 
             $(".ad_markting_ratio").html(arr['evaformPayment']['ad_markting_ratio']+'%');
-            $(".sale_ad_kanli_amount").html(arr['sale_ad_kanli_amount']+'元');
-            $(".resource_income_multiples").html(arr['resource_income_multiples']);
-            $(".offline_amount_sum").html(arr['offline_amount_sum']+'元');
-            $(".offline_ratio").html(arr['offline_ratio']+'%');
-            $(".prjreword_perunit_sum").html(arr['prjreword_perunit_sum']+'元');
-            $(".brokerfees_perunit_sum").html(arr['brokerfees_perunit_sum']+'元');
+            $(".sale_ad_kanli_amount").html(this.d2(arr['sale_ad_kanli_amount'])+'元');
+            $(".resource_income_multiples").html(this.d2(arr['resource_income_multiples']));
+            $(".offline_amount_sum").html(this.d2(arr['offline_amount_sum'])+'元');
+            $(".offline_ratio").html(this.d2(arr['offline_ratio'])+'%');
+            $(".prjreword_perunit_sum").html(this.d2(arr['prjreword_perunit_sum'])+'元');
+            $(".brokerfees_perunit_sum").html(this.d2(arr['brokerfees_perunit_sum'])+'元');
         },
 
         preparePdetail: function()
@@ -604,6 +604,18 @@ define(function(require, exports, module) {
             } else if(type=="text"){
                 return $(ele).length > 0 && $(ele).text() != '' && !isNaN($(ele).text()) ? parseFloat($(ele).text()).toFixed(length) : 0 ;
             }
+        },
+
+        d2: function(ele){
+            return parseFloat(ele).toFixed(2) ;
+        },
+
+        ds4: function(ele){
+            return parseFloat(parseFloat(ele)/10000).toFixed(2)+"万";
+        },
+
+        ds0: function(ele){
+            return parseFloat(parseFloat(ele)/10000).toFixed(2)+"万";
         },
 
     });

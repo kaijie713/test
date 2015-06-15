@@ -45,7 +45,7 @@ class EvaluationController extends BaseController
 
 		$users = ArrayToolkit::index(User::model()->findUsersByIds($userIds),"u_id");
 
-        $project = THousesPrj::model()->findByPk($model->group_id);
+        $project = THousesPrj::model()->findByPk($model->hourse_id);
 
 		$city = DictChengshi::model()->findByPk($model->city_id);
 
@@ -130,7 +130,7 @@ class EvaluationController extends BaseController
         $count = $result['count'];
 
 
-        
+
         $pages = new CPagination($count);
         $this->render('admin',array(
             'dataProvider'=>$items,

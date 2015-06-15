@@ -103,7 +103,7 @@ class PermissionAccess extends BaseModel
 
 	public function findPermissionAccessByEvaId($evaId)
 	{
-		$sql = "select * from t_permission_access where eva_id = $evaId and isApproval = 0 order by seq asc";
+		$sql = "select * from t_permission_access where eva_id = '$evaId' and isApproval = 0 order by seq asc";
 		return $this->QueryAll($sql);
 	}
 
@@ -115,7 +115,7 @@ class PermissionAccess extends BaseModel
 
 	public function getPermissionAccessCurrentByEvaId($evaId)
 	{
-		$sql = "select * from t_permission_access where eva_id = $evaId and isApproval = 0 order by seq asc";
+		$sql = "select * from t_permission_access where eva_id = '$evaId' and isApproval = 0 order by seq asc";
 		return $this->QueryRow($sql);
 	}
 
@@ -157,7 +157,7 @@ class PermissionAccess extends BaseModel
 
 	public function getPermissionAccessNextSeqByEvaId($id)
 	{
-		$sql = "select * from t_permission_access where eva_id = $id order by seq desc limit 1";
+		$sql = "select * from t_permission_access where eva_id = '$id' order by seq desc limit 1";
 		$result = $this->QueryRow($sql);
 		return empty($result) ? 1 : $result['seq']+1;
 	}

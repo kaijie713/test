@@ -29,14 +29,14 @@ class PostCalculator extends AbstractCalculator
         $this->cal->resource_income_multiples = $this->cal->sale_ad_kanli_amount / $this->cal->pdetail->pre_incoming;
 
         $this->cal->resource_income_multiples = number_format($this->cal->resource_income_multiples, 4, '.', '');
-
         //案场奖励总和 经纪人奖励
         $this->getPrjrewordAndBrokerfees($pdetail);
 
         return $this->cal;
     }
 
-    public function getOfflineAmountSum($outlineoutdetail){
+    public function getOfflineAmountSum($outlineoutdetail)
+    {
         if(count($outlineoutdetail)>0){
             foreach ($outlineoutdetail['out_amount'] as $key => $value) {
                 $this->cal->offline_amount_sum = $this->cal->offline_amount_sum + $value;
@@ -64,14 +64,17 @@ class PostCalculator extends AbstractCalculator
         } else {
             $sale1=$this->cal->pdetail->pre_incoming / ($this->cal->evaformPayment->ad_discount / 100);
         }
+  
+
 
         if($this->cal->evaformPayment->ad_distribution_ratio  == 0){
             $sale2 = 0;
         } else {
-            $sale2=$this->cal->pdetail->pre_incoming * ($this->cal->evaformPayment->ad_distribution_ratio / 100);
+            $sale2=$this->cal->pdetail->pre_incoming * $this->cal->evaformPayment->ad_distribution_ratio ;
         }
 
-        $this->cal->sale_ad_kanli_amount = $sale1 - $sale2;
+
+        $this->cal->sale_ad_kanli_amount = $sale1 + $sale2;
 
         $this->cal->sale_ad_kanli_amount =  number_format($this->cal->sale_ad_kanli_amount, 4, '.', '');
     }

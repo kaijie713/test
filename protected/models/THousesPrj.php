@@ -18,14 +18,14 @@ class THousesPrj extends BaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('group_id', 'required'),
-			array('group_id, city_id, area_id, createby, updateby', 'length', 'max'=>36),
+			array('hourse_id', 'required'),
+			array('hourse_id, city_id, area_id, createby, updateby', 'length', 'max'=>36),
 			array('group_name, prj_licence', 'length', 'max'=>100),
 			array('isactive', 'length', 'max'=>1),
 			array('open_date, createdate, updatedate', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('group_id, group_name, open_date, city_id, area_id, prj_licence, isactive, createby, createdate, updateby, updatedate', 'safe', 'on'=>'search'),
+			array('id, group_name, open_date, city_id, area_id, prj_licence, isactive, createby, createdate, updateby, updatedate', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,7 +46,7 @@ class THousesPrj extends BaseModel
 	public function attributeLabels()
 	{
 		return array(
-			'group_id' => 'Group',
+			'hourse_id' => 'Group',
 			'group_name' => 'Group Name',
 			'open_date' => 'Open Date',
 			'city_id' => 'City',
@@ -78,7 +78,7 @@ class THousesPrj extends BaseModel
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('group_id',$this->group_id,true);
+		$criteria->compare('hourse_id',$this->id,true);
 		$criteria->compare('group_name',$this->group_name,true);
 		$criteria->compare('open_date',$this->open_date,true);
 		$criteria->compare('city_id',$this->city_id,true);
@@ -147,8 +147,8 @@ class THousesPrj extends BaseModel
 		if(empty($ids)){
 			return array();
 		}
-		$ids = implode(",", $ids);
-		$sql = "select * from t_houses_prj where group_id in ($ids)";
+		$ids = implode("','", $ids);
+		$sql = "select * from t_houses_prj where hourse_id in ('$ids')";
 		return $this->QueryAll($sql);
 	}
 

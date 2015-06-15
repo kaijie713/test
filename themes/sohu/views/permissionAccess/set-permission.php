@@ -12,7 +12,7 @@ $this->script_controller = 'permission-access/set-approve';
     	<a class="tip-bottom" href="/index.php?r=evaluation/admin" data-original-title="去首页"><i class="icon-home"></i> 首页</a> 
     	<a  href="/index.php?r=evaluation/admin">评估单列表</a> 
     	<a class="current" href="#">设置授权人</a> </div>
-    <h1><?php echo $hourses[$evaluation->group_id]['group_name'];?></h1>
+    <h1><?php echo $hourses[$evaluation->hourse_id]['group_name'];?></h1>
 </div>
 
 <div class="container-fluid">

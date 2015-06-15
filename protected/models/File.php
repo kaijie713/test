@@ -77,8 +77,8 @@ class File extends BaseModel
 		if(empty($ids)){
 			return array();
 		}
-		$ids = implode(",", $ids);
-		$sql = "select * from t_file where id in ($ids)";
+		$ids = implode("','", $ids);
+		$sql = "select * from t_file where id in ('$ids')";
 		return $this->QueryAll($sql);
 	}
 

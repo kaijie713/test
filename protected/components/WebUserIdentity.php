@@ -2,6 +2,7 @@
 class WebUserIdentity extends CUserIdentity
 {
     private $_id;
+    private $_isssd;
     public $realname;
     public $is_login;
     public $user;
@@ -22,7 +23,7 @@ class WebUserIdentity extends CUserIdentity
         else
         {
             $this->_id=$record->u_id;
-            $this->is_login=true;
+            $this->_isssd=$record->u_id;
             $this->errorCode = false;
 
             $this->setUser($record);

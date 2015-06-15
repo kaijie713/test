@@ -369,7 +369,7 @@ $this->pageTitle='调整评估单 - '.Yii::app()->name;
 					<div class="input-group ">
 				  		<div class="input-group">
 							<input type="text" class="form-control" name="EvaformPayment[ad_distribution_ratio]" id="ad_distribution_ratio">
-					  		<span class="input-group-addon">%</span>
+					  		<span class="input-group-addon">倍</span>
 					  	</div>
 					</div>
 				</div>
@@ -530,7 +530,7 @@ $this->pageTitle='调整评估单 - '.Yii::app()->name;
 						    </div>
 						</div>
 
-						<input type="hidden" name="Evaluation[group_id]" id="group_id" value="" >
+						<input type="hidden" name="Evaluation[hourse_id]" id="hourse_id" value="" >
 						<input type="hidden" name="Evaluation[city_id]" id="city_id" value="" >
 						<input type="hidden" name="Evaluation[ec_incharge_id]" id="ec_incharge_id" value="" >
 						<input type="hidden" name="Evaluation[sales_id]" id="sales_id" value="" >

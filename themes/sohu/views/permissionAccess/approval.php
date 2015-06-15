@@ -212,7 +212,7 @@ $this->script_controller = 'permission-access/approval';
 			<div class="control-group form-group">
 				<label class="control-label" for="ad_distribution_ratio">广告配送比：</label>
 				<div class="controls">
-					<p class="help-block ad_distribution_ratio"><?php echo $evaformPayment['ad_distribution_ratio'];?></p>
+					<p class="help-block ad_distribution_ratio"><?php echo $evaformPayment['ad_distribution_ratio'];?>倍</p>
 				</div>
 			</div>
 			<div class="control-group form-group">

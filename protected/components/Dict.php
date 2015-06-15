@@ -14,14 +14,14 @@ class Dict{
 	
 	static public function get($type, $val){
 		$row = SysDict::model()->getSysDictByDkeyAndGroupCode($type, $val);
-		return empty($row['dict_id'])?'null':$row['dict_id'];
+		return empty($row['dict_id'])?'':$row['dict_id'];
 	}
 	static public function gets($type){
 		return SysDict::model()->findSysDictByGroup($type);
 	}
 	static public function getValue($id){
 		$row = SysDict::model()->getSysDictById($id);
-		return empty($row['dvalue'])?'null':$row['dvalue'];
+		return empty($row['dvalue'])?'':$row['dvalue'];
 	}
 }
 

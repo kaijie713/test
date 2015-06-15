@@ -33,7 +33,7 @@
 					<div class="input-group ">
 				  		<div class="input-group">
 							<input type="text" class="form-control" name="EvaformPayment[ad_distribution_ratio]" id="ad_distribution_ratio">
-					  		<span class="input-group-addon">%</span>
+					  		<span class="input-group-addon">倍</span>
 					  	</div>
 					</div>
 				</div>

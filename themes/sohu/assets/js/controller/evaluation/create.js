@@ -28,7 +28,7 @@ define(function(require, exports, module) {
                     $("#city_name").val(name);
                     getArea(id);
                 } else if (modalType == 'tHousesPrj'){
-                    $("#group_id").val(id);
+                    $("#hourse_id").val(id);
                     $("#group_name").val(name);
                 } else if (modalType == 'ecIncharge'){
                     $("#ec_incharge_id").val(id);

@@ -56,7 +56,7 @@ $this->script_controller = 'evaluation/admin';
 						     <?php echo ApprovalServiceImpl::getApprovaStatus(array('bill_id'=>$v['eva_id'],'bill_type'=>'evaluation','code'=>'evaluation'));?>
 						  </td>
 						  <td class="center">
-						     <?php F::d2($v['net_income']);?>
+						     <?php F::ds4($v['net_income']);?>万元
 						  </td>
 						  <td class="center">
 							<div class="btn-group">

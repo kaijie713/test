@@ -12,8 +12,8 @@
 )); ?>
 
 	<div class="row">
-		<?php echo $form->label($model,'group_id'); ?>
-		<?php echo $form->textField($model,'group_id',array('size'=>36,'maxlength'=>36)); ?>
+		<?php echo $form->label($model,'hourse_id'); ?>
+		<?php echo $form->textField($model,'hourse_id',array('size'=>36,'maxlength'=>36)); ?>
 	</div>
 
 	<div class="row">

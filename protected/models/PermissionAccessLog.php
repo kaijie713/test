@@ -101,7 +101,7 @@ class PermissionAccessLog extends BaseModel
 
 	public function findPermissionAccessLogByEvaId($evaId)
 	{
-		$sql = "select l.*,u.name as uname,d.dvalue as ddvalue from t_permission_access_log l left join sys_dict d on  l.status = d.dict_id left join user u on l.createby = u.u_id where eva_id = $evaId order by l.createdate asc";
+		$sql = "select l.*,u.name as uname,d.dvalue as ddvalue from t_permission_access_log l left join sys_dict d on  l.status = d.dict_id left join user u on l.createby = u.u_id where eva_id = '$evaId' order by l.createdate asc";
 		return $this->QueryAll($sql);
 	}
 }

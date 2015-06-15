@@ -10,6 +10,8 @@ class LoginController extends Controller {
 
 	public function actionLogin()
     {
+        // F::dump(Yii::app()->user->getId());
+// F::dump($_SESSION);
         $model=new User;
         $errorMsg = "";
 	        // var_dump(Yii::app()->user->__get('is_login'));

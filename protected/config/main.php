@@ -5,29 +5,30 @@
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
-
+Yii::setPathOfAlias('YiiStrap', dirname(__FILE__) . '/../../vendor/crisu83/yiistrap');
 
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'搜狐焦点后台系统',
 	'theme' => 'sohu',
-	'preload'=>array('log,bootstrap'),
+	'preload'=>array('log,YiiStrap'),
 	'defaultController'=>'evaluation/admin',
 
 	'aliases' => array(
-        'bootstrap' => realpath(__DIR__ . '/../../vendor/crisu83/yiistrap'), // change if necessary
+        // 'BootStrap' => realpath(__DIR__ . '/../../vendor/crisu83/yiistrap'), // change if necessary
         'Dist' => realpath(__DIR__ . '/../../vendor/twbs/bootstrap/dist'), // change if necessary
     ),
 
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
-		'bootstrap.*',
-        'bootstrap.components.*',
-        'bootstrap.behaviours.*',
-        'bootstrap.helpers.*',
-        'bootstrap.widgets.*',
-        'bootstrap.helpers.TbHtml',
+		'YiiStrap.*',
+        'YiiStrap.components.*',
+        'YiiStrap.behaviours.*',
+        'YiiStrap.helpers.*',
+        'YiiStrap.behaviors.*',
+        'YiiStrap.widgets.*',
+        'YiiStrap.helpers.TbHtml',
 	),
 
 	'modules'=>array(
@@ -35,7 +36,7 @@ return array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'123',
 			'ipFilters'=>array('127.0.0.1','::1'),
-			'generatorPaths' => array('bootstrap.gii'),
+			'generatorPaths' => array('YiiStrap.gii'),
 		),
 	),
 
@@ -57,8 +58,8 @@ return array(
             'allowAutoLogin'=>true,
             'loginUrl' =>array('/index.php?r=login'),
         ),
-		'bootstrap' => array(
-	        'class' => 'bootstrap.components.TbApi',
+		'YiiStrap' => array(
+	        'class' => 'YiiStrap.components.TbApi',
 	    ),
 		'db'=>require(dirname(__FILE__).'/database.php'),
 		'errorHandler'=>array(
@@ -87,7 +88,19 @@ return array(
 			),
 		),
 		'session'=>array(
-		  'class'=>'application.components.WHttpSession',
+		    'class'=>'application.components.WHttpSession',
+		    'timeout'=>3,
+		    // 'timeout'=>3600*24*3,
+		 //    'class'=>'application.components.WHttpSession',  CDbHttpSession
+		 //    'sessionName' => 'SiteSession',
+			// 'autoCreateSessionTable'=> false,
+			// 'connectionID' => 'db',
+			// 'sessionTableName' => 't_yii_session',
+			// 'useTransparentSessionID'   =>($_POST['PHPSESSID']) ? true : false,
+			// 'autoStart' => 'false',
+			// 'cookieMode' => 'only',
+			// 'timeout' => 3600*24*7
+
 		),
 	),
 	'params'=>require(dirname(__FILE__).'/params.php'),

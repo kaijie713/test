@@ -82,9 +82,8 @@ class TransactionController extends BaseController
 
 		if(isset($_POST['Transaction']))
 		{
-			$_POST['Transaction']['code'] = isset($_POST['Transaction']['code'])?$_POST['Transaction']['code']:$this->code;
 
-			// ApprovalServiceImpl::approvalCheckByUserId($_POST['Transaction']);
+			$_POST['Transaction']['code'] = isset($_POST['Transaction']['code'])?$_POST['Transaction']['code']:$this->code;
 
 			$result = ApprovalServiceImpl::updateTransationUserId($_POST['Transaction']);
 
@@ -95,6 +94,7 @@ class TransactionController extends BaseController
 		}
 
 		$nodes = ApprovalServiceImpl::findApproveNodesByCode($code);
+		$nodes = ApprovalServiceImpl::filterApproveNodes($nodes, $billId, $billType);
 
 		$users = ApprovalServiceImpl::findusersByNodeIds(ArrayToolkit::column($nodes, 'node_id'));
 
@@ -163,7 +163,7 @@ class TransactionController extends BaseController
 
 		$users = ArrayToolkit::index(User::model()->findUsersByIds($userIds),"u_id");
 
-        $project = THousesPrj::model()->findByPk($model->group_id);
+        $project = THousesPrj::model()->findByPk($model->hourse_id);
 
 		$city = DictChengshi::model()->findByPk($model->city_id);
 
@@ -186,7 +186,7 @@ class TransactionController extends BaseController
 
 
 
-        // $hourse = THousesPrj::model()->findByPk($model->group_id);
+        // $hourse = THousesPrj::model()->findByPk($model->hourse_id);
         // $user = User::model()->findByPk($model->createby);
         // $ecIncharge = User::model()->findByPk($model->ec_incharge_id);
         // $city = DictChengshi::model()->findByPk($model->city_id);

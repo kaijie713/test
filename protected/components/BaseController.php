@@ -30,6 +30,18 @@ class BaseController extends Controller
         if(Yii::app()->user->getIsGuest()){
             $this->redirect("/index.php?r=login/login");
         }
+
+        // var_dump("<br /><br /><br /><br />");
+
+        // F::dump(Yii::app()->user->getId());
+        // F::dump(Yii::app()->user->getIsGuest());
+
+
+        // F::dump($_SESSION);
+        // exit();
+
+        // F::dump(Yii::app()->user->__get('u_id'));
+
         try{
             Yii::app()->user->__get('u_id');
         }catch ( Exception $e ) {

@@ -145,7 +145,7 @@ class SysDict extends BaseModel
 	public function getSysDictById($id)
 	{
 		$id = (int) $id;
-		$sql = "select * from sys_dict where dict_id = $id limit 1 ";
+		$sql = "select * from sys_dict where dict_id = '$id' limit 1 ";
 		return $this->QueryRow($sql);
 	}
 
@@ -160,8 +160,8 @@ class SysDict extends BaseModel
 		if(empty($ids)){
 			return array();
 		}
-		$ids = implode(",", $ids);
-		$sql = "select * from sys_dict where dict_id in ($ids)";
+		$ids = implode("','", $ids);
+		$sql = "select * from sys_dict where dict_id in ('$ids')";
 		return $this->QueryAll($sql);
 	}
 

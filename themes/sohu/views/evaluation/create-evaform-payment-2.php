@@ -67,10 +67,10 @@
 				<label class="control-label" for="pre_ad_deal_bind1">保底广告费是否和成交绑定：</label>
 				<div class="controls">
 					<label class="radio-inline" style="display: inline-block;">
-					  <input type="radio" checked="checked" name="EvaformPayment[pre_ad_deal_bind]" id="pre_ad_deal_bind1" value="1"> 是
+					  <input type="radio"  name="EvaformPayment[pre_ad_deal_bind]" id="pre_ad_deal_bind1" value="1"> 是
 					</label>
 					<label class="radio-inline"style="display: inline-block;">
-					  <input type="radio" name="EvaformPayment[pre_ad_deal_bind]" id="pre_ad_deal_bind0" value="0"> 否
+					  <input type="radio" checked="checked" name="EvaformPayment[pre_ad_deal_bind]" id="pre_ad_deal_bind0" value="0"> 否
 					</label>
 				</div>
 				<div style="" class="y"><span class="text-danger"></span></div>
