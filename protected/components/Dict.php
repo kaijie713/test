@@ -14,11 +14,23 @@ class Dict{
 			"1" => "同意",
 			"-1" => "驳回",
 		),
+		'approvalStatus' => array(
+			"create" => "新建",
+			"commmit" => "提交",
+			"commerce" => "电商审批",
+			"delegate" => "首代审批",
+			"finance" => "财务审批",
+			"general" => "总代审批",
+			"approval" => "审批通过",
+		),
 	);
 	
 	static public function _get($type, $val){
 		$row = self::$dict[$type][$val];
 		return empty($row)?'':$row;
+	}
+	static public function _gets($type){
+		return self::$dict[$type];
 	}
 	static public function get($type, $val){
 		$row = SysDict::model()->getSysDictByDkeyAndGroupCode($type, $val);

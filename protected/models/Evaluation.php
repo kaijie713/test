@@ -1,4 +1,5 @@
 <?php
+Yii::import("application.service.Approval.Impl.ApprovalServiceImpl"); 
 class Evaluation extends BaseModel
 {
     public $arr = array();
@@ -111,7 +112,14 @@ class Evaluation extends BaseModel
             $condition[] = "s.dict_id = '{$params['cooperetion_mode']}'";
 
         if (!empty($params['status']) && $params['status'] != '') 
-            $condition[] = "s.dict_id = '{$params['status']}'";
+        {
+
+            $result = ApprovalServiceImpl::getApprovaByNodeCode($params);
+            $ids = ArrayToolkit::column($result, 'bill_id');
+
+            $ids = implode("','", $ids);
+            $condition[] = "e.eva_id in ('{$ids}')";
+        }
 
         if (!empty($params['name']) && $params['name'] != '') 
             $condition[] = "u2.name LIKE '%{$params['name']}%'";

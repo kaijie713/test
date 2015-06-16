@@ -428,7 +428,7 @@ $this->script_controller = 'evaluation/view';
 <?php Yii::app()->runController('PermissionAccess/viewBox/evaId/'.$model->eva_id) ;?>
 
 
-<?php Yii::app()->runController('Transaction/view/isView/0/bill_id/'.$model->eva_id.'/bill_type/evaluation/code/evaluation') ;?>
+<?php Yii::app()->runController('Transaction/view/isShow/0/bill_id/'.$model->eva_id.'/bill_type/evaluation/code/evaluation') ;?>
 
 
 

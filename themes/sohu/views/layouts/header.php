@@ -6,7 +6,7 @@
 	<meta name="language" content="en" />
   <meta content="<?php echo Yii::app()->request->getCsrfToken();?>" name="YII_CSRF_TOKEN" />
 
-	 <link href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css2/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+	  <link href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css2/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
     <link href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css2/bootstrap-responsive.min.css" media="all" rel="stylesheet" type="text/css" />
     <link href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css2/fullcalendar.css" media="all" rel="stylesheet" type="text/css" />
     <link href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css2/matrix-style.css" media="all" rel="stylesheet" type="text/css" />
@@ -47,6 +47,7 @@
     <li class="submenu open"> <a href="#"><i class="icon icon-th-list"></i> <span>电商评估管理</span> </a>
       <ul>
         <li><a href="/index.php?r=evaluation/admin">评估单列表</a></li>
+        <li><a href="/index.php?r=evaluation/adminApprover">审批列表</a></li>
         <li><a href="/index.php?r=evaluation/create">新建评估单</a></li>
       </ul>
     </li>

@@ -57,7 +57,7 @@ class TransactionController extends BaseController
 		$fields['bill_id'] =  isset($_GET['bill_id'])?$_GET['bill_id']:1;
         $fields['bill_type'] =  isset($_GET['bill_type'])?$_GET['bill_type']:$this->bill_type;
         $fields['code'] =  isset($_GET['code'])?$_GET['code']:$this->code;
-        $isView =  isset($_GET['isView'])?$_GET['isView']:$this->isView;
+        $isShow =  isset($_GET['isShow'])?$_GET['isShow']:$this->isShow;
 
 		$approvaProcess = ApprovalServiceImpl::getApprovaProcess($fields);
 
@@ -69,7 +69,7 @@ class TransactionController extends BaseController
 			'approvaProcess'=>$approvaProcess,
 			'files'=>$files,
 			'users'=>$users,
-			'isView'=>$isView,
+			'isShow'=>$isShow,
 		));
 	}
 
@@ -90,6 +90,8 @@ class TransactionController extends BaseController
 			$result = ApprovalServiceImpl::updateTransationUserId($_POST['Transaction']);
 
 			ApprovalServiceImpl::approvaNext($_POST['Transaction']);
+
+			PermissionAccess::createPermissionAccessByTransaction($_POST['Transaction']);
 			
 			$this->setFlashMessage('success', '单据提交成功，请等待审批！');
 			$this->redirect('/index.php?r=evaluation/admin');
@@ -140,14 +142,6 @@ class TransactionController extends BaseController
 
 
             $transaction = ApprovalServiceImpl::approvaling($condition);
-
-            $PermissionAccessLog = new PermissionAccessLog();
-
-            $PermissionAccessLog->status=Dict::get('evaStatus',empty($isNext)? 'zstg':$flag);
-            $PermissionAccessLog->createby=Yii::app()->user->__get('u_id');
-            $PermissionAccessLog->createdate=date("Y-m-d H:i");
-            $PermissionAccessLog->id=$this->getUUID();
-            $PermissionAccessLog->eva_id=$id;
                 
             if($PermissionAccessLog->save()){
                 $this->setFlashMessage('success', '审批评估单成功');
@@ -186,17 +180,6 @@ class TransactionController extends BaseController
 
 		$status = ApprovalServiceImpl::getApprovaStatus($fields);
 
-
-
-        // $hourse = THousesPrj::model()->findByPk($model->hourse_id);
-        // $user = User::model()->findByPk($model->createby);
-        // $ecIncharge = User::model()->findByPk($model->ec_incharge_id);
-        // $city = DictChengshi::model()->findByPk($model->city_id);
-
-        // $pdetails = Pdetail::model()->findPdetailsByEvaId($id);
-        // $evaformPayment = EvaformPayment::model()->getEvaformPaymentByEvaId($id);
-
-        //$logs = PermissionAccessLog::model()->findPermissionAccessLogByEvaId($id);
 
         $this->render('approval',array(
             'model'=>$model,

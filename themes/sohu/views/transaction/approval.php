@@ -138,20 +138,15 @@ $this->script_controller = 'transaction/approval';
 		  </thead>
 		  <tbody id="pdetail-body" data-role="pdetails">
 		  	<?php $i = 1;?>
-		  	<?php 
-			  	$sourceType = Dict::gets('sourceType');
-			  	$chargeType = Dict::gets('chargeType');
-			?>
 		  	<?php foreach ($pdetails as $key => $pdetail) {?>
 			  	<tr>
 				  <td class="code"><?php echo $i;?></td>
 				  <td><p class="help-block"><?php F::ymd($pdetail['bdate']);?></td>
 				  <td><p class="help-block"><?php F::ymd($pdetail['bdate']);?></td>
 				  <td><p class="help-block"><?php echo $pdetail['sell_house_num'];?>套</td>
-				  
-				  <td><p class="help-block"><?php echo $sourceType[$pdetail['source_type']]['dvalue'];?></td>
+				  <td><p class="help-block"><?php echo Dict::getValue($pdetail['source_type']);?></td>
 				  <td><p class="help-block"><?php F::d2($pdetail['pre_incoming']);?>元</p></td>
-				  <td><p class="help-block"><?php echo $chargeType[$pdetail['charge_type']]['dvalue'];?></td>
+				  <td><p class="help-block"><?php echo Dict::getValue($pdetail['charge_type']);?></td>
 				  <td>
 				  	  <a target="_blank" class="btn btn-default btn-sm" href="/index.php?r=Pdetail/view&id=<?php echo $pdetail['pd_id'];?>">查看详情</a>
 				  </td>
@@ -194,7 +189,7 @@ $this->script_controller = 'transaction/approval';
 			<div class="control-group form-group">
 				<label class="control-label">预计焦点净收益：</label>
 				<div class="controls">
-					<p class="help-block net_income"><?php echo $calculator->net_income;?>元</p>
+					<p class="help-block net_income"><?php echo F::d2($calculator->net_income);?>元</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
@@ -234,7 +229,7 @@ $this->script_controller = 'transaction/approval';
 			<div class="control-group form-group">
 				<label class="control-label">线下总支出比例：</label>
 				<div class="controls">
-					<p class="help-block offline_ratio"><?php echo $calculator->offline_ratio;?>%</p>
+					<p class="help-block offline_ratio"><?php echo F::d2($calculator->offline_ratio);?>%</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
@@ -322,7 +317,7 @@ $this->script_controller = 'transaction/approval';
 				<div class="control-group form-group">
 					<label class="control-label">案场奖励总额：</label>
 					<div class="controls">
-						<p class="help-block prjreword_perunit_sum"><?php echo $calculator->prjreword_perunit_sum;?>元</p>
+						<p class="help-block prjreword_perunit_sum"><?php echo F::d2($calculator->prjreword_perunit_sum);?>元</p>
 					</div>
 				</div>
 				<div class="control-group form-group ">
@@ -345,13 +340,13 @@ $this->script_controller = 'transaction/approval';
 				<div class="control-group form-group">
 					<label class="control-label">线下总支出比例：</label>
 					<div class="controls">
-						<p class="help-block offline_ratio"><?php echo $calculator->offline_ratio;?>%</p>
+						<p class="help-block offline_ratio"><?php echo F::d2($calculator->offline_ratio);?>%</p>
 					</div>
 				</div>
 				<div class="control-group form-group">
 					<label class="control-label">门店经纪人服务费总额：</label>
 					<div class="controls">
-						<p class="help-block  brokerfees_perunit_sum"><?php echo $calculator->brokerfees_perunit_sum;?>元</p>
+						<p class="help-block  brokerfees_perunit_sum"><?php echo F::d2($calculator->brokerfees_perunit_sum);?>元</p>
 					</div>
 				</div>
 				<div class="control-group form-group">
@@ -419,7 +414,7 @@ $this->script_controller = 'transaction/approval';
 
 <?php Yii::app()->runController('PermissionAccess/viewBox/evaId/'.$model->eva_id) ;?>
 
-<?php Yii::app()->runController('Transaction/view/isView/1/bill_id/'.$billId.'/bill_type/'.$billType.'/code/'.$code) ;?>
+<?php Yii::app()->runController('Transaction/view/isShow/1/bill_id/'.$billId.'/bill_type/'.$billType.'/code/'.$code) ;?>
 
 
 

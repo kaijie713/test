@@ -123,18 +123,15 @@ class EvaluationController extends BaseController
 		$pageIndex = isset($_GET['page'])?$_GET['page']:1;
         $params = $this->get('Evaluation');
 
-        $evaIds = PermissionAccess::model()->findPermissionAccessEvaluationIdsByUid(Yii::app()->user->__get('u_id'));
-        $params['ids'] = $evaIds;
+        $evaIds = PermissionAccess::model()->findPermissionAccessEvaIdsByUid(Yii::app()->user->__get('u_id'));
+        $params['ids'] = empty($evaIds) ? array(-1) :$evaIds;
 
-        $Evaluation = new Evaluation();
-        $result = $Evaluation->items($params,$pageIndex,$this->pagesize);
+        $params['code'] = "evaluation";
+        $params['bill_type'] = "evaluation";
+
+        $result = Evaluation::model()->items($params,$pageIndex,$this->pagesize);
         $items = $result['items'];
         $count = $result['count'];
-
-
-        $fields['bill_type'] = 'evaluation';
-        $fields['code'] = 'evaluation';
-        $isApproval = ApprovalServiceImpl::isApprovalCheckByUserId($fields);
 
         $pages = new CPagination($count);
         $this->render('admin',array(
@@ -142,7 +139,41 @@ class EvaluationController extends BaseController
             'pages' => $pages,
             'pageIndex'=>$pageIndex-1,
             'params'=>$params,
-            'isApproval'=>$isApproval,
+            'page'=>'admin',
+        ));
+	}
+
+	public function actionAdminApprover()
+	{
+		$pageIndex = isset($_GET['page'])?$_GET['page']:1;
+		$isApprover = isset($_GET['isApprover'])?$_GET['isApprover']:0;
+        $params = $this->get('Evaluation');
+        $params['code'] = "evaluation";
+        $params['bill_type'] = "evaluation";
+
+        $params['u_id'] = Yii::app()->user->__get('u_id');
+
+        if($isApprover == 0) {
+        	$evaIds = ApprovalServiceImpl::isApprovalIdsByUserId($params);
+        }else{
+        	$evaIds = ApprovalServiceImpl::approvalProcessIdsByUserId($params);
+        }
+
+        $params['ids'] = empty($evaIds) ? array(-1) :$evaIds;
+
+        $result = Evaluation::model()->items($params,$pageIndex,$this->pagesize);
+        $items = $result['items'];
+        $count = $result['count'];
+
+        $pages = new CPagination($count);
+        $this->render('admin-approver',array(
+            'dataProvider'=>$items,
+            'pages' => $pages,
+            'pageIndex'=>$pageIndex-1,
+            'params'=>$params,
+            'isApprover'=>$isApprover,
+            'page'=>'adminApprover',
+
         ));
 	}
 

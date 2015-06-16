@@ -12,8 +12,13 @@ $this->script_controller = 'evaluation/admin';
 //)); ?>
 <div class="container-fluid">
 <hr>
-<?php echo $this->renderPartial('filter',array('params'=>$params,'page'=>$page));?>
-
+<?php echo $this->renderPartial('filter',array('params'=>$params,'page'=>$page,'isApprover'=>$isApprover));?>
+<div class="tabbable"> <!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs">
+    <li class="<?php echo $isApprover=='0' ? 'active':'';?>"><a href="/index.php?r=evaluation/adminApprover&isApprover=0" >待审批列表</a></li>
+    <li class="<?php echo $isApprover=='1' ? 'active':'';?>"><a href="/index.php?r=evaluation/adminApprover&isApprover=1" >已审批列表</a></li>
+  </ul>
+</div>
 
 <?php $this->renderPartial('/macro/flashMessage');?>
 
@@ -38,6 +43,7 @@ $this->script_controller = 'evaluation/admin';
 		                  <tr><td colspan="20"><div class="empty">暂无记录.</div></td></tr>
 		          </tbody>
 	              <tbody>
+
 	              	<?php foreach ($dataProvider as $v):?>
 					    <tr id="<?php echo $v['eva_id'];?>">
 						  <td class="center">
@@ -64,20 +70,9 @@ $this->script_controller = 'evaluation/admin';
 						  <td class="center">
 							<div class="btn-group">
 
-							  <a class="btn btn-default btn-sm" href="/index.php?r=evaluation/view&id=<?php echo $v['eva_id'];?>">查看</a>
-							  <?php if($v['createby'] == Yii::app()->user->__get('u_id')) {?>
-							  <a data-toggle="dropdown" class="btn btn-default btn-sm dropdown-toggle" type="button" href="javascript:;">
-							    <span class="caret"></span>&nbsp;
-							  </a>
-							  <ul class="dropdown-menu">
-							  	<?php if(!empty($isApproval[$v['eva_id']])) {?>
-							    <li><a href="/index.php?r=Transaction/approval&bill_id=<?php echo $v['eva_id'];?>&bill_type=evaluation"><i class="glyphicon glyphicon-cog"></i> 审批评估单</a></li>
-							    <?php }?>
-							    <li><a href="/index.php?r=PermissionAccess/SetPermissionAccess&id=<?php echo $v['eva_id'];?>"><i class="glyphicon glyphicon-cog"></i> 设置授权</a></li>
-							    <li><a href="/index.php?r=evaluation/Update&id=<?php echo $v['eva_id'];?>"><i class="glyphicon glyphicon-cog"></i> 调整评估单</a></li>
-							    <li><a data-url="/index.php?r=evaluation/delete&id=<?php echo $v['eva_id'];?>" data-target="<?php echo $v['eva_id'];?>" class="delete-btn" href="javascript:">删除</a></li>
-							  </ul>
-							  <?php }?>
+							  <a class="btn btn-default btn-sm <?php echo $isApprover=='1' ? 'hide':'';?>" href="/index.php?r=Transaction/approval&bill_id=<?php echo $v['eva_id'];?>&bill_type=evaluation">审批</a>
+							  <a class="btn btn-default btn-sm <?php echo $isApprover=='0' ? 'hide':'';?>" href="/index.php?r=evaluation/view&id=<?php echo $v['eva_id'];?>">查看</a>
+							   
 							</div>
 						  </td>
 						</tr>

@@ -8,7 +8,7 @@
 	      <th>创建时间</th>
 	      <th>修改者</th>
 	      <th>修改时间</th>
-	      <th>操作</th>
+	      <th class="hide">操作</th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -20,7 +20,7 @@
 	          <td><?php echo date('Y-m-d',strtotime($value['createdate']));?></td>
 	          <td><?php echo $users[$value['updateby']]['name'];?></td>
 	          <td><?php echo date('Y-m-d',strtotime($value['updatedate']));?></td>
-	          <td><button class="btn btn-mini btn-model-select"><i class="icon-plus"></i></button></td>
+	          <td class="hide"><button class="btn btn-mini btn-model-select"><i class="icon-plus"></i></button></td>
 	          
 	        </tr>
 	  	<?php } ?>

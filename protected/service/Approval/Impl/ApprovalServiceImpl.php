@@ -165,7 +165,6 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
         $fields['updateby'] = empty($fields['updateby'])?Yii::app()->user->__get('u_id'):$fields['updateby'];
 
         $fields['approval_type'] = $fields['approval_type'] == 1 ? 1 : -1;
-        // $fields['approval_type'] = $fields['approval_type'] == 1 ? '同意' : '驳回';
 
         $result = transaction::model()->getTransactionCurrentByBillAndCode($billId, $billType, $code);
 
@@ -175,6 +174,8 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
         }
 
         $transaction = transaction::model()->findByPk($result['transaction_id']);
+        // F::dump($fields);
+        // exit();
         $transaction->attributes= $fields;
         $transaction->isNewRecord = false;
         $transaction->save();
@@ -213,9 +214,7 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
 
             $transaction = transaction::model()->getTransactionCurrentByBillAndCode($billId, $billType, $code);
 
-            if(empty($transaction)){
-                break;
-            }
+            if(empty($transaction)) break;
         };
         
     }
@@ -236,16 +235,26 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
         throw new CHttpException(404,'The requested page Access denied.');
     } 
 
-    //根据用户id 获取需要审批的单据
-    public function isApprovalCheckByUserId($fields)
+    //根据用户id 获取需要审批的单据id
+    public function isApprovalIdsByUserId($fields)
     {
-        if(empty($fields['code']) || empty($fields['bill_type'])){
+        if(!ArrayToolkit::requireds($fields, array('code','bill_type','u_id'))){
             throw new CHttpException(500,'参数丢失');
         }
 
-        $transactions = transaction::model()->findTransactionsCurrentByBillAndCodeAndUserId($fields['bill_type'], $fields['code'], Yii::app()->user->__get('u_id'));
+        $transactions = transaction::model()->findTransactionsApproverByBillAndCodeAndUserId($fields['bill_type'], $fields['code'], $fields['u_id']);
         return ArrayToolkit::column($transactions,'bill_id');
+    }
 
+    //根据用户id 获取已审批的单据id
+    public function approvalProcessIdsByUserId($fields)
+    {
+        if(!ArrayToolkit::requireds($fields, array('code','bill_type','u_id'))){
+            throw new CHttpException(500,'参数丢失');
+        }
+
+        $transactions = transaction::model()->findTransactionsProcessByBillAndCodeAndUserId($fields['bill_type'], $fields['code'], $fields['u_id']);
+        return ArrayToolkit::column($transactions,'bill_id');
     }
 
     //根据授权表 和 审批流程 判断是否有查看权限 bill_id bill_type code
@@ -344,6 +353,24 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
         list($billId, $billType, $code) = self::checkFields($fields);
         $transactions = transaction::model()->findTransactionByBillAndCode($billId, $billType, $code);
         
+        return $transactions;
+    }
+
+    //获取当前节点为指定node_code的记录 required 'bill_type', 'code', 'status' as node_code
+    public function getApprovaByNodeCode($fields){
+        if (!ArrayToolkit::requireds($fields, array('bill_type', 'code', 'status'))) {
+             throw new CHttpException(500,'缺少必要参数 bill code!');
+        }
+
+        $result = WorkflowNode::model()->getFlowNodeByCodeAndNodeCode($fields['code'], $fields['status']);
+        
+        
+        
+        if(empty($result))
+            return array();
+
+        $transactions = transaction::model()->findTransactionByBillAndCodeAndNodeId($fields['bill_type'], $fields['code'], $result['node_id']);
+
         return $transactions;
     }
 

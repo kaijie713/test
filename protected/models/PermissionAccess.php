@@ -1,4 +1,5 @@
 <?php
+Yii::import("application.service.Approval.Impl.ApprovalServiceImpl"); 
 class PermissionAccess extends BaseModel
 {
 	/**
@@ -119,7 +120,7 @@ class PermissionAccess extends BaseModel
 		return $this->QueryRow($sql);
 	}
 
-	public function findPermissionAccessEvaluationIdsByUid($uid)
+	public function findPermissionAccessEvaIdsByUid($uid)
 	{
 		$sql = "select * from t_permission_access where u_id = '$uid' and isactive = 0 order by seq asc";
 		$result = $this->QueryAll($sql);
@@ -203,7 +204,8 @@ class PermissionAccess extends BaseModel
 		if(!empty($model->createby))
 			array_push($ids, $model->createby);
 
-			
+		$ids = array_unique($ids);
+
 		$seq = 1;
 		foreach ($ids as $value) {
 			$PermissionAccess = new PermissionAccess();
@@ -211,6 +213,7 @@ class PermissionAccess extends BaseModel
 			$PermissionAccess->eva_id=$id;
 			$PermissionAccess->u_id=$value;
 			$PermissionAccess->seq=$seq;
+			$PermissionAccess->isShow="0";
 			$PermissionAccess->content="电商负责人,销售或申请人。";
 			$PermissionAccess->createby = Yii::app()->user->__get('u_id');
 	    	$PermissionAccess->createdate = date("Y-m-d H:i");
@@ -218,6 +221,44 @@ class PermissionAccess extends BaseModel
 	    	$PermissionAccess->save(false);
 	    	$seq++;
 		}
+
+		return true;
+		
+	}
+
+	public function createPermissionAccessByTransaction($fields)
+	{
+		if(empty($fields['code']) || empty($fields['bill_type'])|| empty($fields['bill_id']) ){
+            throw new CHttpException(500,'参数丢失');
+        }
+
+        $result = Transaction::model()->findTransactionUsersByBillAndCode($fields['bill_id'], $fields['bill_type'], $fields['code']);
+
+		$permissions = PermissionAccess::model()->findPermissionAccessByEvaId($fields['bill_id']);
+		$paUserIds = ArrayToolkit::column($permissions, 'u_id');
+
+		$userIds = array_unique(ArrayToolkit::column($result, 'approver_id'));
+		$userIds = array_diff($userIds, $paUserIds);
+
+		$seq = PermissionAccess::model()->getPermissionAccessNextSeqByEvaId($fields['bill_id']);
+        foreach ($userIds as  $id)
+        {
+        	if(!($model = user::model()->findByPk($id)))
+        		throw new CHttpException(500,'该审批用户不存在');
+
+        	$PermissionAccess = new PermissionAccess();
+			$PermissionAccess->prmid=$this->getUUID();
+			$PermissionAccess->eva_id=$fields['bill_id'];
+			$PermissionAccess->u_id=$id;
+			$PermissionAccess->seq=$seq;
+			$PermissionAccess->isShow="0";
+			$PermissionAccess->content="审批人。";
+			$PermissionAccess->createby = Yii::app()->user->__get('u_id');
+	    	$PermissionAccess->createdate = date("Y-m-d H:i");
+	    	$PermissionAccess->isactive = 0;
+	    	$PermissionAccess->save(false);
+	    	$seq++;
+        }
 
 		return true;
 		

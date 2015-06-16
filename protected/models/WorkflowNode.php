@@ -126,7 +126,7 @@ class WorkflowNode extends BaseModel
 		if(empty($id)){
 			return array();
 		}
-		
+
 		$sql = "select * from t_workflow_node where node_id = '".$id."' and  and isactive = 0  limit 1";
 		return $this->QueryRow($sql);
 	}
@@ -138,6 +138,16 @@ class WorkflowNode extends BaseModel
 		}
 
 		$sql = "select * from t_workflow_node where workflow_code = '".$code."' and previous_node_id = '".$nodeId."' and isactive = 0 limit 1";
+		return $this->QueryRow($sql);
+	}
+
+	public function getFlowNodeByCodeAndNodeCode($code, $nodeCode)
+	{
+		if(empty($code) || empty($nodeCode)){
+			return array();
+		}
+		
+		$sql = "select * from t_workflow_node where workflow_code = '".$code."' and node_code = '".$nodeCode."' and isactive = 0 limit 1";
 		return $this->QueryRow($sql);
 	}
 }
