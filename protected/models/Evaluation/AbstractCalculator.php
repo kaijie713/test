@@ -93,13 +93,13 @@ abstract class AbstractCalculator extends BaseModel
 
             if($model->charge_type==Dict::get('chargeType','mkwfc')){
 
-                $offlineRatio = $this->cal->offline_amount_sum/$model->pre_incoming;
+                // $offlineRatio = $this->cal->offline_amount_sum/$model->pre_incoming;
 
                 $amountRatio = $this->cal->offline_amount_sum/$model->pre_incoming;
 
                 $netIncome = $model->pre_incoming/(1 - $amountRatio);
             } else if($model->charge_type==Dict::get('chargeType','mkyfc')){
-                $offlineRatio = $this->cal->offline_amount_sum/($model->pre_incoming+$this->cal->evaformPayment->pre_ad_amount);
+                // $offlineRatio = $this->cal->offline_amount_sum/($model->pre_incoming+$this->cal->evaformPayment->pre_ad_amount);
 
                 $netIncome = $model->pre_incoming*(100-$this->cal->evaformPayment->ad_markting_ratio-$this->cal->evaformPayment->pre_tax_ratio)/100-$this->cal->offline_amount_sum;
 
@@ -107,7 +107,7 @@ abstract class AbstractCalculator extends BaseModel
 
             } else if($model->charge_type==Dict::get('chargeType','cpswfc')){
 
-                $offlineRatio = $this->cal->offline_amount_sum/($model->pre_incoming+$pdetail['pre_commission_amount'][$key]+$this->cal->evaformPayment->ad_amount_infact);
+                // $offlineRatio = $this->cal->offline_amount_sum/($model->pre_incoming+$pdetail['pre_commission_amount'][$key]+$this->cal->evaformPayment->ad_amount_infact);
 
                 $netIncome = $model->pre_incoming*(1-$offlineRatio);
 
@@ -115,7 +115,7 @@ abstract class AbstractCalculator extends BaseModel
 
 
             }else if($model->charge_type==Dict::get('chargeType','cpsyfc')){
-                $offlineRatio = $this->cal->offline_amount_sum/$model->pre_incoming;
+                // $offlineRatio = $this->cal->offline_amount_sum/$model->pre_incoming;
 
                 $netIncome = $model->pre_incoming * (1-$offlineRatio);
 
@@ -123,25 +123,29 @@ abstract class AbstractCalculator extends BaseModel
                 
 
             }else if($model->charge_type==Dict::get('chargeType','mkcps')){
-                $offlineRatio = $this->cal->offline_amount_sum/$model->pre_incoming;
+                // $offlineRatio = $this->cal->offline_amount_sum/$model->pre_incoming;
 
                 $netIncome = $model->pre_incoming*(100-$this->cal->evaformPayment->ad_markting_ratio-$this->cal->evaformPayment->pre_tax_ratio)/100-$this->cal->offline_amount_sum;
 
                 $amountRatio = 1 - ($netIncome/($model->pre_incoming+$pdetail['pre_commission_amount'][$key]+$this->cal->evaformPayment->ad_amount_infact));
             } 
 
-            $this->cal->offline_ratio  = $this->cal->offline_ratio + $offlineRatio;
             $this->cal->amount_ratio     = $this->cal->amount_ratio + $amountRatio;
             $this->cal->net_income     = $this->cal->net_income + $netIncome;
         }
 
 
+        $offlineSum = $this->cal->evaformPayment->pre_ad_amount + $model->pre_incoming ;
+        $this->cal->offline_ratio = $this->cal->offline_amount_sum/$offlineSum;
 
         $this->cal->offline_ratio  = number_format($this->cal->offline_ratio*100, 4, '.', '');
         $this->cal->amount_ratio     = number_format($this->cal->amount_ratio*100, 4, '.', '');
         $this->cal->net_income     = number_format($this->cal->net_income, 4, '.', '');
     }
 
+    public function returnFilter(){
+
+    }
     public function getPrjrewordAndBrokerfees($pdetailPost){
 
         $anchang = $jingjiren = 0;

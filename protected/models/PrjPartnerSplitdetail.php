@@ -94,7 +94,6 @@ class PrjPartnerSplitdetail extends BaseModel
 
 	public function findSplitdetailByPdId($pdid)
 	{
-		$pdid = (int) $pdid;
 		$sql = "select * from t_prj_partner_splitdetail where pd_id = '$pdid'";
 		return $this->QueryAll($sql);
 	}

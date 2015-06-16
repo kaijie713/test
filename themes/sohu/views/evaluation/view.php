@@ -201,7 +201,7 @@ $this->script_controller = 'evaluation/view';
 			<div class="control-group form-group">
 				<label class="control-label">预计焦点净收益：</label>
 				<div class="controls">
-					<p class="help-block net_income"><?php echo $calculator->net_income;?>元</p>
+					<p class="help-block net_income"><?php echo F::d2($calculator->net_income);?>元</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
@@ -241,7 +241,7 @@ $this->script_controller = 'evaluation/view';
 			<div class="control-group form-group">
 				<label class="control-label">线下总支出比例：</label>
 				<div class="controls">
-					<p class="help-block offline_ratio"><?php echo $calculator->offline_ratio;?>%</p>
+					<p class="help-block offline_ratio"><?php echo F::d2($calculator->offline_ratio);?>%</p>
 				</div>
 			</div>
 			<div class="control-group form-group">
@@ -329,7 +329,7 @@ $this->script_controller = 'evaluation/view';
 				<div class="control-group form-group">
 					<label class="control-label">案场奖励总额：</label>
 					<div class="controls">
-						<p class="help-block prjreword_perunit_sum"><?php echo $calculator->prjreword_perunit_sum;?>元</p>
+						<p class="help-block prjreword_perunit_sum"><?php echo F::d2($calculator->prjreword_perunit_sum);?>元</p>
 					</div>
 				</div>
 				<div class="control-group form-group ">
@@ -352,13 +352,13 @@ $this->script_controller = 'evaluation/view';
 				<div class="control-group form-group">
 					<label class="control-label">线下总支出比例：</label>
 					<div class="controls">
-						<p class="help-block offline_ratio"><?php echo $calculator->offline_ratio;?>%</p>
+						<p class="help-block offline_ratio"><?php echo F::d2($calculator->offline_ratio);?>%</p>
 					</div>
 				</div>
 				<div class="control-group form-group">
 					<label class="control-label">门店经纪人服务费总额：</label>
 					<div class="controls">
-						<p class="help-block  brokerfees_perunit_sum"><?php echo $calculator->brokerfees_perunit_sum;?>元</p>
+						<p class="help-block  brokerfees_perunit_sum"><?php echo F::d2($calculator->brokerfees_perunit_sum);?>元</p>
 					</div>
 				</div>
 				<div class="control-group form-group">
@@ -425,60 +425,14 @@ $this->script_controller = 'evaluation/view';
 </div>
 
 
+<?php Yii::app()->runController('PermissionAccess/viewBox/evaId/'.$model->eva_id) ;?>
 
 
-<div class="widget-box">
-	<div class="widget-title"><h5>授权使用</h5></div>
-	<div class="widget-content nopadding">
-		<table class="table table-striped table-hover table-form" data-search-form="#user-search-form" >
-		  <thead>
-		    <tr>
-		      <th width="33%">授权人</th>
-		      <th width="33%">授权时间</th>
-		      <th width="33%">授权说明</th>
-		    </tr>
-		  </thead>
-		  <tbody id="pdetail-body" data-role="pdetails">
-		  	<?php foreach ($permission as $key => $val) {?>
-			  	<tr>
-				  <td><p class="form-control-static"><?php echo $users[$val['u_id']]['name'];?></td>
-				  <td><p class="form-control-static"><?php echo F::ymd($val['createdate']);?></td>
-				  <td><p class="form-control-static">无</td>
-				</tr>
-			<?php }?>
-	 	  </tbody>
-		</table>
-
-		<div class="clear">
-		</div>
-	</div>
-</div>
+<?php Yii::app()->runController('Transaction/view/isView/0/bill_id/'.$model->eva_id.'/bill_type/evaluation/code/evaluation') ;?>
 
 
 
 
-<div class="widget-box">
-	<div class="widget-title"><h5>审批信息</h5></div>
-	<div class="widget-content nopadding">
-		<table class="table table-striped table-hover table-form" data-search-form="#user-search-form" >
-		  <thead>
-		    <tr>
-		      <th width="25%">审批人</th>
-		      <th width="25%">审批时间</th>
-		      <th width="20%">审批动作</th>
-		      <th width="20%">审批意见</th>
-		      <th width="10%">附件</th>
-		    </tr>
-		  </thead>
-		  <tbody class="is-null">
-                  <tr><td colspan="20"><div class="empty">暂无审批记录.</div></td></tr>
-          </tbody>
-		</table>
-
-		<div class="clear">
-		</div>
-	</div>
-</div>
 
 
 

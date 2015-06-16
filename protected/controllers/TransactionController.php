@@ -57,6 +57,7 @@ class TransactionController extends BaseController
 		$fields['bill_id'] =  isset($_GET['bill_id'])?$_GET['bill_id']:1;
         $fields['bill_type'] =  isset($_GET['bill_type'])?$_GET['bill_type']:$this->bill_type;
         $fields['code'] =  isset($_GET['code'])?$_GET['code']:$this->code;
+        $isView =  isset($_GET['isView'])?$_GET['isView']:$this->isView;
 
 		$approvaProcess = ApprovalServiceImpl::getApprovaProcess($fields);
 
@@ -68,6 +69,7 @@ class TransactionController extends BaseController
 			'approvaProcess'=>$approvaProcess,
 			'files'=>$files,
 			'users'=>$users,
+			'isView'=>$isView,
 		));
 	}
 

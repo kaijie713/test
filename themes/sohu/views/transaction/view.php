@@ -20,7 +20,7 @@
 			  	<tr>
 				  <td><p class="form-control-static"><?php echo empty($users[$val['approver_id']])?'':$users[$val['approver_id']]['name'];?></td>
 				  <td><p class="form-control-static"><?php echo F::ymd($val['approval_date']);?></td>
-				  <td><p class="form-control-static"><?php echo $val['approval_type'];?></td>
+				  <td><p class="form-control-static"><?php echo Dict::_get('approvalType', $val['approval_type']);?></td>
 				  <td><p class="form-control-static"><?php echo $val['content'];?></td>
 				  <td>
 				  	<?php if(!empty($files[$val['file_id']])) {?>
@@ -36,7 +36,7 @@
           </tbody>
           <?php }?>
 		</table>
-		<div class="mtl <?php if(!empty($isView)) { ?> hide <?php } ?>">
+		<div class="mtl <?php if($isView=='0') { ?> hide <?php } ?>">
 			<textarea name="Approval[content]" style="width:50%;height:100px;margin:10px;" class="pull-left" placeholder="请输入审批意见"></textarea>
 			<div class="pull-left">
 				附件:

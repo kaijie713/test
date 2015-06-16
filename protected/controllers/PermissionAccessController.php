@@ -181,6 +181,20 @@ class PermissionAccessController extends BaseController {
         ));
     }
 
+    public function actionViewBox()
+    {
+        $evaId = isset($_GET['evaId'])?$_GET['evaId']:0;
+
+        $permission = PermissionAccess::model()->findPermissionAccessByEvaId($evaId);
+
+        $users = ArrayToolkit::index(User::model()->findUsersByIds(ArrayToolkit::column($permission, 'u_id')),"u_id");
+
+        $this->renderPartial('view-box',array(
+            'permission'=>$permission,
+            'users'=>$users,
+        ));
+    }
+
     public function actionPermissionAccessSort()
     {
         $ids = isset($_POST['ids'])?$_POST['ids']:null;

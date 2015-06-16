@@ -14,7 +14,7 @@
 						</div>
 					</div>
 					<div class="form-group control-group">
-						<label class="control-label" for="sell_house_num">可售房源数量：</label>
+						<label class="control-label" for="sell_house_num"><span class="color-danger">*</span>可售房源数量：</label>
 						<div class="controls">
 						    <div class="input-prepend input-append">
 						  		<input type="text" class="form-control span11" value ="<?php echo isset($model['sell_house_num'])?$model['sell_house_num']:'';?>" name="Pdetail[sell_house_num]" id="sell_house_num"/>
@@ -32,7 +32,7 @@
 						</div>
 					</div>
 					<div class="form-group control-group">
-						<label class="control-label" for="pre_amount">预计成交总额：</label>
+						<label class="control-label" for="pre_amount"><span class="color-danger">*</span>预计成交总额：</label>
 						<div class="controls">
 						    <div class="input-prepend input-append">
 						  		<input type="text" class="form-control span11" value ="<?php echo isset($model['pre_amount'])?F::d2($model['pre_amount']):'';?>"  name="Pdetail[pre_amount]" id="pre_amount"/>
@@ -41,7 +41,7 @@
 						</div>
 					</div>
 					<div class="form-group control-group">
-						<label class="control-label" for="commission_rate">佣金比例：</label>
+						<label class="control-label" for="commission_rate"><span class="color-danger">*</span>佣金比例：</label>
 						<div class="controls">
 						    <div class="input-prepend input-append">
 						  		<input type="text" class="form-control span11" value ="<?php echo isset($model['commission_rate'])?$model['commission_rate']:'';?>"  name="Pdetail[commission_rate]" id="commission_rate"/>
@@ -50,7 +50,7 @@
 						</div>
 					</div>
 					<div class="form-group control-group">
-						<label class="control-label" for="pre_commission_amount">预计佣金毛收入：</label>
+						<label class="control-label" for="pre_commission_amount"><span class="color-danger">*</span>预计佣金毛收入：</label>
 						<div class="controls">
 						    <div class="input-prepend input-append">
 						  		<input type="text" class="form-control span11" value ="<?php echo isset($model['pre_commission_amount'])?F::d2($model['pre_commission_amount']):'';?>"  name="Pdetail[pre_commission_amount]" id="pre_commission_amount"/>
@@ -87,7 +87,7 @@
 						</div>
 					</div>
 					<div class="form-group control-group">
-						<label class="control-label" for="source_type">房源类型：</label>
+						<label class="control-label" for="source_type"><span class="color-danger">*</span>房源类型：</label>
 						<div class="controls">
 							<select class="form-control width-input width-input-large" name="Pdetail[source_type]" id="source_type">
 						    	<option value="">--请选择--</option>
@@ -104,7 +104,7 @@
 						</div>
 					</div>
 					<div class="form-group control-group">
-						<label class="control-label" for="pre_volumn">预计成交套数：</label>
+						<label class="control-label" for="pre_volumn"><span class="color-danger">*</span>预计成交套数：</label>
 						<div class="controls">
 						    <div class="input-prepend input-append">
 						  		<input type="text" class="form-control span11" value ="<?php echo isset($model['pre_volumn'])?$model['pre_volumn']:'';?>"  name="Pdetail[pre_volumn]" id="pre_volumn"/>
@@ -113,7 +113,7 @@
 						</div>
 					</div>
 					<div class="form-group control-group">
-						<label class="control-label" for="commission_perunit">每套收取佣金：</label>
+						<label class="control-label" for="commission_perunit"><span class="color-danger">*</span>每套收取佣金：</label>
 						<div class="controls">
 						    <div class="input-prepend input-append">
 						  		<input type="text" class="form-control span11" value ="<?php echo isset($model['commission_perunit'])?F::d2($model['commission_perunit']):'';?>"  name="Pdetail[commission_perunit]" id="commission_perunit"/>

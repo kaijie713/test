@@ -116,9 +116,13 @@ class Evaluation extends BaseModel
         if (!empty($params['name']) && $params['name'] != '') 
             $condition[] = "u2.name LIKE '%{$params['name']}%'";
 
+        if (!empty($params['ids']) && $params['ids'] != '') {
+            $ids = implode("','", $params['ids']);
+            $condition[] = "e.eva_id in ('{$ids}')";
+        }
+
         $condition[] = "e.isactive = '0'";
         $condition = implode(' AND ',$condition);
-
 
         $select = ' e.*,dc.city_name,h.group_name,s.dvalue as cooperetion_mode_name,s2.dvalue as status_name,u.name as ec_incharge_name,u2.name as createby_name,ep.net_income ';
         $sql = $this->items_sql($select,$condition);
@@ -126,6 +130,7 @@ class Evaluation extends BaseModel
         $count = $this->RowCount($this->items_sql('count(*)',$condition));
         $start = ($pageIndex - 1)*$pageSize;
         $sql .= " ORDER BY createdate DESC LIMIT $start,$pageSize";
+
 
         return array('items'=>$this->QueryAll($sql),'count'=>$count);
     }

@@ -50,7 +50,7 @@
     margin: 30px auto;
     width: 600px;
     position: relative;
-    
+
 }
 
 .modal-lg {
@@ -182,4 +182,8 @@
 
 .evaluation-bottom{
   margin-top: 50px;
+}
+
+.color-danger{
+    color:#a94442
 }

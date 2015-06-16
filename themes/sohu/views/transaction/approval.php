@@ -74,19 +74,19 @@ $this->script_controller = 'transaction/approval';
 			<div class="control-group form-group">
 				<label class="control-label" for="userName">申请人：</label>
 				<div class="controls">
-					<span class="help-block"><?php echo $users[$model->createby]['name']?></span>
+					<span class="help-block"><?php echo empty($users[$model->createby])?'':$users[$model->createby]['name']?></span>
 				</div>
 			</div>
 			<div class="control-group form-group">
 				<label class="control-label" for="ec_incharge_name">电商负责人：</label>
 				<div class="controls">
-					<span class="help-block"><?php echo $users[$model->ec_incharge_id]['name']?></span>
+					<span class="help-block"><?php echo empty($users[$model->ec_incharge_id])?'':$users[$model->ec_incharge_id]['name']?></span>
 				</div>
 			</div>
 			<div class="control-group form-group">
 				<label class="control-label" for="sales_name">销售姓名：</label>
 				<div class="controls">
-					<span class="help-block"><?php echo $users[$model->sales_id]['name']?></span>
+					<span class="help-block"><?php echo empty($users[$model->sales_id])?'':$users[$model->sales_id]['name']?></span>
 				</div>
 			</div>
 			<div class="control-group form-group">
@@ -417,56 +417,23 @@ $this->script_controller = 'transaction/approval';
 </div>
 
 
+<?php Yii::app()->runController('PermissionAccess/viewBox/evaId/'.$model->eva_id) ;?>
 
-
-<div class="widget-box">
-	<div class="widget-title"><h5>授权使用</h5></div>
-	<div class="widget-content nopadding">
-		<table class="table table-striped table-hover table-form" data-search-form="#user-search-form" >
-		  <thead>
-		    <tr>
-		      <th width="33%">授权人</th>
-		      <th width="33%">授权时间</th>
-		      <th width="33%">授权说明</th>
-		    </tr>
-		  </thead>
-		  <tbody id="pdetail-body" data-role="pdetails">
-		  	<?php foreach ($permission as $key => $val) {?>
-			  	<tr>
-				  <td><p class="form-control-static"><?php echo $users[$val['u_id']]['name'];?></td>
-				  <td><p class="form-control-static"><?php echo F::ymd($val['createdate']);?></td>
-				  <td><p class="form-control-static">无</td>
-				</tr>
-			<?php }?>
-	 	  </tbody>
-		</table>
-
-		<div class="clear">
-		</div>
-	</div>
-</div>
-
-
-<?php Yii::app()->runController('Transaction/view/bill_id/'.$billId.'/bill_type/'.$billType.'/code/'.$code) ;?>
-
-
-
-
-
+<?php Yii::app()->runController('Transaction/view/isView/1/bill_id/'.$billId.'/bill_type/'.$billType.'/code/'.$code) ;?>
 
 
 
 						<div class="form-group">
 						    <div class="pull-right span3 controls">
 						    	<button type="button" data-role = "1" class="btn btn-success btn-submit">通过</button>
-						    	<button type="button" data-role = "0" class="btn btn-success btn-submit">驳回</button>
+						    	<button type="button" data-role = "-1" class="btn btn-success btn-submit">驳回</button>
 						    	<a class="btn btn-link" href="/index.php?r=evaluation/admin">返回</a>
 						    </div>
 						</div>
 						<input type="hidden" name="YII_CSRF_TOKEN" value="<?php echo Yii::app()->request->getCsrfToken();?>">
 						<input type="hidden" name="Approval[bill_id]" value="<?php echo $billId;?>">
 						<input type="hidden" name="Approval[bill_type]" value="<?php echo $billType;?>">
-						<input type="hidden" name="Approval[estate]" id="estate" value="">
+						<input type="hidden" name="Approval[approval_type]" id="approval_type" value="">
 				    </form>
 				</div>
 

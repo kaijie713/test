@@ -17,35 +17,35 @@ define(function(require, exports, module) {
         });
 
         // 开始时间
-        validator.addItem({element: '#bdate',required: true,rule: 'date',});
+        validator.addItem({element: '#bdate',required: false,rule: 'date',});
         // 结束时间
-        validator.addItem({element: '#edate',required: true,rule: 'date',});
+        validator.addItem({element: '#edate',required: false,rule: 'date',});
         // 可售房源数量
         validator.addItem({element: '#sell_house_num',required: true,rule: 'integer',});
         // 房源类型
         validator.addItem({element: '#source_type',required: true});
         // 预计毛收入
-        // validator.addItem({element: '#pre_incoming',required: true,rule: 'number',});
+        // validator.addItem({element: '#pre_incoming',required: false,rule: 'number',});
         // 收费方式
-        // validator.addItem({element: '#charge_type',required: true,rule: 'currency',});
+        // validator.addItem({element: '#charge_type',required: false,rule: 'currency',});
         // 爱家卡单价
         validator.addItem({element: '#ajcard_price',required: true,rule: 'currency',});
         // 预计成交套数
         validator.addItem({element: '#pre_volumn',required: true,rule: 'integer',});
         // 案场奖励/每套
-        validator.addItem({element: '#prjreword_perunit',required: true,rule: 'currency',});
+        validator.addItem({element: '#prjreword_perunit',required: false,rule: 'currency',});
         // 预估案场奖励成交套数
-        validator.addItem({element: '#prevolumn_perunit',required: true,rule: 'integer',});
+        validator.addItem({element: '#prevolumn_perunit',required: false,rule: 'integer',});
         // 经纪人服务费/每套
-        validator.addItem({element: '#brokerfees_perunit',required: true,rule: 'currency',});
+        validator.addItem({element: '#brokerfees_perunit',required: false,rule: 'currency',});
         // 预计经纪人成交套数
-        validator.addItem({element: '#prebrokervolumn',required: true,rule: 'integer',});
+        validator.addItem({element: '#prebrokervolumn',required: false,rule: 'integer',});
         // 优惠情况
-        validator.addItem({element: '#pref_context',required: true,rule: 'maxlength{max:1900}',errormessageMaxlength: '想要说的话不能大于1900个字'});
+        validator.addItem({element: '#pref_context',required: false,rule: 'maxlength{max:1900}',errormessageMaxlength: '想要说的话不能大于1900个字'});
         // 焦点留存比例
-        // validator.addItem({element: '#jd_retain_ratio',required: true,rule: 'currency',});
+        // validator.addItem({element: '#jd_retain_ratio',required: false,rule: 'currency',});
         // 焦点留存金额
-        // validator.addItem({element: '#jd_retain_amount',required: true,rule: 'currency',});
+        // validator.addItem({element: '#jd_retain_amount',required: false,rule: 'currency',});
         // 预计成交总额
         validator.addItem({element: '#pre_amount',required: true,rule: 'currency',});
         // 佣金比例

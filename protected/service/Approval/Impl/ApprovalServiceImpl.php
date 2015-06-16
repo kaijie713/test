@@ -148,7 +148,7 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
     }
 
     /**
-     *  fields (bill_id,bill_type,code,estate) require
+     *  fields (bill_id,bill_type,code,approval_type) require
      *  fields (content,approval_date,code,updateby)
      */
     //审批
@@ -156,7 +156,7 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
     {
         list($billId, $billType, $code) = self::checkFields($fields);
 
-        if(!ArrayToolkit::requireds($fields, array('estate'))){
+        if(!ArrayToolkit::requireds($fields, array('approval_type'))){
             throw new CHttpException(500,'缺少必要参数!');
         }
 
@@ -164,8 +164,8 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
         $fields['approval_date'] = empty($fields['approval_date'])?date("Y-m-d H:i:s"):$fields['approval_date'];
         $fields['updateby'] = empty($fields['updateby'])?Yii::app()->user->__get('u_id'):$fields['updateby'];
 
-        $fields['estate'] = $fields['estate'] == 1 ? 1 : 0;
-        $fields['approval_type'] = $fields['estate'] == 1 ? '同意' : '驳回';
+        $fields['approval_type'] = $fields['approval_type'] == 1 ? 1 : -1;
+        // $fields['approval_type'] = $fields['approval_type'] == 1 ? '同意' : '驳回';
 
         $result = transaction::model()->getTransactionCurrentByBillAndCode($billId, $billType, $code);
 
@@ -179,7 +179,7 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
         $transaction->isNewRecord = false;
         $transaction->save();
 
-        if($fields['estate'] == 1)
+        if($fields['approval_type'] == 1)
         {
             transaction::model()->setTransactionNextByBillAndCode($fields['bill_id'], $fields['bill_type'], $fields['code']);
         } else {
@@ -235,6 +235,18 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
         }
         throw new CHttpException(404,'The requested page Access denied.');
     } 
+
+    //根据用户id 获取需要审批的单据
+    public function isApprovalCheckByUserId($fields)
+    {
+        if(empty($fields['code']) || empty($fields['bill_type'])){
+            throw new CHttpException(500,'参数丢失');
+        }
+
+        $transactions = transaction::model()->findTransactionsCurrentByBillAndCodeAndUserId($fields['bill_type'], $fields['code'], Yii::app()->user->__get('u_id'));
+        return ArrayToolkit::column($transactions,'bill_id');
+
+    }
 
     //根据授权表 和 审批流程 判断是否有查看权限 bill_id bill_type code
     public function isPermissions($fields)

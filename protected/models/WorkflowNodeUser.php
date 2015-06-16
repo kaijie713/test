@@ -78,8 +78,6 @@ class WorkflowNodeUser extends BaseModel
 
 	public function findFlowNodeUsersByNodeId($nodeId)
 	{
-		$nodeId = (int) $nodeId;
-
 		$sql = "select * from t_workflow_node_user where node_id = '".$nodeId."'  and isactive = 0  ";
 		return $this->QueryAll($sql);
 	}

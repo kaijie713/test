@@ -109,7 +109,6 @@ class Outlineoutdetail extends BaseModel
 
 	public function findOutlineoutdetailsByVid($vid)
 	{
-		$vid = (int) $vid;
 		$sql = "select * from t_outlineoutdetail where v_id = '$vid' and isactive = 0 order by out_type,createdate desc ";
 		return $this->QueryAll($sql);
 	}

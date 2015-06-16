@@ -103,52 +103,45 @@ class Transaction extends BaseModel
 
 	public function getTransactionCurrentByBillAndCode($billId, $billType, $code)
 	{
-		$billId = (int) $billId;
-
 		$sql = "select * from t_transaction where bill_id = '".$billId."'  and bill_type = '".$billType."'  and workflow_code = '".$code."'  and currently = 1 and isactive = 0  order by seq desc limit 1";
 
 		// echo $sql;
 		return $this->QueryRow($sql);
 	}
 
+	public function findTransactionsCurrentByBillAndCodeAndUserId($billType, $code, $userId)
+	{
+		$sql = "select * from t_transaction where  bill_type = '".$billType."'  and workflow_code = '".$code."'  and currently = 1 and approver_id = '".$userId."' and isactive = 0  order by seq desc limit 1";
+
+		return $this->QueryAll($sql);
+	}
+
 	public function getTransactionNextByBillAndCode($billId, $billType, $code)
 	{
-		$billId = (int) $billId;
-
 		$sql = "select * from t_transaction where bill_id = '".$billId."'  and bill_type = '".$billType."'  and workflow_code = '".$code."'  and currently = 0 and isactive = 0  order by seq asc limit 1";
 		return $this->QueryRow($sql);
 	}
 
 	public function findTransactionByBillAndCode($billId, $billType, $code)
 	{
-		$billId = (int) $billId;
-
 		$sql = "select * from t_transaction where bill_id = '".$billId."'  and bill_type = '".$billType."'  and workflow_code = '".$code."' and isactive = 0  order by seq asc";
 		return $this->QueryAll($sql);
 	}
 
 	public function getLastTransactionByBillAndCode($billId, $billType, $code)
 	{
-		$billId = (int) $billId;
-
 		$sql = "select * from t_transaction where bill_id = '".$billId."'  and bill_type = '".$billType."'  and workflow_code = '".$code."' and isactive = 0  order by seq desc limit 1";
 		return $this->QueryRow($sql);
 	}
 
 	public function findTransactionByBillAndCodeAndApproverId($billId, $billType, $code, $approverId)
 	{
-		$billId = (int) $billId;
-		$approverId = (int) $approverId;
-
 		$sql = "select * from t_transaction where bill_id = '".$billId."'  and bill_type = '".$billType."'  and workflow_code = '".$code."' and approver_id = '".$approverId."' and isactive = 0  order by seq asc";
 		return $this->QueryAll($sql);
 	}
 
 	public function findTransactionByBillAndCodeAndCurrently($billId, $billType, $code, $currently)
 	{
-		$billId = (int) $billId;
-		$currently = (int) $currently;
-
 		$sql = "select * from t_transaction where bill_id = '".$billId."'  and bill_type = '".$billType."'  and workflow_code = '".$code."' and currently = '".$currently."' and isactive = 0  order by seq asc";
 		// echo $sql;
 		return $this->QueryAll($sql);
@@ -156,9 +149,6 @@ class Transaction extends BaseModel
 
 	public function getTransactionByBillAndCodeAndNodeIdAndCurrently($billId, $billType, $code, $nodeId, $currently)
 	{
-		$billId = (int) $billId;
-		$nodeId = (int) $nodeId;
-
 		$sql = "select * from t_transaction where bill_id = '".$billId."'  and node_id = '".$nodeId."'  and bill_type = '".$billType."'  and workflow_code = '".$code."' and currently = '".$currently."' and isactive = 0  order by seq asc limit 1";
 		return $this->QueryRow($sql);
 	}
@@ -196,8 +186,6 @@ class Transaction extends BaseModel
 
 	public function findTransactionByBillAndCodeAndDelete($billId, $billType, $code)
 	{
-		$billId = (int) $billId;
-
 		$sql = "select * from t_transaction where bill_id = '".$billId."'  and bill_type = '".$billType."'  and workflow_code = '".$code."' and isactive = 1  order by seq desc limit 1";
 		return $this->QueryRow($sql);
 	}

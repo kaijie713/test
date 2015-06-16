@@ -240,14 +240,12 @@ class Pdetail extends BaseModel
 
     public function getPdetailById($pa_id)
 	{
-		$id = (int) $id;
 		$sql = "select * from t_pdetail where pd_id = '$id' limit 1";
 		return $this->QueryRow($sql);
 	}
 
 	public function findPdetailsByEvaId($evaid)
 	{
-		$evaid = (int) $evaid;
 		$sql = "select * from t_pdetail where eva_id = '$evaid'";
 		return $this->QueryAll($sql);
 	}

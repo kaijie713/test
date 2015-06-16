@@ -103,20 +103,27 @@ class PermissionAccess extends BaseModel
 
 	public function findPermissionAccessByEvaId($evaId)
 	{
-		$sql = "select * from t_permission_access where eva_id = '$evaId' and isApproval = 0 order by seq asc";
+		$sql = "select * from t_permission_access where eva_id = '$evaId' and isactive = 0 order by seq asc";
 		return $this->QueryAll($sql);
 	}
 
 	public function getPermissionAccessByEvaIdAndUid($evaId, $uid)
 	{
-		$sql = "select * from t_permission_access where eva_id = $evaId and u_id = $uid and isApproval = 0 order by seq asc";
+		$sql = "select * from t_permission_access where eva_id = '$evaId' and u_id = '$uid' and and isactive = 0 order by seq asc";
 		return $this->QueryRow($sql);
 	}
 
 	public function getPermissionAccessCurrentByEvaId($evaId)
 	{
-		$sql = "select * from t_permission_access where eva_id = '$evaId' and isApproval = 0 order by seq asc";
+		$sql = "select * from t_permission_access where eva_id = '$evaId' and isactive = 0 order by seq asc";
 		return $this->QueryRow($sql);
+	}
+
+	public function findPermissionAccessEvaluationIdsByUid($uid)
+	{
+		$sql = "select * from t_permission_access where u_id = '$uid' and isactive = 0 order by seq asc";
+		$result = $this->QueryAll($sql);
+		return ArrayToolkit::column($result, 'eva_id');
 	}
 
 	public function checkApproval($evaId){
@@ -157,7 +164,7 @@ class PermissionAccess extends BaseModel
 
 	public function getPermissionAccessNextSeqByEvaId($id)
 	{
-		$sql = "select * from t_permission_access where eva_id = '$id' order by seq desc limit 1";
+		$sql = "select * from t_permission_access where eva_id = '$id' and isactive = 0 order by seq desc limit 1";
 		$result = $this->QueryRow($sql);
 		return empty($result) ? 1 : $result['seq']+1;
 	}
@@ -204,6 +211,7 @@ class PermissionAccess extends BaseModel
 			$PermissionAccess->eva_id=$id;
 			$PermissionAccess->u_id=$value;
 			$PermissionAccess->seq=$seq;
+			$PermissionAccess->content="电商负责人,销售或申请人。";
 			$PermissionAccess->createby = Yii::app()->user->__get('u_id');
 	    	$PermissionAccess->createdate = date("Y-m-d H:i");
 	    	$PermissionAccess->isactive = 0;

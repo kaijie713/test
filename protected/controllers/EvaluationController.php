@@ -39,9 +39,8 @@ class EvaluationController extends BaseController
 
 		$model = $this->loadModel($id);
 
-		$permission = PermissionAccess::model()->findPermissionAccessByEvaId($id);
 
-		$userIds =ArrayToolkit::column($permission, 'u_id') + array($model->ec_incharge_id,$model->createby,$model->sales_id);
+		$userIds =array($model->ec_incharge_id,$model->createby,$model->sales_id);
 
 		$users = ArrayToolkit::index(User::model()->findUsersByIds($userIds),"u_id");
 
@@ -82,7 +81,6 @@ class EvaluationController extends BaseController
 			'pdetails'=>$pdetails,
 			'evaformPayment'=>$evaformPayment,
 			'outlineoutdetail'=>$outlineoutdetail,
-			'permission'=>$permission,
 			'calculator'=>$calculator,
 			'status'=>$status,
 			'isCreate'=>$isCreate,
@@ -124,12 +122,19 @@ class EvaluationController extends BaseController
 	{
 		$pageIndex = isset($_GET['page'])?$_GET['page']:1;
         $params = $this->get('Evaluation');
+
+        $evaIds = PermissionAccess::model()->findPermissionAccessEvaluationIdsByUid(Yii::app()->user->__get('u_id'));
+        $params['ids'] = $evaIds;
+
         $Evaluation = new Evaluation();
         $result = $Evaluation->items($params,$pageIndex,$this->pagesize);
         $items = $result['items'];
         $count = $result['count'];
 
 
+        $fields['bill_type'] = 'evaluation';
+        $fields['code'] = 'evaluation';
+        $isApproval = ApprovalServiceImpl::isApprovalCheckByUserId($fields);
 
         $pages = new CPagination($count);
         $this->render('admin',array(
@@ -137,6 +142,7 @@ class EvaluationController extends BaseController
             'pages' => $pages,
             'pageIndex'=>$pageIndex-1,
             'params'=>$params,
+            'isApproval'=>$isApproval,
         ));
 	}
 

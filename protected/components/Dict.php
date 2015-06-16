@@ -10,8 +10,16 @@ class Dict{
 		'customerLevel' => array(),
 		'customerType' => array(),
 		'cooperation' => array(),
+		'approvalType' => array(
+			"1" => "同意",
+			"-1" => "驳回",
+		),
 	);
 	
+	static public function _get($type, $val){
+		$row = self::$dict[$type][$val];
+		return empty($row)?'':$row;
+	}
 	static public function get($type, $val){
 		$row = SysDict::model()->getSysDictByDkeyAndGroupCode($type, $val);
 		return empty($row['dict_id'])?'':$row['dict_id'];
