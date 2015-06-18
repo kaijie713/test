@@ -102,21 +102,31 @@ define(function(require, exports, module) {
                         sp_id:item.sp_id,
                         partner_name:item.partner_name,
                         divide:item.divide,
-                        divide_amount:item.divide_amount,
+                        divide_amount:self.d2(item.divide_amount),
                         partner_memo:item.partner_memo,
                         id:id,
                     });
                     $("#partner_type"+id).val(item.partner_type);
                 });
             }
-
-
         },
 
         _generateNextGlobalId: function() {
             var globalId = this.get('globalId');
             this.set('globalId', globalId + 1);
             return globalId;
+        },
+
+        d2: function(ele){
+            return parseFloat(ele).toFixed(2) ;
+        },
+
+        ds4: function(ele){
+            return parseFloat(parseFloat(ele)/10000).toFixed(2)+"万";
+        },
+
+        ds0: function(ele){
+            return parseFloat(parseFloat(ele)/10000).toFixed(2)+"万";
         },
 
     });

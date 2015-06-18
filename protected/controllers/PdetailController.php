@@ -104,9 +104,7 @@ class PdetailController extends BaseController
 			exit(CJSON::encode($var));
 		}
 
-		$dict_id = $this->get('id');
-
-		$chargeType = SysDict::model()->getSysDictById($dict_id);
+		$chargeType = SysDict::model()->getSysDictById($this->get('id'));
 
 		if(empty($chargeType)){
 			throw new CHttpException(400, 'Invalid chargeTypeId '.$dict_id.' . Please do not repeat this request again.');
@@ -119,7 +117,6 @@ class PdetailController extends BaseController
 
 	public function actionUpdate()
 	{
-
 		if(isset($_POST['Pdetail'])) {
 			if(empty($_POST['Splitdetail'])){
 				$_POST['Splitdetail'] = null;
@@ -136,9 +133,7 @@ class PdetailController extends BaseController
 		
 		$model=$this->loadModel($id);
 
-		$dict_id = $model->charge_type;
-
-		$chargeType = SysDict::model()->getSysDictById($dict_id);
+		$chargeType = SysDict::model()->getSysDictById($model->charge_type);
 
 		if(empty($chargeType)){
 			throw new CHttpException(400, 'Invalid chargeType {$dict_id} . Please do not repeat this request again.');
@@ -155,15 +150,45 @@ class PdetailController extends BaseController
 		));
 	}
 
+	public function actionAdjust()
+	{
+		if(isset($_POST['Pdetail'])) {
+
+			$result = Pdetail::model()->updatePdtail($_POST['Pdetail']);
+
+  			$pdetail = pdetail::model()->getPdetailByPdId($_POST['Pdetail']['pd_id']);
+
+  			return $this->renderPartial('list-tr',array(
+				'pdetail' => $pdetail,
+				'adjust_detail_id' => empty($result['adjust_detail_id'])?false:$result['adjust_detail_id'],
+			));
+		}
+		
+		$id = empty($_GET['id']) ? '0' : trim($_GET['id']);
+		
+		$model=$this->loadModel($id);
+
+		$chargeType = SysDict::model()->getSysDictById($model->charge_type);
+
+		$Splitdetail = new PrjPartnerSplitdetail();
+
+		$splitdetails = $Splitdetail->findSplitdetailByPdId($model->pd_id);
+
+		$this->renderPartial('update-'.$chargeType['dkey'],array(
+			'chargeType' => $chargeType,
+			'splitdetails' => $splitdetails,
+			'model' => $model,
+			'update' => true,
+		));
+	}
+
 	public function actionView()
 	{
 		$id = empty($_GET['id']) ? '0' : trim($_GET['id']);
 		
 		$model=$this->loadModel($id);
 
-		$dict_id = $model->charge_type;
-
-		$chargeType = SysDict::model()->getSysDictById($dict_id);
+		$chargeType = SysDict::model()->getSysDictById($model->charge_type);
 
 		if(empty($chargeType)){
 			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
@@ -178,6 +203,19 @@ class PdetailController extends BaseController
 			'splitdetails' => $splitdetails,
 			'type' => $chargeType['dkey'],
 			'model' => $model,
+		));
+	}
+
+	public function actionList()
+	{
+		$id = empty($_GET['evaId']) ? -1 : trim($_GET['evaId']);
+		$type = empty($_GET['type']) ? -1 : trim($_GET['type']);
+
+		$pdetails = Pdetail::model()->findPdetailsByEvaId($id);
+
+		$this->renderPartial('list',array(
+			'pdetails' => $pdetails,
+			'type' => $type,
 		));
 	}
 

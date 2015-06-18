@@ -143,7 +143,7 @@ class TransactionController extends BaseController
 
             $transaction = ApprovalServiceImpl::approvaling($condition);
                 
-            if($PermissionAccessLog->save()){
+            if($transaction){
                 $this->setFlashMessage('success', '审批评估单成功');
             } else {
                 $this->setFlashMessage('error', '审批评估单失败');
@@ -165,14 +165,9 @@ class TransactionController extends BaseController
 
 		$area = Area::model()->findByPk($model->area_id);
 
-		$pdetails = Pdetail::model()->findPdetailsByEvaId($id);
-
 		$evaformPayment = EvaformPayment::model()->getEvaformPaymentByEvaId($id);
 
-		$outlineoutdetail = Outlineoutdetail::model()->findOutlineoutdetailsByVid($evaformPayment['v_id']);
-
         $calculator = CalculatorFactory::create('View')->calculator($id);
-
 
         $fields['bill_id'] =  $id;
         $fields['bill_type'] =  $billType;
@@ -180,16 +175,13 @@ class TransactionController extends BaseController
 
 		$status = ApprovalServiceImpl::getApprovaStatus($fields);
 
-
         $this->render('approval',array(
             'model'=>$model,
 			'users'=>$users,
 			'project'=>$project,
 			'city'=>$city,
 			'area'=>$area,
-			'pdetails'=>$pdetails,
 			'evaformPayment'=>$evaformPayment,
-			'outlineoutdetail'=>$outlineoutdetail,
 			'permission'=>$permission,
 			'calculator'=>$calculator,
 			'status'=>$status,

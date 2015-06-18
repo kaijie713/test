@@ -16,7 +16,6 @@
 		      <th width="3%">行号</th>
 		      <th width="8%">开始时间</th>
 		      <th width="8%">结束时间</th>
-
 		      <th width="8%">可售房源数量</th>
 		      <th width="8%">房源类型</th>
 		      <th width="7%">预计毛收入</th>

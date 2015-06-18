@@ -123,58 +123,7 @@ $this->script_controller = 'evaluation/view';
 	</div>
 </div>
 
-
-
-
-
-<div class="widget-box">
-	<div class="widget-title"><h5>优惠明细</h5></div>
-	<div class="widget-content nopadding">
-		<table class="table table-striped table-hover table-form" data-search-form="#user-search-form" >
-		  <thead>
-		    <tr>
-		      <th width="3%">行号</th>
-		      <th width="10%">开始时间</th>
-		      <th width="10%">结束时间</th>
-		      <th width="8%">可售房源数量</th>
-		      <th width="8%">房源类型</th>
-		      <th width="7%">预计毛收入</th>
-		      <th width="9%">收费方式</th>
-		      <th width="10%">操作</th>
-		    </tr>
-		  </thead>
-		  <tbody id="pdetail-body" data-role="pdetails">
-		  	<?php $i = 1;?>
-		  	<?php 
-			  	$sourceType = Dict::gets('sourceType');
-			  	$chargeType = Dict::gets('chargeType');
-			?>
-		  	<?php foreach ($pdetails as $key => $pdetail) {?>
-			  	<tr>
-				  <td class="code"><?php echo $i;?></td>
-				  <td><p class="help-block"><?php F::ymd($pdetail['bdate']);?></td>
-				  <td><p class="help-block"><?php F::ymd($pdetail['bdate']);?></td>
-				  <td><p class="help-block"><?php echo $pdetail['sell_house_num'];?>套</td>
-				  
-				  <td><p class="help-block"><?php echo $sourceType[$pdetail['source_type']]['dvalue'];?></td>
-				  <td><p class="help-block"><?php F::d2($pdetail['pre_incoming']);?>元</p></td>
-				  <td><p class="help-block"><?php echo $chargeType[$pdetail['charge_type']]['dvalue'];?></td>
-				  <td>
-				  	  <a target="_blank" class="btn btn-default btn-sm" href="/index.php?r=Pdetail/view&id=<?php echo $pdetail['pd_id'];?>">查看详情</a>
-				  </td>
-				</tr>
-			<?php $i++;   }?>
-	 	  </tbody>
-		</table>
-	<div class="clear">
-	</div>
-	</div>
-</div>
-
-
-
-
-
+<?php Yii::app()->runController('Pdetail/list/evaId/'.$model->eva_id).'/type/show' ;?>
 
 <div class="widget-box">
 	<div class="widget-title"><h5>预期收益</h5></div>
@@ -375,50 +324,8 @@ $this->script_controller = 'evaluation/view';
 				</div>
 			</div>
 		</div>
-		<?php if(!empty($outlineoutdetail)) {?>
-		<div class="widget-box">
-			<div class="widget-content nopadding ">
-				<table class=" table table-striped table-condensed table-hover outlineoutdetail-table">
-				  <thead>
-				    <tr>
-				      <th width="30%">属于</th>
-				      <th width="30%">支出项名称</th>
-				      <th width="20%">支出项金额</th>
-				    </tr>
-				  </thead>
-
-<?php foreach ($outlineoutdetail as $key => $value) { ?>
-  <tr>
-  	  <td>
-  	  	<?php echo Dict::getValue($value['out_type']);?>
-  	  </td>
-	  <td>
-	  	<div class="control-group form-group">
-	  		<label for="out_name{{id}}" class="control-label hide">支出项名称</label>
-		  	<div class="input-group controls mlz">
-		  		<?php echo $value['out_name'];?>
-		  	</div>
-	  	</div>
-	  </td>
-	  <td>
-	  	<div class="control-group form-group">
-	  		<label for="out_amount{{id}}" class="control-label hide">支出项金额</label>
-		  	<div class="input-group controls mlz">
-		  		<div class="input-group">
-			  		<?php echo F::d2($value['out_amount']);?>元
-			  	</div>
-		  	</div>
-	  	</div>
-	  </td>
-
-	</tr>
-<?php } ?>
-
-				</table>
-		    </div>
-		</div>
-
-		<?php }?>
+		
+		<?php Yii::app()->runController('Outlineoutdetail/list/eva_id/'.$model->eva_id) ;?>
 
 		<div class="clear"> </div>
 	</div>

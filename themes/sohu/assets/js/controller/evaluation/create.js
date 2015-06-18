@@ -10,11 +10,9 @@ define(function(require, exports, module) {
         // $("#pre_ad_deal_bind1").val(1);
         // $("#pre_ad_deal_bind0").val(0);
 
-
         var creator =  new BaseEvaluation({
             element: '#evaluation-create-widget',
         });
-
 
         $(".modal").on('click', '.btn-confirm', function(e){
             var $selected = $('.selected');

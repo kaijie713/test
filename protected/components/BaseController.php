@@ -38,6 +38,11 @@ class BaseController extends Controller
 
 
         // F::dump($_SESSION);
+        // echo "<br><br>";
+        // Yii::app()->session->setTimeout(3);
+        // F::dump(Yii::app()->session->getTimeout());
+        // // sleep(5);
+        // F::dump($_SESSION);
         // exit();
 
         // F::dump(Yii::app()->user->__get('u_id'));

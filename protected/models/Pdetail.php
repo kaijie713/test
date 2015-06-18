@@ -167,6 +167,47 @@ class Pdetail extends BaseModel
     	return $model;
     }
 
+    public function updatePdtail($con){
+
+    	if (!ArrayToolkit::requireds($con, array('pd_id', 'pre_volumn', 'prevolumn_perunit', 'prebrokervolumn', 'pref_context'))) {
+             throw new CHttpException(500,'缺少必要参数!');
+        }
+
+		$Pdetail = Pdetail::model()->findByPk($con['pd_id']);
+
+		if(empty($Pdetail)){
+			throw new CHttpException(500,'Pdetail not found!');
+		}
+
+
+
+		if($Pdetail->pre_volumn == $con['pre_volumn'] && $Pdetail->prevolumn_perunit == $con['prevolumn_perunit']&&$Pdetail->prebrokervolumn == $con['prebrokervolumn']&&$Pdetail->pref_context == $con['pref_context']){
+			return array();
+		}
+
+    	$model = new AdjustDetail;
+    	$model->pd_id = $con['pd_id'];
+    	$model->pre_volumn = $con['pre_volumn'];
+    	$model->prevolumn_perunit = $con['prevolumn_perunit'];
+    	$model->prebrokervolumn = $con['prebrokervolumn'];
+    	$model->pref_context = $con['pref_context'];
+
+    	$model->adjust_detail_id = $this->getUUID();
+    	$model->createby = Yii::app()->user->__get('u_id');
+    	$model->createdate = date("Y-m-d H:i");
+    	$model->isactive = 0;
+    	$model->seq = AdjustDetail::model()->getAdjustDetailMaxSeqByPdId($con['pd_id']);
+
+    	$result = $model->save();
+
+    	if(!$result)
+    	{
+            throw new Exception('error');
+    	}
+
+    	return $model;
+    }
+
     public function preparePdetail($model){
 
     	$model->pre_incoming = $model->ajcard_price * $model->pre_volumn + $model->commission_perunit * $model->pre_volumn;
@@ -238,9 +279,9 @@ class Pdetail extends BaseModel
         return $chargeType;
     }
 
-    public function getPdetailById($pa_id)
+    public function getPdetailByPdId($paId)
 	{
-		$sql = "select * from t_pdetail where pd_id = '$id' limit 1";
+		$sql = "select * from t_pdetail where pd_id = '$paId' limit 1";
 		return $this->QueryRow($sql);
 	}
 

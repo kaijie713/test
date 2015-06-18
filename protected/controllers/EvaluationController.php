@@ -39,6 +39,46 @@ class EvaluationController extends BaseController
 
 		$model = $this->loadModel($id);
 
+		$userIds =array($model->ec_incharge_id,$model->createby,$model->sales_id);
+
+		$users = ArrayToolkit::index(User::model()->findUsersByIds($userIds),"u_id");
+
+        $project = THousesPrj::model()->findByPk($model->hourse_id);
+
+		$city = DictChengshi::model()->findByPk($model->city_id);
+
+		$area = Area::model()->findByPk($model->area_id);
+
+		$evaformPayment = EvaformPayment::model()->getEvaformPaymentByEvaId($id);
+
+        $calculator = CalculatorFactory::create('View')->calculator($id);
+
+        $fields['bill_id'] = $id;
+        $fields['bill_type'] = 'evaluation';
+        $fields['code'] = 'evaluation';
+
+		$status = ApprovalServiceImpl::getApprovaStatus($fields);
+
+		$isCreate = ApprovalServiceImpl::isCreate($fields);
+		
+		$this->render('view',array(
+			'model'=>$model,
+			'users'=>$users,
+			'project'=>$project,
+			'city'=>$city,
+			'area'=>$area,
+			'evaformPayment'=>$evaformPayment,
+			'calculator'=>$calculator,
+			'status'=>$status,
+			'isCreate'=>$isCreate,
+		));
+	}
+
+	public function actionUpdate()
+	{
+		$id = isset($_GET['id'])?$_GET['id']:1;
+
+		$model = $this->loadModel($id);
 
 		$userIds =array($model->ec_incharge_id,$model->createby,$model->sales_id);
 
@@ -50,14 +90,9 @@ class EvaluationController extends BaseController
 
 		$area = Area::model()->findByPk($model->area_id);
 
-		$pdetails = Pdetail::model()->findPdetailsByEvaId($id);
-
 		$evaformPayment = EvaformPayment::model()->getEvaformPaymentByEvaId($id);
 
-		$outlineoutdetail = Outlineoutdetail::model()->findOutlineoutdetailsByVid($evaformPayment['v_id']);
-
         $calculator = CalculatorFactory::create('View')->calculator($id);
-
 
         $fields['bill_id'] = $id;
         $fields['bill_type'] = 'evaluation';
@@ -65,51 +100,15 @@ class EvaluationController extends BaseController
 
 		$status = ApprovalServiceImpl::getApprovaStatus($fields);
 
-		$isCreate = ApprovalServiceImpl::isCreate($fields);
-		
-
-// echo "<pre>";
-//         var_dump($calculator);
-// echo "</pre>";
-// exit();
-		$this->render('view',array(
+		$this->render('update',array(
 			'model'=>$model,
 			'users'=>$users,
 			'project'=>$project,
 			'city'=>$city,
 			'area'=>$area,
-			'pdetails'=>$pdetails,
 			'evaformPayment'=>$evaformPayment,
-			'outlineoutdetail'=>$outlineoutdetail,
 			'calculator'=>$calculator,
 			'status'=>$status,
-			'isCreate'=>$isCreate,
-		));
-	}
-
-	public function actionUpdate()
-	{
-		$model=new Evaluation;
-
-		if(isset($_POST['Evaluation']))
-		{
-			if (empty($_POST['Pdetail']))
-				throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
-
-			if (empty($_POST['Outlineoutdetail']))
-				$_POST['Outlineoutdetail'] = null;
-
-			$evaluation = $model->create($_POST['Evaluation'],$_POST['EvaformPayment'],$_POST['Outlineoutdetail'],$_POST['Pdetail']);
-
-
-			PermissionAccess::model()->createPermissionAccessByEvaId($evaluation->eva_id);
-
-	    	$this->setFlashMessage('success', '评估单创建成功');
-			$this->redirect('/index.php?r=evaluation/admin');
-		}
-		
-		$this->render('update',array(
-			'model'=>$model,
 		));
 	}
 

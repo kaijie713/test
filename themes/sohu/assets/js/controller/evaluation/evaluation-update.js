@@ -79,7 +79,7 @@ define(function(require, exports, module) {
 
         _initForm: function() {
 
-            var $form = this.$('[data-role=evaluation-form]');
+            var $form = this.$('[data-role=evaluation-show-form]');
             this.set('form', $form);
             this.set('validator', this._createValidator($form));
         },
@@ -99,45 +99,6 @@ define(function(require, exports, module) {
             });
 
             validator.addItem({
-                element: '[name="Evaluation[group_name]"]',
-                required: true,
-            });
-
-            validator.addItem({
-                element: '[name="Evaluation[city_name]"]',
-                required: true,
-            });
-
-
-            validator.addItem({
-                element: '[name="Evaluation[customer_type]"]',
-                required: true,
-            });
-
-            validator.addItem({
-                element: '[name="Evaluation[pre_opendatetime]"]',
-                required: false,
-                rule: 'date'
-            });
-
-            validator.addItem({
-                element: '[name="Evaluation[ec_incharge_name]"]',
-                required: true,
-            });
-
-            validator.addItem({
-                element: '[name="Evaluation[customer_level]"]',
-                required: true,
-            });
-
-            validator.addItem({
-                element: '[name="Evaluation[prj_condition]"]',
-                required: false,
-                rule: 'maxlength{max:1900}',
-                errormessageMaxlength: '想要说的话不能大于1900个字'
-            });
-
-            validator.addItem({
                 element: '[name="EvaformPayment[ad_discount]"]',
                 required: false,
                 rule : 'currency'
@@ -152,25 +113,13 @@ define(function(require, exports, module) {
             validator.addItem({
                 element: '[name="EvaformPayment[ad_amount_infact]"]',
                 required: false,
-                rule : 'currency'
+                rule: 'currency'
             });
 
             validator.addItem({
                 element: '[name="EvaformPayment[ad_markting_ratio]"]',
                 required: false,
                 rule : 'currency'
-            });
-
-            var now = new Date();
-
-            $('[name="Evaluation[pre_opendatetime]"]').datetimepicker({
-                language: 'zh-CN',
-                startView:3,
-                minView:2,
-                format:"yyyy-mm-dd",
-                autoclose: true
-            }).on('hide', function(ev){
-                validator.query('[name="Evaluation[pre_opendatetime]"]').execute();
             });
 
             validator.on('formValidated', function(error, msg, $form) {
@@ -195,6 +144,26 @@ define(function(require, exports, module) {
             var self = this;
             var outlineoutdetailTemplate = Handlebars.compile(this.$('[data-role=outlineoutdetail-template]').html());
             this.set('outlineoutdetailTemplate', outlineoutdetailTemplate);
+
+            var outlineoutdetail = this.$('[data-role=outlineoutdetail-data]').html();
+            if ($.type(outlineoutdetail) != 'undefined' && $.type(outlineoutdetail) != 'null') {
+            
+                var outlineoutdetail = $.parseJSON(outlineoutdetail);
+            
+                $.each(outlineoutdetail, function(index, item) {
+                    
+                    self.set('outlineoutdetailBody', $("[data-dictid="+item.out_type+"]"));
+                    var id = item.outl_id;
+                    self.addOutlineoutdetail({
+                        dvalue:item.out_type_name,
+                        out_name:item.out_name,
+                        out_amount:self.d2(item.out_amount),
+                        out_type:item.out_type,
+                        id:id,
+                    });
+                });
+            }
+
         },
 
         onAddOutlineOutdetail: function(event) {
@@ -216,12 +185,13 @@ define(function(require, exports, module) {
             $html.appendTo(this.$(this.get('outlineoutdetailBody')));
             
             $('.outlineoutdetail-table').removeClass('hide');
+            console.log(model.id);
             
             this.get("validator").addItem({
                 element: '#out_name'+model.id,
                 required: true
             });
-            
+
             this.get("validator").addItem({
                 element: '#out_amount'+model.id,
                 required: false,

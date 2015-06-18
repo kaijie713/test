@@ -168,10 +168,10 @@ class Evaluation extends BaseModel
     public function create($evaluation, $evaformPayment, $outlineoutdetail, $pdetail)
     {
 
-        $fields = CalculatorFactory::create('Post')->calculator($_POST['Evaluation'],$_POST['EvaformPayment'],$_POST['Outlineoutdetail'],$_POST['Pdetail']);
+        $fields = CalculatorFactory::create('Post')->calculator($evaluation,$evaformPayment,$outlineoutdetail,$pdetail);
    
         $model=new Evaluation;
-        $model->attributes=$_POST['Evaluation'];
+        $model->attributes=$evaluation;
         $model->eva_id=$this->getUUID();
         $model->createby = Yii::app()->user->__get('u_id');
         $model->createdate = date("Y-m-d H:i");
@@ -181,7 +181,7 @@ class Evaluation extends BaseModel
 
 
         $EvaformPayment=new EvaformPayment;
-        $EvaformPayment->attributes=$_POST['EvaformPayment'];
+        $EvaformPayment->attributes=$evaformPayment;
         $EvaformPayment->v_id=$this->getUUID();
         $EvaformPayment->eva_id=$model->eva_id;
         $EvaformPayment->createby = Yii::app()->user->__get('u_id');
@@ -204,15 +204,15 @@ class Evaluation extends BaseModel
         $EvaformPayment->net_income = $fields->net_income;
         $EvaformPayment->save(false);
 
-        if(isset($_POST['Outlineoutdetail']))
+        if(isset($outlineoutdetail))
         {
-            foreach ($_POST['Outlineoutdetail']['out_name'] as $key => $value) {
+            foreach ($outlineoutdetail['out_name'] as $key => $value) {
                 $Outlineoutdetail=new Outlineoutdetail;
-                $Outlineoutdetail->out_name=$_POST['Outlineoutdetail']['out_name'][$key];
-                $Outlineoutdetail->out_amount=$_POST['Outlineoutdetail']['out_amount'][$key];
-                $Outlineoutdetail->out_type=$_POST['Outlineoutdetail']['out_type'][$key];
+                $Outlineoutdetail->out_name=$outlineoutdetail['out_name'][$key];
+                $Outlineoutdetail->out_amount=$outlineoutdetail['out_amount'][$key];
+                $Outlineoutdetail->out_type=$outlineoutdetail['out_type'][$key];
                 $Outlineoutdetail->outl_id=$this->getUUID();
-                $Outlineoutdetail->v_id=$EvaformPayment->v_id;
+                $Outlineoutdetail->eva_id=$model->eva_id;
                 $Outlineoutdetail->createby = Yii::app()->user->__get('u_id');
                 $Outlineoutdetail->createdate = date("Y-m-d H:i");
                 $Outlineoutdetail->isactive = 0;

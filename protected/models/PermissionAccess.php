@@ -110,7 +110,7 @@ class PermissionAccess extends BaseModel
 
 	public function getPermissionAccessByEvaIdAndUid($evaId, $uid)
 	{
-		$sql = "select * from t_permission_access where eva_id = '$evaId' and u_id = '$uid' and and isactive = 0 order by seq asc";
+		$sql = "select * from t_permission_access where eva_id = '$evaId' and u_id = '$uid' and isactive = 0 order by seq asc";
 		return $this->QueryRow($sql);
 	}
 

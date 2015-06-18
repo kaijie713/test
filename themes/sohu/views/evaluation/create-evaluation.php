@@ -95,14 +95,13 @@
 			  </div>
 			</div>
 		</div>
-		<!-- style="margin-left:172px" style="width:153px" -->
 			<div class="control-group form-group span12">
 				<label class="control-label span3"  for="prj_condition">项目情况说明：</label>
 				<div class="controls " >
 					<textarea class="span11" rows="4" cols="20" name="Evaluation[prj_condition]" id="prj_condition" ></textarea>
 				</div>
 			</div>
-<button id="543255840719872" data-target="#modal" data-toggle="modal" data-url="/index.php?r=Pdetail/Update&amp;id=543255840719872" class="btn btn-default btn-sm hide" type="button">设置详情</button>
+
 			<div class="clear">
 			</div>
 	</div>

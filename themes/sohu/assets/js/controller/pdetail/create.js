@@ -30,7 +30,7 @@ define(function(require, exports, module) {
             inputCalculator.prepare();
 
             $.post($form.attr('action'), $form.serialize(), function(response) {
-                // console.log(response);
+         
                 if (response.status) {
 
                     $('[data-role=pdetail-form]').find("[data-dismiss=modal]").click();
@@ -44,9 +44,7 @@ define(function(require, exports, module) {
                 }
             }, 'json');
 
-            // $('#pdetail-create-btn').button('submiting').addClass('disabled');
 
-            // validator.set('autoSubmit',true);
         });
 
     }

@@ -33,13 +33,10 @@ class OutlineoutdetailController extends BaseController
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
-				'users'=>array('@'),
+				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
@@ -140,6 +137,40 @@ class OutlineoutdetailController extends BaseController
 
 		$this->render('admin',array(
 			'model'=>$model,
+		));
+	}
+
+	public function actionList()
+	{
+		$id = empty($_GET['eva_id']) ? -1 : trim($_GET['eva_id']);
+
+		$outlineoutdetail = Outlineoutdetail::model()->findOutlineoutdetailsByEvaId($id);
+
+		$this->renderPartial('list',array(
+			'outlineoutdetail' => $outlineoutdetail,
+		));
+	}
+
+	public function actionUpdateList()
+	{
+		$id = empty($_GET['eva_id']) ? -1 : trim($_GET['eva_id']);
+
+		$outlineoutdetail = Outlineoutdetail::model()->findOutlineoutdetailsByEvaId($id);
+
+		$dicts = ArrayToolkit::index(SysDict::model()->findSysDictsByIds(ArrayToolkit::column($outlineoutdetail, 'out_type')), 'dict_id');
+
+		foreach ($outlineoutdetail as $key => $value) {
+			if( empty($dicts[$value['out_type']]) )
+			{
+				$outlineoutdetail[$key]['out_type_name'] = '';
+			} else {
+				$outlineoutdetail[$key]['out_type_name'] = $dicts[$value['out_type']]['dvalue'];
+			}
+		}
+
+		$outlineoutdetail = CJSON::encode($outlineoutdetail);
+		$this->renderPartial('list-update',array(
+			'outlineoutdetail' => $outlineoutdetail,
 		));
 	}
 

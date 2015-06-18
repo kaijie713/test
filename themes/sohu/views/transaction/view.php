@@ -37,7 +37,7 @@
           <?php }?>
 		</table>
 		<div class="mtl <?php if($isShow=='0') { ?> hide <?php } ?>">
-			<textarea name="Approval[content]" style="width:50%;height:100px;margin:10px;" class="pull-left" placeholder="请输入审批意见"></textarea>
+			<textarea name="Approval[content]" id="approval-content" style="width:50%;height:100px;margin:10px;" class="pull-left" placeholder="请输入审批意见"></textarea>
 			<div class="pull-left">
 				附件:
 				<input type="file" name="file" value="上传附件"/>

@@ -174,8 +174,7 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
         }
 
         $transaction = transaction::model()->findByPk($result['transaction_id']);
-        // F::dump($fields);
-        // exit();
+
         $transaction->attributes= $fields;
         $transaction->isNewRecord = false;
         $transaction->save();
@@ -186,14 +185,12 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
         } else {
             $result = transaction::model()->findTransactionByBillAndCodeAndCurrently($billId, $billType, $code, 0);
 
-            // var_dump(ArrayToolkit::column($result, 'transaction_id'));
-            // exit();
-
             $result = transaction::model()->deleteTransactionByIds(ArrayToolkit::column($result, 'transaction_id'));
 
             self::createTransation($fields);
             
         }
+        return true;
     }
 
     //推送普通节点到审批节点 bill_id bill_type code
@@ -379,7 +376,7 @@ class ApprovalServiceImpl extends BaseModel implements ApprovalService
 
 
     public function checkFields($fields){
-         if (!ArrayToolkit::requireds($fields, array('bill_id','bill_type', 'code'))) {
+        if (!ArrayToolkit::requireds($fields, array('bill_id','bill_type', 'code'))) {
              throw new CHttpException(500,'缺少必要参数 bill code!');
         }
 

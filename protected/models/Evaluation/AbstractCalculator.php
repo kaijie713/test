@@ -119,7 +119,7 @@ abstract class AbstractCalculator extends BaseModel
 
                 $netIncome = $model->pre_incoming * (1-$offlineRatio);
 
-                $amountRatio = $pdetail['divideSum'][$key]+ $this->cal->evaformPayment->pre_tax_ratio + $this->cal->evaformPayment->ad_markting_ratio + $offlineRatio;
+                $amountRatio = $this->cal->pdetail->divideSum+ $this->cal->evaformPayment->pre_tax_ratio + $this->cal->evaformPayment->ad_markting_ratio + $offlineRatio;
                 
 
             }else if($model->charge_type==Dict::get('chargeType','mkcps')){
@@ -127,7 +127,7 @@ abstract class AbstractCalculator extends BaseModel
 
                 $netIncome = $model->pre_incoming*(100-$this->cal->evaformPayment->ad_markting_ratio-$this->cal->evaformPayment->pre_tax_ratio)/100-$this->cal->offline_amount_sum;
 
-                $amountRatio = 1 - ($netIncome/($model->pre_incoming+$pdetail['pre_commission_amount'][$key]+$this->cal->evaformPayment->ad_amount_infact));
+                $amountRatio = 1 - ($netIncome/($model->pre_incoming+$this->cal->pdetail->pre_commission_amount+$this->cal->evaformPayment->ad_amount_infact));
             } 
 
             $this->cal->amount_ratio     = $this->cal->amount_ratio + $amountRatio;

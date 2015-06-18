@@ -1,12 +1,12 @@
 <?php
-class PrjAdjustDetail extends BaseModel
+class AdjustOutlineoutdetail extends BaseModel
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 't_prj_adjust_detail';
+		return 't_adjust_outlineoutdetail';
 	}
 
 	/**
@@ -17,13 +17,16 @@ class PrjAdjustDetail extends BaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ad_id, pad_id', 'required'),
-			array('sell_house_num', 'numerical', 'integerOnly'=>true),
-			array('ad_id, pad_id, pdid, createby', 'length', 'max'=>36),
+			array('outl_id, eva_id, seq', 'required'),
+			array('seq', 'numerical', 'integerOnly'=>true),
+			array('outl_id, eva_id, out_type, createby', 'length', 'max'=>36),
+			array('out_name', 'length', 'max'=>50),
+			array('out_amount', 'length', 'max'=>12),
+			array('isactive', 'length', 'max'=>1),
 			array('createdate', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ad_id, pad_id, pdid, sell_house_num, createby, createdate', 'safe', 'on'=>'search'),
+			array('outl_id, eva_id, out_type, out_name, out_amount, seq, isactive, createby, createdate', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -44,10 +47,13 @@ class PrjAdjustDetail extends BaseModel
 	public function attributeLabels()
 	{
 		return array(
-			'ad_id' => 'Ad',
-			'pad_id' => 'Pad',
-			'pdid' => 'Pdid',
-			'sell_house_num' => 'Sell House Num',
+			'outl_id' => 'Outl',
+			'eva_id' => 'Eva',
+			'out_type' => 'Out Type',
+			'out_name' => 'Out Name',
+			'out_amount' => 'Out Amount',
+			'seq' => 'Seq',
+			'isactive' => 'Isactive',
 			'createby' => 'Createby',
 			'createdate' => 'Createdate',
 		);
@@ -71,10 +77,13 @@ class PrjAdjustDetail extends BaseModel
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('ad_id',$this->ad_id,true);
-		$criteria->compare('pad_id',$this->pad_id,true);
-		$criteria->compare('pdid',$this->pdid,true);
-		$criteria->compare('sell_house_num',$this->sell_house_num);
+		$criteria->compare('outl_id',$this->outl_id,true);
+		$criteria->compare('eva_id',$this->eva_id,true);
+		$criteria->compare('out_type',$this->out_type,true);
+		$criteria->compare('out_name',$this->out_name,true);
+		$criteria->compare('out_amount',$this->out_amount,true);
+		$criteria->compare('seq',$this->seq);
+		$criteria->compare('isactive',$this->isactive,true);
 		$criteria->compare('createby',$this->createby,true);
 		$criteria->compare('createdate',$this->createdate,true);
 
@@ -87,10 +96,18 @@ class PrjAdjustDetail extends BaseModel
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return PrjAdjustDetail the static model class
+	 * @return AdjustOutlineoutdetail the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
+
+	public function getAdjustOutlineoutdetailMaxSeqByPdId($evaId)
+	{
+		$sql = "select max(seq) as seq from t_adjust_outlineoutdetail where eva_id = '".$evaId."' ";
+		$result = $this->QueryRow($sql);
+		return empty($result['seq']) ? 1 : $result['seq']+1;
+	}
+
 }

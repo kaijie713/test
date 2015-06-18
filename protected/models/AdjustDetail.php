@@ -1,12 +1,12 @@
 <?php
-class Outlineoutdetail extends BaseModel
+class AdjustDetail extends BaseModel
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 't_outlineoutdetail';
+		return 't_adjust_detail';
 	}
 
 	/**
@@ -17,16 +17,13 @@ class Outlineoutdetail extends BaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('eva_id, outl_id', 'required'),
-			array('eva_id, outl_id, createby, updateby', 'length', 'max'=>36),
-			array('out_type', 'length', 'max'=>2),
-			array('out_name', 'length', 'max'=>50),
-			array('out_amount', 'length', 'max'=>12),
-			array('isactive', 'length', 'max'=>1),
-			array('createdate, updatedate', 'safe'),
+			array('adjust_detail_id', 'required'),
+			array('pre_volumn, prevolumn_perunit, prebrokervolumn, isactive', 'numerical', 'integerOnly'=>true),
+			array('adjust_detail_id, ad_id, pd_id, createby', 'length', 'max'=>36),
+			array('createdate', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('eva_id, outl_id, out_type, out_name, out_amount, isactive, createby, createdate, updateby, updatedate', 'safe', 'on'=>'search'),
+			array('adjust_detail_id, ad_id, pd_id, pre_volumn, prevolumn_perunit, prebrokervolumn, isactive, createby, createdate', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -47,16 +44,15 @@ class Outlineoutdetail extends BaseModel
 	public function attributeLabels()
 	{
 		return array(
-			'eva_id' => 'V',
-			'outl_id' => 'Outl',
-			'out_type' => 'Out Type',
-			'out_name' => 'Out Name',
-			'out_amount' => 'Out Amount',
+			'adjust_detail_id' => 'Adjust Detail',
+			'ad_id' => 'Ad',
+			'pd_id' => 'Pd',
+			'pre_volumn' => 'Sell House Num',
+			'prevolumn_perunit' => 'Prevolumn Perunit',
+			'prebrokervolumn' => 'Prebrokervolumn',
 			'isactive' => 'Isactive',
 			'createby' => 'Createby',
 			'createdate' => 'Createdate',
-			'updateby' => 'Updateby',
-			'updatedate' => 'Updatedate',
 		);
 	}
 
@@ -78,16 +74,15 @@ class Outlineoutdetail extends BaseModel
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('eva_id',$this->eva_id,true);
-		$criteria->compare('outl_id',$this->outl_id,true);
-		$criteria->compare('out_type',$this->out_type,true);
-		$criteria->compare('out_name',$this->out_name,true);
-		$criteria->compare('out_amount',$this->out_amount,true);
-		$criteria->compare('isactive',$this->isactive,true);
+		$criteria->compare('adjust_detail_id',$this->adjust_detail_id,true);
+		$criteria->compare('ad_id',$this->ad_id,true);
+		$criteria->compare('pd_id',$this->pd_id,true);
+		$criteria->compare('pre_volumn',$this->pre_volumn);
+		$criteria->compare('prevolumn_perunit',$this->prevolumn_perunit);
+		$criteria->compare('prebrokervolumn',$this->prebrokervolumn);
+		$criteria->compare('isactive',$this->isactive);
 		$criteria->compare('createby',$this->createby,true);
 		$criteria->compare('createdate',$this->createdate,true);
-		$criteria->compare('updateby',$this->updateby,true);
-		$criteria->compare('updatedate',$this->updatedate,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -98,16 +93,18 @@ class Outlineoutdetail extends BaseModel
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Outlineoutdetail the static model class
+	 * @return AdjustDetail the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
 
-	public function findOutlineoutdetailsByEvaId($evaid)
+	public function getAdjustDetailMaxSeqByPdId($pdId)
 	{
-		$sql = "select * from t_outlineoutdetail where eva_id = '$evaid' and isactive = 0 order by out_type,createdate desc ";
-		return $this->QueryAll($sql);
+		$sql = "select max(seq) as seq from t_adjust_detail where pd_id = '".$pdId."' ";
+		$result = $this->QueryRow($sql);
+		return empty($result['seq']) ? 1 : $result['seq']+1;
 	}
+
 }
